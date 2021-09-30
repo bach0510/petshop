@@ -1,0 +1,165 @@
+<div id="container" >
+  <div class="header">
+    <h6 class="card-header">
+      {{ "Giao đơn cho Shippers " }}
+    </h6>
+  </div>
+
+  <div class="main mt-2">
+    <div class="row mt-1">
+      <div class="col-6 " style="padding-right: 0px; padding-left: 0px;max-height: 554px; overflow: auto;">
+            <div class="col-12 row">
+                <div class="col-8">
+                    <tmss-text-input [text]="'Mã đơn hàng'" (onSearch)="getOrder()" [(ngModel)]="orderCodeInput"></tmss-text-input>
+                  </div>
+                  <div class="col-4">
+                    <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="getOrder()">
+                        <i class="fa tmss-fa fa-search"></i>
+                        <span class="ml-1">Tìm kiếm</span>
+                      </button>
+
+                  </div>
+            </div>
+          <div class="col-12 row ph-0" >
+            <h6 style="margin-left: 10px;">
+              {{ "Đơn mới tạo"}} : {{ orders.length }}
+            </h6>
+              <div class="col-12 " style="height: 415px; border-radius: 0.3px;"
+                  [ngClass]="'card-job-type-kh'">
+                  <div class="job-name" style="display: flex;border-radius: 5px 0px 0px 5px; color: black; background-color: #1dc9b7 !important;">
+                      <span class="job-name-text">{{ "MT" }}</span>
+                      <span class="job-name-text">:</span>
+                  </div>
+                  <div class="order-container">
+                      <div *ngFor="let register of orders; let i = index"
+                          [ngClass]="'customer-waiting'" draggable="true"
+                          (dragstart)="dragStart(register)" (dragend)="dragEnd($event)" pDraggable="register"
+                          (dblclick)="createOrEditOrder.show(register)">
+                          <div class="order-info-card">
+                              <div class="order-info-text">
+                                  <span class="order-info-text-name">{{ register.Weight }}</span>
+                                  <span>{{ register.Price }}</span>
+                              </div>
+                              <div class="order-info-card-order">
+                                  <i class="b-fa b-fa-fw fa fa-hospital-symbol ng-star-inserted"
+                                      *ngIf="register.isAppointment || register.isH"></i>
+                                  <span class="order" style="padding-top: 1px; height: 17px;">{{
+                                      register.OrderCode }}</span>
+                              </div>
+                              <div class="order-info-text">
+                                  <span>{{ register.Status }}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-12 row mt-1 ph-0" >
+            <h6 style="margin-left: 10px;">
+              {{ "Đơn giao không thành công"}} : {{ unscOrders.length }}
+          </h6>
+            <div class="col-12 " style="height: 60px; border-radius: 0.3px;"
+                [ngClass]="'card-job-type-kh'">
+                <div class="job-name" style="display: flex;border-radius: 5px 0px 0px 5px; color: black; background-color: #5867dd !important;">
+                    <span class="job-name-text">{{ "KTC" }}</span>
+                    <span class="job-name-text">:</span>
+                </div>
+                <div class="order-container">
+                    <div *ngFor="let register of unscOrders; let i = index"
+                        [ngClass]="'customer-waiting'" draggable="true"
+                        (dragstart)="dragStart(register)" (dragend)="dragEnd($event)" pDraggable="register"
+                        (dblclick)="createOrEditOrder.show(register)">
+                        <div class="order-info-card">
+                            <div class="order-info-text">
+                                <span class="order-info-text-name">{{ register.Weight }}</span>
+                                <span>{{ register.Price }}</span>
+                            </div>
+                            <div class="order-info-card-order">
+                                <i class="b-fa b-fa-fw fa fa-hospital-symbol ng-star-inserted"
+                                    *ngIf="register.isAppointment || register.isH"></i>
+                                <span class="order" style="padding-top: 1px; height: 17px;">{{
+                                    register.OrderCode }}</span>
+                            </div>
+                            <div class="order-info-text">
+                                <span>{{ register.Status }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- shipper -->
+      <div class="col-6" style="padding-right: 0px; padding-left: 0px;max-height: 554px; overflow: auto;">
+        <div class="col-12 row">
+            <div class="col-8">
+                <tmss-text-input [text]="'Tên shipper'" (onSearch)="getShipper()" [(ngModel)]="shipName"></tmss-text-input>
+              </div>
+              <div class="col-4">
+                <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="getShipper()">
+                    <i class="fa tmss-fa fa-search"></i>
+                    <span class="ml-1">Tìm kiếm</span>
+                  </button>
+              </div>
+        </div>
+        <div class="col-12 " style="overflow: scroll;">
+            <div class="card-service-advisor row mt-1 col-12 " style="padding-right: 0px; ">
+                <div class=" col-3 card-service-advisor-item mt-1 "
+                    [ngStyle]="{'height': shippers.length <= 8 ? '48%' : shippers.length <= 12 ? '31%' : '23%' }"
+                    *ngFor="let advisor of shippers; let i = index" [attr.Id]="advisor.Id.toString()"
+                    (dragover)="allowDrop($event)"
+                    (drop)="drop($event)"
+                    (dblclick)="assignList.show(advisor)">
+                    <div class="advisor-item-header"
+                        [ngStyle]="{'height': shippers.length <= 8 ? '8%' : shippers.length <= 12 ? '12.5%' : '16.5%' }">
+                        <span class="desk-name">
+                            {{ advisor.EmpCode.split(' ')[1] || advisor.EmpCode }}
+                        </span>
+                        <span class="advisor-item-header-name"> {{
+                            advisor.FullName.split(' ')[3]
+                            || advisor.FullName.split(' ')[2] || advisor.FullName }}
+                        </span>
+                    </div>
+
+                    <div *ngFor="let item of advisor.OrderList; let i = index"
+                        [ngClass]="((i <= 4 && shippers.length <= 8) || (i <= 3 && shippers.length <= 12) || (i <= 2 && shippers.length > 12)) ?
+                         (item.vehicleStatus === 1 ? 'advisor-register-item' : item.vehicleStatus === 2 ? 'advisor-stop-item' : 'advisor-register-item-wait') : ''"
+                        [ngStyle]="{'height': shippers.length <= 8 ? '18%' : shippers.length <= 12 ? '21.2%' : '26.8%', 'z-index': setZIndex ? 96 : null  }"
+                        (dragstart)="dragStartAdvisor(item)" (dragend)="dragEndAdvisor($event)"
+                        draggable="true"
+                        pDraggable="advisor">
+                        <div *ngIf="(i <= 4 && (shippers.length <= 4 || shippers.length <= 8)) || (i <= 3 && shippers.length <= 12)
+                        || (i <= 2 && shippers.length > 12)" style="width: 100%;">
+                            <div class="order-info-card-adviosr">
+                                <div class="order-info-text-advisor"
+                                    [ngStyle]="{'height.px': shippers.length <= 8 ? '13' : '11' }">
+                                    <span
+                                        style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{item.CreateDate}}</span>
+                                    <span>{{item.Price}}</span>
+                                </div>
+                                <div class="order-info-card-registerno"
+                                    [ngStyle]="{'marginTop.px': shippers.length <= 8 ? '2' : '1' }">
+                                    <span class="register-no" style="height: 13px"
+                                        [ngStyle]="{'fontSize.px': shippers.length <= 8 ? '12' : '11' }">{{item.OrderCode}}</span>
+                                </div>
+                                <div class="order-info-text-advisor">
+                                    <span [ngStyle]="{'marginTop.px': shippers.length <= 8 ? '-3' : '-5' }">{{ item.Status }}</span>
+                                    <span
+                                        [ngStyle]="{'marginTop.px': shippers.length <= 8 ? '-3' : '-5' }"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<app-create-or-edit-order #createOrEditOrder [disableInput]="true" [currentUser]="currentUser" [areaList]="areaList" ></app-create-or-edit-order>
+<app-assign-list #assignList [currentUser]="currentUser" ></app-assign-list>
+
+<!-- <app-create-or-edit-employee #createOrEditEmployee [areaList]="areaList" [empList]="rowData" (modalSave)="modalSave($event)"></app-create-or-edit-employee> -->
+

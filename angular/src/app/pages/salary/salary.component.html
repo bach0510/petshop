@@ -1,0 +1,43 @@
+<div id="container">
+  <div class="header">
+    <h6 class="card-header">
+      {{ "Tìm kiếm " }}
+    </h6>
+    <div class="row mt-1">
+      <div class="col-4">
+        <tmss-combobox [text]="'Tháng'" [items]="listMonth" (onSearch)="onSearch()" [(ngModel)]="month"></tmss-combobox>
+      </div>
+      <div class="col-4">
+        <tmss-combobox [text]="'Năm'" [items]="listYear" (onSearch)="onSearch()" [(ngModel)]="year"></tmss-combobox>
+      </div>
+      <div class="col-1">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="onSearch()">
+          <i class="fa tmss-fa fa-search"></i>
+          <span class="ml-1">Tìm kiếm</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main mt-2">
+    <h6 class="card-header">
+      {{ "Danh sách lương" }}  
+    </h6>
+
+    <div class="row mt-1">
+      <div class="col-12">
+        <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
+          (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
+          [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+        </grid-table>
+      </div>
+    </div>
+    <div class="ui-g-12 text-right mt-2">
+      <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="exportExcel()" [disabled]="user.EmpType === 2">
+        <i class="fa tmss-fa fa-download"></i>
+        <span class="ml-1">Xuất excel</span>
+      </button>
+    </div>
+  </div>
+</div>
+

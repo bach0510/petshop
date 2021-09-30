@@ -1,0 +1,135 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" style="margin-top: 3%;">
+  <div class="modal-dialog tmss-modal-lg">
+    <div class="modal-content tmss-modal">
+      <div class="tmss-modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hide()">
+          <span class="tmss-close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <!-- đơn hàng -->
+        <div class="row mt-1" *ngIf="!order.Id">
+          <h6 class="modal-title col-12">
+            <p>Chi tiết đơn hàng </p>
+          </h6>
+          <div class="col-12">
+            <tmss-text-input  [text]="'Đơn hàng'"[(ngModel)]="order.OrderName"></tmss-text-input>
+          </div>
+        </div>
+
+        <div class="row mt-1" *ngIf="order.Id">
+          <div class="col-6">
+            <tmss-text-input  [text]="'Mã vận đơn'" [disabled]="true" [(ngModel)]="order.OrderCode"></tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'Đơn hàng'"  [disabled]="currentUser.RoleId != 1 || disableInput"  [(ngModel)]="order.OrderName"></tmss-text-input>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-datepicker [text]="'Ngày tạo đơn'" [disabled]="true" [(ngModel)]="CreateDate"> </tmss-datepicker>
+          </div>
+          <div class="col-6">
+            <tmss-datepicker [text]="'Ngày nhận'" [disabled]="disableInput || !order.Id || isSuccess || isReceive == true" [(ngModel)]="order.ReceiveDate"> </tmss-datepicker>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'Tổng cân nặng'" [disabled]="currentUser.RoleId != 1 || disableInput" [(ngModel)]="order.Weight"></tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'Giá'" [disabled]="currentUser.RoleId != 1 || disableInput" [(ngModel)]="order.Price"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1" *ngIf="order.Id">
+          <div class="col-12">
+            <tmss-text-input [text]="'Địa chỉ giao'" [(ngModel)]="order.DeliveryAdd"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-combobox [text]="'Trạng thái đơn'" [disabled]="!order.Id || disableInput || isReceive == true" [items]="statusList" [(ngModel)]="Status"></tmss-combobox>
+          </div>
+          <div class="col-6">
+            <tmss-combobox *ngIf="Status == 'Không thành công'" [text]="'Lý do giao không thành công'" (ngModelChange)="changeCombobox($event)" [disabled]="!order.Id || disableInput" [items]="errList" [(ngModel)]="ErrStatus"></tmss-combobox>
+          </div>
+        </div>
+        <div class="row mt-1" *ngIf="ErrStatus == 'Lý do khác' && Status == 'Không thành công'">
+          <div class="col-12">
+            <tmss-text-input *ngIf="ErrStatus == 'Lý do khác'" [text]="'Lý do khác'" [disabled]="!order.Id || disableInput"  [(ngModel)]="OtherReason"></tmss-text-input>
+          </div>
+        </div>
+        <hr class="col-12"/>
+        <!-- khách hàng -->
+        <div class="row mt-1">
+          <h6 class="modal-title col-12">
+            <p> Thông tin khách hàng nhận đơn</p>
+          </h6>
+          <div class="col-6">
+            <div class="input-group" >
+              <span class="input-group-text left-text" >SĐT</span>
+              <input
+                #input
+                [disabled]="currentUser.RoleId != 1"
+                class="form-control tmss-form-control"
+                (focusout)="searchCustomer()" [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="cus.CusTel"
+              >
+            </div>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'Tên KH'" [disabled]="cus.Id || disableInput" [(ngModel)]="cus.CusName"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'số chứng minh'" [disabled]="cus.Id || disableInput" [(ngModel)]="cus.CusCmnd">
+            </tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'Email'" [disabled]="cus.Id || disableInput" [(ngModel)]="cus.CusEmail"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'địa chỉ khách hàng'" (ngModelChange)="setAdd($event)" [disabled]="cus.Id || disableInput" [(ngModel)]="cus.CusAdd">
+            </tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-combobox [text]="'Khu vực'" [disabled]="cus.Id || disableInput" [items]="areaList" [(ngModel)]="cus.AreaId"></tmss-combobox>
+          </div>
+        </div>
+
+        <!-- <div class="row mt-1">
+          <div class="col-12">
+            <p-multiSelect
+                [maxSelectedLabels]="1"
+                [options]="areaList"
+                optionLabel="Shipper nhận đơn"
+                [(ngModel)]="workshop.employees"
+                [defaultLabel]="l('ChooseEmployee')"
+              ></p-multiSelect>
+          </div>
+        </div> -->
+
+        
+
+      </div>
+
+      <div class="ui-g-12 text-right mt-1 mr-2 mb-1" *ngIf="!disableInput">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1 col-2" (click)="createOrEdit()">
+          <i class="fa tmss-fa fa-save"></i>
+          <span class="ml-1">Lưu</span>
+        </button>
+        <button class="tmss-btn btn-outline-danger mr-2 mt-1 col-2" (click)="hide()">
+          <i class="fa tmss-fa fa-times"></i>
+          <span class="ml-1">Hủy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

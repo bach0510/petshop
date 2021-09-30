@@ -1,0 +1,65 @@
+<div id="container">
+
+  <div class="main mt-2">
+    <h6 class="card-header">
+      {{ "Danh sách thưởng phạt" }}
+    </h6>
+    <tabset >
+      <tab heading="Thưởng" *ngIf="currentUser.RoleId == 1" (selectTab)="setValue(1)">
+        <div class="row mt-1">
+          <div class="col-12">
+            <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
+              (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
+              [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+            </grid-table>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Phạt" *ngIf="currentUser.RoleId == 1" (selectTab)="setValue(2)">
+        <div class="row mt-1">
+          <div class="col-12">
+            <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
+              (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
+              [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+            </grid-table>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Thưởng cho nhân viên" (selectTab)="setValue(1,1)">
+        <div class="row mt-1">
+          <div class="col-12">
+            <grid-table [columnDefs]="userPayoffColdef" [defaultColDef]="defaultColDef" [rowData]="pagedRowDataUser"
+              (callBackEvent)="callBackUserPayoffEvent($event)" (changePaginationParams)="changeUserPayoffPaginationParams(paginationParams)"
+              [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeUserPayoffSelection($event)">
+            </grid-table>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Phạt nhân viên" (selectTab)="setValue(2,1)">
+        <div class="row mt-1">
+          <div class="col-12">
+            <grid-table [columnDefs]="userPayoffColdef" [defaultColDef]="defaultColDef" [rowData]="pagedRowDataUser"
+              (callBackEvent)="callBackUserPayoffEvent($event)" (changePaginationParams)="changeUserPayoffPaginationParams(paginationParams)"
+              [height]="'312px'" [paginationParams]="userPayoffPaginationParams" (onChangeSelection)="onChangePayoffSelection($event)">
+            </grid-table>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+
+
+    <div class="ui-g-12 text-right mt-2">
+      <button class="tmss-btn btn-outline-primary mr-2 mt-1" *ngIf="currentUser.RoleId == 1" (click)="add()" [disabled]="user.EmpType === 2">
+        <i class="fa tmss-fa fa-plus"></i>
+        <span class="ml-1">Thêm </span>
+      </button>
+      <button class="tmss-btn btn-outline-danger mr-2 mt-1" *ngIf="currentUser.RoleId == 1" (click)="selectedData.PayoffTime ? deleteUserPayoff() : delete()" [disabled]="!selectedData || user.EmpType === 2">
+        <i class="fa tmss-fa fa-eraser"></i>
+        <span class="ml-1">Xóa</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-create-or-edit-payoff #createOrEditPayoff [type]="payoff.Type" (modalSave)="modalSave($event)"></app-create-or-edit-payoff>
+<app-create-or-edit-user-payoff #createOrEditUserPayoff [type]="payoff.Type" [userList]="userList" [payoffList]="payoff.Type == 1 ? bonusList : punishList" (modalSave)="modalPayoffSave($event)"></app-create-or-edit-user-payoff>

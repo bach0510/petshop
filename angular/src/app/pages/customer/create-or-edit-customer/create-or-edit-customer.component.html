@@ -1,0 +1,55 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal"
+  aria-hidden="true" style="margin-top: 3%;">
+  <div class="modal-dialog tmss-modal-md">
+    <div class="modal-content tmss-modal">
+      <div class="tmss-modal-header">
+        <h6 class="modal-title">
+          <p> Khách hàng </p>
+        </h6>
+        <button type="button" class="close" aria-label="Close" (click)="hide()">
+          <span class="tmss-close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'Tên KH'"  [(ngModel)]="cus.CusName"></tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'SĐT'"  [(ngModel)]="cus.CusTel"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'số chứng minh'"  [(ngModel)]="cus.CusCmnd">
+            </tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'Email'"  [(ngModel)]="cus.CusEmail"></tmss-text-input>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-6">
+            <tmss-text-input [text]="'địa chỉ'"  [(ngModel)]="cus.CusAdd">
+            </tmss-text-input>
+          </div>
+          <div class="col-6">
+            <tmss-combobox [text]="'Khu vực'"  [items]="areaList" [(ngModel)]="AreaId"></tmss-combobox>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g-12 text-right mt-1 mr-2 mb-1">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1 col-2" (click)="createOrEdit()">
+          <i class="fa tmss-fa fa-save"></i>
+          <span class="ml-1">Lưu</span>
+        </button>
+        <button class="tmss-btn btn-outline-danger mr-2 mt-1 col-2" (click)="hide()">
+          <i class="fa tmss-fa fa-times"></i>
+          <span class="ml-1">Hủy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div id="container">
+  <h6 class="card-header">
+    {{ "Thông tin cá nhân" }}
+  </h6>
+  <div class="row col-12">
+    <!--  -->
+<div class="col-12" style="padding-top: 20px;">
+  <div class="row mt-1">
+    <div class="col-6">
+      <tmss-text-input [text]="'Tên'" [(ngModel)]="employee.HoTen"></tmss-text-input>
+    </div>
+    <div class="col-6">
+      <tmss-combobox [text]="'Giới tính'" [items]="genderList" [(ngModel)]="employee.GioiTinh">
+      </tmss-combobox>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-6">
+      <tmss-text-input [text]="'Số chứng minh'" [(ngModel)]="employee.Cmnd"></tmss-text-input>
+    </div>
+    <div class="col-6">
+      <tmss-text-input [text]="'Tel'"  [(ngModel)]="employee.Sdt"></tmss-text-input>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-6">
+      <tmss-text-input [text]="'Địa chỉ'" [(ngModel)]="employee.DiaChi"></tmss-text-input>
+    </div>
+    <div class="col-6">
+      <tmss-datepicker [text]="'Ngày sinh'" [(ngModel)]="employee.NgaySinh"></tmss-datepicker>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-6">
+      <tmss-text-input [text]="'Tên đăng nhập'" [(ngModel)]="employee.TenTk"></tmss-text-input>
+    </div>
+    <div class="col-6">
+      <tmss-text-input [text]="'Mật khẩu'" [(ngModel)]="employee.MatKhau"></tmss-text-input>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="ui-g-12 text-right mt-1 mr-2 mb-1">
+    <button class="tmss-btn btn-outline-primary mr-2 mt-1 col-2" (click)="save(employee)">
+      <i class="fa tmss-fa fa-save"></i>
+      <span class="ml-1">Lưu</span>
+    </button>
+  </div>
+</div>
+

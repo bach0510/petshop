@@ -1,0 +1,59 @@
+<div id="container">
+  <div class="header">
+    <h6 class="card-header">
+      {{ currentUser.RoleId == 1 ?"Tìm kiếm " : "Đơn hàng được bàn giao" }}
+    </h6>
+    <div class="row mt-1" *ngIf="currentUser.RoleId == 1">
+      <div class="col-3">
+        <tmss-text-input [text]="'Mã đơn hàng'" (onSearch)="onSearch()" [(ngModel)]="orderCode"></tmss-text-input>
+      </div>
+      <div class="col-3">
+        <tmss-text-input [text]="'Tên đơn hàng'" (onSearch)="onSearch()"  [(ngModel)]="orderName"></tmss-text-input>
+      </div>
+      <div class="col-3">
+        <tmss-combobox [text]="'Trạng thái đơn hàng'" [items]="statusList" [(ngModel)]="status"></tmss-combobox>
+      </div>
+      <div class="col-1">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="onSearch()">
+          <i class="fa tmss-fa fa-search"></i>
+          <span class="ml-1">Tìm kiếm</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main mt-2">
+    <h6 class="card-header">
+      {{ "Danh sách đơn hàng" }}
+    </h6>
+
+    <div class="row mt-1">
+      <div class="col-12">
+        <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
+          (callBackEvent)="currentUser.RoleId == 1 ? callBackEvent($event): callBackEventForShip($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
+          [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+        </grid-table>
+      </div>
+    </div>
+    <div class="ui-g-12 text-right mt-2" >
+      <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="exportExcel()" *ngIf="currentUser.RoleId == 1" [disabled]="user.EmpType === 2">
+        <i class="fa tmss-fa fa-download"></i>
+        <span class="ml-1">Xuất excel</span>
+      </button>
+      <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="add()" *ngIf="currentUser.RoleId == 1" [disabled]="user.EmpType === 2">
+        <i class="fa tmss-fa fa-plus"></i>
+        <span class="ml-1">Thêm đơn hàng</span>
+      </button>
+      <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="edit()" [disabled]="!selectedData || user.EmpType === 2">
+        <i class="fa tmss-fa fa-edit"></i>
+        <span class="ml-1">{{currentUser.RoleId == 1 ? "Sửa thông tin" : "Thông tin đơn hàng"}}</span>
+      </button>
+      <button class="tmss-btn btn-outline-danger mr-2 mt-1" (click)="delete()" *ngIf="currentUser.RoleId == 1" [disabled]="!selectedData || user.EmpType === 2">
+        <i class="fa tmss-fa fa-eraser"></i>
+        <span class="ml-1">Xóa đơn hàng</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-create-or-edit-order #createOrEditOrder [currentUser]="currentUser" [areaList]="areaList" (modalSave)="modalSave($event)"></app-create-or-edit-order>
