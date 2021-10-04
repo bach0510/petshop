@@ -22,12 +22,13 @@ namespace AppApi.DL
             _conn.Open();
             string spName = "";
             SqlCommand cmd = new SqlCommand(spName, _conn);
+
             if (input.Value == 1)
             {
-                spName = @"dbo.[TimKiemNhanVienTheoMaNV]";
+                spName = @"dbo.[tim_nhan_vien_theo_manv]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@manv", input.Filter);
+                cmd.Parameters.AddWithValue("@MANV", input.Filter);
             }
             else if (input.Value == 2)
             {
@@ -58,15 +59,16 @@ namespace AppApi.DL
                 while (sqlDataReader.Read())
                 {
                     var employee = new NhanVien();
-                    employee.MaNv = sqlDataReader["MANV"].ToString();
+                    employee.nvID = sqlDataReader["MANV"].ToString();
                     employee.HoTen = sqlDataReader["HOTEN"].ToString();
                     employee.DiaChi = sqlDataReader["DIACHI"].ToString();
                     employee.ChucVu = sqlDataReader["CHUCVU"].ToString();
-                    employee.Cmnd = sqlDataReader["CMND"].ToString();
+                    employee.CMND = sqlDataReader["CMND"].ToString();
                     employee.GioiTinh = sqlDataReader["GIOITINH"].ToString();
                     employee.Luong = (int)sqlDataReader["LUONG"];
                     employee.NgaySinh = DateTime.Parse(sqlDataReader["NGAYSINH"].ToString());
                     employee.Sdt = sqlDataReader["SDT"].ToString();
+
                     employee.TenTk = sqlDataReader["TENTK"].ToString();
                     employee.MatKhau = sqlDataReader["MATKHAU"].ToString();
 
@@ -90,7 +92,7 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@ngaysinh", input.NgaySinh);
             cmd.Parameters.AddWithValue("@diachi", input.DiaChi);
             cmd.Parameters.AddWithValue("@sdt", input.Sdt);
-            cmd.Parameters.AddWithValue("@cmnd", input.Cmnd);
+            cmd.Parameters.AddWithValue("@cmnd", input.CMND);
             cmd.Parameters.AddWithValue("@chucvu", input.ChucVu);
             cmd.Parameters.AddWithValue("@luong", input.Luong);
 
@@ -127,7 +129,7 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@ngaysinh", input.NgaySinh);
             cmd.Parameters.AddWithValue("@diachi", input.DiaChi);
             cmd.Parameters.AddWithValue("@sdt", input.Sdt);
-            cmd.Parameters.AddWithValue("@cmnd", input.Cmnd);
+            cmd.Parameters.AddWithValue("@cmnd", input.CMND);
 
             cmd.CommandType = CommandType.StoredProcedure;
 

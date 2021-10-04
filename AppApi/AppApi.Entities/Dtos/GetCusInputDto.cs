@@ -8,11 +8,12 @@ namespace AppApi.Entities.Dtos
 {
     public class GetCusInputDto 
     {
-        public string CusName { get; set; }
-        public string CusEmail { get; set; }
-        public string CusTel { get; set; }
-        public string CusCmnd { get; set; }
-        public int AreaId { get; set; }
-        public int Id { get; set; }
+        public String MAKH { get; set; }
+        public string HoTen { get; set; }
+        public string gioiTinh { get; set; }
+        public string sdt { get; set; }
+        public string CMND { get; set; }
+        public DateTime ngaySinh { get; set; }
+        public String  diaChi { get; set; }
     }
 }

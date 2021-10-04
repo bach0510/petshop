@@ -98,7 +98,7 @@
     <Compile Include="TaiKhoanDL.cs" />
     <Compile Include="SalaryDL.cs" />
     <Compile Include="DBConnect.cs" />
-    <Compile Include="CustomerDL.cs" />
+    <Compile Include="KhachHangDL.cs" />
     <Compile Include="OrderDL.cs" />
     <Compile Include="PayOffDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

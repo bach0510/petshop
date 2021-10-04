@@ -13,22 +13,10 @@ namespace AppApi.Controllers
 {
     public class CustomerController : ApiController
     {
-        CustomerDL cus = new CustomerDL();
+        KhachHangDL cus = new KhachHangDL();
 
 
-        [HttpPost]
-        [Route("update-customer")]
-        public bool Update(Customer input)
-        {
-            try
-            {
-                return cus.UpdateDL(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+       
 
         [HttpPost]
         [Route("customer")]
@@ -65,6 +53,20 @@ namespace AppApi.Controllers
             try
             {
                 return cus.GetCustomerById(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("update-customer")]
+        public bool Update(Customer input)
+        {
+            try
+            {
+                return cus.UpdateDL(input);
             }
             catch (Exception)
             {
