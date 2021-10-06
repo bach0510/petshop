@@ -4,81 +4,21 @@ using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace AppApi.Controllers
 {
-    public class OrderController : ApiController
+    public class PetController : ApiController
     {
-        OrderDL order = new OrderDL();
-
+        PetDL pets = new PetDL();
 
         [HttpPost]
-        [Route("update-order")]
-        public bool Update(Order input)
+        [Route("get-pets")]
+        public List<PetInputDTO> GetPets(PetInputDTO input)
         {
             try
             {
-                return order.UpdateDL(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("assign-order")]
-        public bool UpdateAssign(Order input)
-        {
-            try
-            {
-                return order.UpdateAssign(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("order")]
-        public List<Order> GetOrder(GetOrderInputDto input)
-        {
-            try
-            {
-                return order.GetOrder(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("order-by-shipper")]
-        public List<Order> GetOrderByUserId(GetOrderByUserIdDto input)
-        {
-            try
-            {
-                return order.GetOrderByUserId(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("delete-order")]
-        public bool DeleteOrder(Order input)
-        {
-            try
-            {
-                return order.DeleteDL(input);
+                return pets.GetPet(input);
             }
             catch (Exception)
             {
@@ -88,17 +28,75 @@ namespace AppApi.Controllers
 
 
         [HttpPost]
-        [Route("add-order")]
-        public bool RegisterOrder(Order input)
+        [Route("update-pet")]
+        public bool UpdatePet(PetInputDTO input)
         {
             try
             {
-                return order.RegisterDL(input);
+                return pets.UpdatePet(input);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+        [HttpPost]
+        [Route("delete-pet")]
+        public bool DeletePet(PetInputDTO input)
+        {
+            try
+            {
+                return pets.DeletePet(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost]
+        [Route("add-pet")]
+        public bool RegisterPet(PetInputDTO input)
+        {
+            try
+            {
+                return pets.RegisterPet(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("delete-giong")]
+        public bool DeleteGiong(PetInputDTO input)
+        {
+            try
+            {
+                return pets.DeleteGiong(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("delete-loai")]
+        public bool DeleteLoai(PetInputDTO input)
+        {
+            try
+            {
+                return pets.DeleteLoai(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

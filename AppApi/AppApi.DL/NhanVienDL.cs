@@ -1,5 +1,4 @@
-﻿using AppApi.Entities;
-using AppApi.Entities.Dtos;
+﻿using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -10,14 +9,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
+
 
 namespace AppApi.DL
 {
     public class NhanVienDL : DBConnect
     {
-        public List<NhanVien> GetNhanVien(GetNhanVienInput input)
+        public List<NhanVien_taiKhoan> GetNhanVien(GetOptionInput input)
         {
             _conn.Open();
             string spName = "";
@@ -28,7 +26,7 @@ namespace AppApi.DL
                 spName = @"dbo.[tim_nhan_vien_theo_manv]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@MANV", input.Filter);
+                cmd.Parameters.AddWithValue("@manv", input.Filter);
             }
             else if (input.Value == 2)
             {
@@ -53,13 +51,13 @@ namespace AppApi.DL
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
-            var employees = new List<NhanVien>();
+            var employees = new List<NhanVien_taiKhoan>();
             if (sqlDataReader.HasRows)
             {
                 while (sqlDataReader.Read())
                 {
-                    var employee = new NhanVien();
-                    employee.nvID = sqlDataReader["MANV"].ToString();
+                    var employee = new NhanVien_taiKhoan();
+                    employee.MaNv = sqlDataReader["MANV"].ToString();
                     employee.HoTen = sqlDataReader["HOTEN"].ToString();
                     employee.DiaChi = sqlDataReader["DIACHI"].ToString();
                     employee.ChucVu = sqlDataReader["CHUCVU"].ToString();
@@ -69,8 +67,8 @@ namespace AppApi.DL
                     employee.NgaySinh = DateTime.Parse(sqlDataReader["NGAYSINH"].ToString());
                     employee.Sdt = sqlDataReader["SDT"].ToString();
 
-                    employee.TenTk = sqlDataReader["TENTK"].ToString();
-                    employee.MatKhau = sqlDataReader["MATKHAU"].ToString();
+                    employee.taiKhoan = sqlDataReader["TENTK"].ToString();
+                    employee.matKhau = sqlDataReader["MATKHAU"].ToString();
 
                     employees.Add(employee);
                 }
@@ -79,7 +77,7 @@ namespace AppApi.DL
             return employees.ToList();
         }
 
-        public bool RegisterDL(NhanVien input)
+        public bool RegisterDL(NhanVien_taiKhoan input)
         {
             _conn.Open();
 
@@ -96,27 +94,24 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@chucvu", input.ChucVu);
             cmd.Parameters.AddWithValue("@luong", input.Luong);
 
-
             cmd.CommandType = CommandType.StoredProcedure;
+
+
 
             string spName2 = @"dbo.[insertTaiKhoan]";
             SqlCommand cmd2 = new SqlCommand(spName2, _conn);
 
             cmd2.Parameters.AddWithValue("@manv", input.MaNv);
-            cmd2.Parameters.AddWithValue("@tentk", input.TenTk);
-            cmd2.Parameters.AddWithValue("@matkhau", input.MatKhau);
-            
-
-
+            cmd2.Parameters.AddWithValue("@tentk", input.taiKhoan);
+            cmd2.Parameters.AddWithValue("@matkhau", input.matKhau);
             cmd2.CommandType = CommandType.StoredProcedure;
-            //SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }
 
-        public bool UpdateDL(NhanVien input)
+        public bool UpdateDL(NhanVien_taiKhoan input)
         {
             _conn.Open();
 
@@ -140,7 +135,7 @@ namespace AppApi.DL
             return false;
         }
 
-        public bool DeleteDL(NhanVien input)
+        public bool DeleteDL(NhanVien_taiKhoan input)
         {
             _conn.Open();
 

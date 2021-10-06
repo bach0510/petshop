@@ -45,15 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\GetKhachHangInput.cs" />
+    <Compile Include="Dtos\NhanVien_taiKhoan.cs" />
     <Compile Include="Dtos\GetNhanVienInput.cs" />
     <Compile Include="Dtos\GetOrderByUserIdDto.cs" />
-    <Compile Include="Dtos\GetOrderInputDto.cs" />
+    <Compile Include="Dtos\GetSanPhamInputDto.cs" />
     <Compile Include="Dtos\GetCusInputDto.cs" />
     <Compile Include="Dtos\FindUserInput.cs" />
     <Compile Include="Dtos\TaiKhoanInput.cs" />
-    <Compile Include="Dtos\SalaryDto.cs" />
-    <Compile Include="Dtos\GetSalaryInputDto.cs" />
-    <Compile Include="Dtos\GetShippersInputDto.cs" />
     <Compile Include="Dtos\PayoffDto.cs" />
     <Compile Include="Dtos\Payoff.cs" />
     <Compile Include="Dtos\UserPayoff.cs" />

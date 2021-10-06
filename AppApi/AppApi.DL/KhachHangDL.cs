@@ -17,174 +17,119 @@ namespace AppApi.DL
 {
     public class KhachHangDL : DBConnect
     {
-/*        public List<KhachHang> GetCustomer(GetCusInputDto input)
+        public List<KhachHangDL> GetKhachHang(GetOptionInput input)
         {
             _conn.Open();
-
-            string spName = @"dbo.[TimKhachHangbyMaKH]";
+            string spName = "";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            cmd.Parameters.AddWithValue("@MAKH", input.MAKH);
+            if (input.Value == 1)
+            {
+                spName = @"dbo.[findKhachHangByMAKH]";
+                cmd = new SqlCommand(spName, _conn);
+
+                cmd.Parameters.AddWithValue("@makh", input.Filter);
+            }
+
+            else if (input.Value == 2)
+            {
+                spName = @"dbo.[findKhachHangByName]";
+                cmd = new SqlCommand(spName, _conn);
+
+                cmd.Parameters.AddWithValue("@hoten", input.Filter);
+            }
+            else if (input.Value == 3)
+            {
+                spName = @"dbo.[findKhachHangByPhone]";
+                cmd = new SqlCommand(spName, _conn);
+
+                cmd.Parameters.AddWithValue("@SDT", input.Filter);
+            }
+            if (string.IsNullOrWhiteSpace(input.Filter))
+            {
+                spName = @"dbo.[getAllKhachHang]";
+                cmd = new SqlCommand(spName, _conn);
+            }
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
-
-            var customers = new List<KhachHang>();
+            var Customers = new List<KhachHang>();
             if (sqlDataReader.HasRows)
             {
                 while (sqlDataReader.Read())
                 {
-                    var cus = new KhachHang();
-                    cus.MAKH = (String)sqlDataReader["MAKH"];
-                    cus.HoTen = sqlDataReader["HOTEN"].ToString();
-                    cus.gioiTinh = sqlDataReader["GIOITINH"].ToString();
-                    cus.CMND = sqlDataReader["CMND"].ToString();
-                    cus.sdt = sqlDataReader["SDT"].ToString();
-                    cus.diaChi = sqlDataReader["DIACHI"].ToString();
-                    cus.ngaySinh = (DateTime)sqlDataReader["NGAYSINH"];
-                    customers.Add(cus);
+                    var customer = new KhachHang();
+
+                    customer.MAKH = sqlDataReader["MAKH"].ToString();
+                    customer.HoTen = sqlDataReader["HOTEN"].ToString();
+                    customer.gioiTinh = sqlDataReader["GIOITINH"].ToString();
+                    customer.ngaySinh = (DateTime)sqlDataReader["NGAYSINH"];
+                    customer.diaChi = sqlDataReader["DIACHI"].ToString();
+                    customer.CMND = sqlDataReader["CMND"].ToString();
+                    customer.sdt = sqlDataReader["LUONG"].ToString();
+
+                    Customers.Add(customer);
                 }
             }
             _conn.Close();
-            return customers.ToList();
-        }
-*/
-        
-        public List<KhachHang> GetCustomerByTel(GetCusInputDto input)
-        {
-            _conn.Open();
-
-            string SQL = string.Format("select * from customer where SDT = @sdt ");
-            SqlCommand cmd = new SqlCommand(SQL, _conn);
-
-            cmd.Parameters.AddWithValue("@sdt", input.sdt);
-
-            SqlDataReader sqlDataReader = cmd.ExecuteReader();
-
-            var customers = new List<KhachHang>();
-            if (sqlDataReader.HasRows)
-            {
-                while (sqlDataReader.Read())
-                {
-                    var cus = new KhachHang();
-                    cus.MAKH = (String)sqlDataReader["MAKH"];
-                    cus.HoTen = sqlDataReader["HOTEN"].ToString();
-                    cus.gioiTinh = sqlDataReader["GIOITINH"].ToString();
-                    cus.CMND = sqlDataReader["CMND"].ToString();
-                    cus.sdt = sqlDataReader["SDT"].ToString();
-                    cus.diaChi = sqlDataReader["DIACHI"].ToString();
-                    cus.ngaySinh = (DateTime)sqlDataReader["NGAYSINH"];
-
-                    customers.Add(cus);
-                }
-            }
-            _conn.Close();
-            return customers.ToList();
-        }
-
-        public List<KhachHang> GetCustomerById(GetCusInputDto input)
-        {
-            _conn.Open();
-
-            string SQL = string.Format("select * from customer where MAKH = @MAKH ");
-            SqlCommand cmd = new SqlCommand(SQL, _conn);
-
-            cmd.Parameters.AddWithValue("@MAKH", input.MAKH);
-
-            SqlDataReader sqlDataReader = cmd.ExecuteReader();
-
-            var customers = new List<KhachHang>();
-            if (sqlDataReader.HasRows)
-            {
-                while (sqlDataReader.Read())
-                {
-                    var cus = new KhachHang();
-
-                    cus.MAKH = sqlDataReader["MAKH"].ToString();
-                    cus.HoTen = sqlDataReader["HoTen"].ToString();
-
-                    if (!Convert.IsDBNull(sqlDataReader["gioiTinh"]))
-                    {
-                        cus.gioiTinh = sqlDataReader["gioiTinh"].ToString();
-                    }
-
-                    if (!Convert.IsDBNull(sqlDataReader["diaChi"]))
-                    {
-                        cus.diaChi = sqlDataReader["diaChi"].ToString();
-                    }
-                    if (!Convert.IsDBNull(sqlDataReader["sdt"]))
-                    {
-                        cus.sdt = sqlDataReader["sdt"].ToString();
-                    }
-
-                    if (!Convert.IsDBNull(sqlDataReader["cus_add"]))
-                    {
-                        cus.ngaySinh = (DateTime)sqlDataReader["ngaySinh"];
-                    }
-                    //employee.Birthday = (DateTime)sqlDataReader["Birthday"];
-                    if (!Convert.IsDBNull(sqlDataReader["CMND"]))
-                    {
-                        cus.CMND = sqlDataReader["CMND"].ToString();
-                    }
-                    
-                    customers.Add(cus);
-                }
-            }
-            _conn.Close();
-            return customers.ToList();
+            return Customers.ToList();
         }
 
         public bool RegisterDL(KhachHang input)
         {
             _conn.Open();
 
-            string SQL = string.Format("INSERT INTO dbo.customer(HOTEN, DIACHI, GIOITINH, SDT, CMND, NGAYSINH) VALUES(@HoTen, @diaChi,@gioiTinh, @sdt, @CMND,@ngaySinh)");
-            SqlCommand sqlCommand = new SqlCommand(SQL, _conn);
-            sqlCommand.Parameters.AddWithValue("@HoTen", input.HoTen ?? "");
-            sqlCommand.Parameters.AddWithValue("@diaChi", input.diaChi ?? "");
-            sqlCommand.Parameters.AddWithValue("@gioiTinh", input.gioiTinh ?? "");
-            sqlCommand.Parameters.AddWithValue("@sdt", input.sdt ?? "");
-            sqlCommand.Parameters.AddWithValue("@CMND", input.CMND ?? "");
-            sqlCommand.Parameters.AddWithValue("@ngaySinh", input.ngaySinh);
+            string spName = @"dbo.[insertKhachHang]";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            if (sqlCommand.ExecuteNonQuery() > 0) return true;
+
+            cmd.Parameters.AddWithValue("@makh", input.MAKH ?? "");
+            cmd.Parameters.AddWithValue("@tenkh", input.HoTen ?? "");
+            cmd.Parameters.AddWithValue("@gioiTinh", input.gioiTinh ?? "");
+            cmd.Parameters.AddWithValue("@ngaysinh", input.ngaySinh);
+            cmd.Parameters.AddWithValue("@diachi", input.diaChi ?? "");
+            cmd.Parameters.AddWithValue("@sdt", input.sdt ?? "");
+            cmd.Parameters.AddWithValue("@cmnd", input.CMND ?? "");
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }
 
         public bool UpdateDL(KhachHang input)
         {
-            _conn.Open();
+            string spName = @"dbo.[updateKhachHang]";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            string SQL = string.Format("UPDATE dbo.customer SET HOTEN = @HoTen , DIACHI = @diaChi, GIOITINH = @gioiTinh, SDT = @sdt, CMND = @CMND, NGAYSINH = @ngaySinh WHERE MAKH = @MAKH");
+            cmd.Parameters.AddWithValue("@makh", input.MAKH);
+            cmd.Parameters.AddWithValue("@tenkh", input.HoTen);
+            cmd.Parameters.AddWithValue("@gioiTinh", input.gioiTinh);
+            cmd.Parameters.AddWithValue("@ngaysinh", input.ngaySinh);
+            cmd.Parameters.AddWithValue("@diachi", input.diaChi);
+            cmd.Parameters.AddWithValue("@sdt", input.sdt);
+            cmd.Parameters.AddWithValue("@cmnd", input.CMND);
 
-            SqlCommand sqlCommand = new SqlCommand(SQL, _conn);
-            sqlCommand.Parameters.AddWithValue("@HoTen", input.HoTen ?? "");
-            sqlCommand.Parameters.AddWithValue("@diaChi", input.diaChi ?? "");
-            sqlCommand.Parameters.AddWithValue("@gioiTinh", input.gioiTinh ?? "");
-            sqlCommand.Parameters.AddWithValue("@sdt", input.sdt ?? "");
-            sqlCommand.Parameters.AddWithValue("@CMND", input.CMND ?? "");
-            sqlCommand.Parameters.AddWithValue("@ngaySinh", input.ngaySinh);
-            //sqlCommand.Parameters.AddWithValue("@Birthday", input.Birthday);
-            sqlCommand.Parameters.AddWithValue("@MAKH", input.MAKH);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-            if (sqlCommand.ExecuteNonQuery() > 0) return true;
+            //SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }
 
         public bool DeleteDL(KhachHang input)
         {
-            _conn.Open();
+            string spName = @"dbo.[deleteKhachHang]";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            string SQL = string.Format("delete from customer where MAKH = @MAKH");
+            cmd.Parameters.AddWithValue("@makh", input.MAKH);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-            SqlCommand sqlCommand = new SqlCommand(SQL, _conn);
-
-            sqlCommand.Parameters.AddWithValue("@MAKH", input.MAKH);
-
-            if (sqlCommand.ExecuteNonQuery() > 0) return true;
+            if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }

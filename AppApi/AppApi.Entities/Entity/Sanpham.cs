@@ -7,7 +7,7 @@ namespace AppApi.Entities.Entity
     public class Sanpham
     {
         [StringLength(5)]
-        public String spID { get; set; }
+        public String masp { get; set; }
 
         [StringLength(5)]
         public String loaiID { get; set; }

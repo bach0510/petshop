@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AppApi.Entities.Entity
+
+namespace AppApi.Entities.Dtos
 {
-    public class NhanVien
-    
+
+    public class NhanVien_taiKhoan 
     {
         [StringLength(5)]
         public string MaNv { get; set; }
@@ -19,7 +20,7 @@ namespace AppApi.Entities.Entity
 
         [StringLength(200)]
         public String DiaChi { get; set; }
-        
+
         [StringLength(12)]
         public String Sdt { get; set; }
 
@@ -30,5 +31,11 @@ namespace AppApi.Entities.Entity
 
         [StringLength(10)]
         public String CMND { get; set; }
+
+        [StringLength(50)]
+        public String taiKhoan { get; set; }
+        public String matKhau { get; set; }
+
+
     }
 }

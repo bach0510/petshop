@@ -288,7 +288,7 @@
     <Compile Include="Controllers\SalaryController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\PetController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PayOffController.cs" />
     <Compile Include="Global.asax.cs">

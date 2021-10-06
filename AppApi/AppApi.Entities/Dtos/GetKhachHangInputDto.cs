@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppApi.Entities.Dtos
 {
-    public class GetCusInputDto 
+    public class GetKhachHangInputDto 
     {
         public String MAKH { get; set; }
         public string HoTen { get; set; }

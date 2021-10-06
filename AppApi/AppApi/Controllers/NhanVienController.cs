@@ -1,4 +1,6 @@
-﻿using AppApi.DL;
+﻿
+   
+using AppApi.DL;
 using AppApi.Entities;
 using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
@@ -78,7 +80,7 @@ namespace AppApi.Controllers
 
         [HttpPost]
         [Route("employees")]
-        public List<NhanVien> GetNhanVIen(GetNhanVienInput input)
+        public List<NhanVien> GetNhanVIen(GetOptionInput input)
         {
             try
             {
@@ -105,3 +107,4 @@ namespace AppApi.Controllers
         }
     }
 }
+

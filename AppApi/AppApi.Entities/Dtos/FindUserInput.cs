@@ -13,5 +13,6 @@ namespace AppApi.Entities.Dtos
         public string MatKhau { get; set; }
         public string Token { get; set; }
 
+
     }
 }
