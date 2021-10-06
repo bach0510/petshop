@@ -45,30 +45,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dtos\GetNhanVienInput.cs" />
+    <Compile Include="Dtos\PetInputDTO.cs" />
+    <Compile Include="Dtos\NhanVien_taiKhoan.cs" />
+    <Compile Include="Dtos\GetOptionInput.cs" />
     <Compile Include="Dtos\GetOrderByUserIdDto.cs" />
-    <Compile Include="Dtos\GetOrderInputDto.cs" />
-    <Compile Include="Dtos\GetCusInputDto.cs" />
+    <Compile Include="Dtos\GetKhachHangInputDto.cs" />
     <Compile Include="Dtos\FindUserInput.cs" />
     <Compile Include="Dtos\TaiKhoanInput.cs" />
-    <Compile Include="Dtos\SalaryDto.cs" />
-    <Compile Include="Dtos\GetSalaryInputDto.cs" />
-    <Compile Include="Dtos\GetShippersInputDto.cs" />
     <Compile Include="Dtos\PayoffDto.cs" />
     <Compile Include="Dtos\Payoff.cs" />
     <Compile Include="Dtos\UserPayoff.cs" />
+    <Compile Include="Entity\ChiTietHoaDonSanPham.cs" />
+    <Compile Include="Entity\chiTietHoaDonThuCung.cs" />
+    <Compile Include="Entity\KhachHang.cs" />
+    <Compile Include="Entity\KhuyenMai.cs" />
+    <Compile Include="Entity\HoaDon.cs" />
+    <Compile Include="Entity\Sanpham.cs" />
+    <Compile Include="Entity\Pet.cs" />
+    <Compile Include="Entity\Giong.cs" />
+    <Compile Include="Entity\Loai.cs" />
+    <Compile Include="Entity\ChucVu.cs" />
     <Compile Include="Entity\TaiKhoan.cs" />
-    <Compile Include="Entity\Punish.cs" />
-    <Compile Include="Entity\NhanVien.cs" />
-    <Compile Include="Entity\UserPunish.cs" />
-    <Compile Include="Entity\UserBonus.cs" />
-    <Compile Include="Entity\Bonus.cs" />
-    <Compile Include="Entity\Order.cs" />
-    <Compile Include="Entity\Customer.cs" />
-    <Compile Include="Entity\Area.cs" />
+    <Compile Include="Entity\nhanVien.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entity\Role.cs" />
-    <Compile Include="Entity\User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

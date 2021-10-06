@@ -1,5 +1,4 @@
-﻿using AppApi.Entities;
-using AppApi.Entities.Dtos;
+﻿using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
 using Microsoft.IdentityModel.Tokens;
 using System;

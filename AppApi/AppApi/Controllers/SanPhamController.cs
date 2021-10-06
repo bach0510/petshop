@@ -7,18 +7,48 @@ using System.Web.Http;
 
 namespace AppApi.Controllers
 {
-    public class CustomerController : ApiController
+    public class SanPhamController : ApiController
     {
-        KhachHangDL Customer = new KhachHangDL();
+        SanPhamDL order = new SanPhamDL();
 
+
+        
 
         [HttpPost]
-        [Route("customer")]
-        public List<KhachHang> GetCustomer(GetOptionInput input)
+        [Route("order")]
+        public List<Sanpham> GetOrder(GetSanPhamInputDto input)
         {
             try
             {
-                return Customer.GetKhachHang( input);
+                return order.GetOrder(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("update-order")]
+        public bool Update(Sanpham input)
+        {
+            try
+            {
+                return order.UpdateDL(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("delete-order")]
+        public bool DeleteOrder(Sanpham input)
+        {
+            try
+            {
+                return order.DeleteDL(input);
             }
             catch (Exception)
             {
@@ -28,41 +58,12 @@ namespace AppApi.Controllers
 
 
         [HttpPost]
-        [Route("update-customer")]
-        public bool Update(KhachHang input)
+        [Route("add-order")]
+        public bool RegisterOrder(Sanpham input)
         {
             try
             {
-                return Customer.UpdateDL(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [Route("delete-customer")]
-        public bool DeleteCustomer(KhachHang input)
-        {
-            try
-            {
-                return Customer.DeleteDL(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        [HttpPost]
-        [Route("add-customer")]
-        public bool RegisterCustomer(KhachHang input)
-        {
-            try
-            {
-                return Customer.RegisterDL(input);
+                return order.RegisterDL(input);
             }
             catch (Exception)
             {

@@ -8,6 +8,7 @@ namespace AppApi.Entities.Dtos
 {
     public class TaiKhoanInput
     {
+
         public string TenTk { get; set; }
         public string MatKhau { get; set; }
         
