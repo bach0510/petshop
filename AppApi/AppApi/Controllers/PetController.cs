@@ -12,19 +12,19 @@ namespace AppApi.Controllers
     {
         PetDL pets = new PetDL();
 
-        [HttpPost]
-        [Route("get-pets")]
-        public List<PetInputDTO> GetPets(PetInputDTO input)
-        {
-            try
-            {
-                return pets.GetPet(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //[HttpPost]
+        //[Route("get-pets")]
+        //public List<PetInputDTO> GetPets(PetInputDTO input)
+        //{
+        //    try
+        //    {
+        //        return pets.GetPet(input);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
 
         [HttpPost]

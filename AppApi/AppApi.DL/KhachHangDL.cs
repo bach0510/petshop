@@ -17,7 +17,7 @@ namespace AppApi.DL
 {
     public class KhachHangDL : DBConnect
     {
-        public List<KhachHangDL> GetKhachHang(GetOptionInput input)
+        public List<KhachHang> GetKhachHang(GetOptionInput input)
         {
             _conn.Open();
             string spName = "";

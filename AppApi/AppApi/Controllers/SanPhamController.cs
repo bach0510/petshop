@@ -12,21 +12,20 @@ namespace AppApi.Controllers
         SanPhamDL order = new SanPhamDL();
 
 
-        
 
-        [HttpPost]
-        [Route("order")]
-        public List<Sanpham> GetOrder(GetSanPhamInputDto input)
-        {
-            try
-            {
-                return order.GetOrder(input);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        //[HttpPost]
+        //[Route("order")]
+        //public List<Sanpham> GetOrder(GetSanPhamInputDto input)
+        //{
+        //    try
+        //    {
+        //        return order.GetOrder(input);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         [HttpPost]
         [Route("update-order")]
