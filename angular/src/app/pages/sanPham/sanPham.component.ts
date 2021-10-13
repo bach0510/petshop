@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaginationParamsModel } from 'src/app/_components/shared/common/models/base.model';
-import { UserService } from 'src/app/_services/user.service';
 import { ceil } from 'lodash';
-import { CreateOrEditEmployeeComponent } from './create-or-edit-employee/create-or-edit-employee.component';
-import * as moment from 'moment';
-import { GetShippersInputDto } from 'src/app/_models/get-shippers-input-dto';
+import { CreateOrEditSanPhamComponent } from './create-or-edit-sanpham/create-or-edit-sanPham.component';
+import { sanPham } from 'src/app/_models/sanPham';
 import { CacheService } from 'src/app/_services/cache.service';
-import { GetNhanVienInput } from 'src/app/_models/get-nhanvien-input';
+import { sanPhamService } from 'src/app/_services/sanPham.service';
+import { GetOptionInput } from 'src/app/_models/getOptionInput';
 declare let alertify: any;
+
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss'],
+  selector: 'app-sanPham',
+  templateUrl: './sanPham.component.html',
+  styleUrls: ['./sanPham.component.scss'],
 })
-export class EmployeeComponent implements OnInit {
-  @ViewChild('createOrEditEmployee', { static: true }) createOrEditEmployee: CreateOrEditEmployeeComponent;
+export class CustomerComponent implements OnInit {
+  @ViewChild('createOrEditSanPham', { static: true }) CreateOrEditSanPham: CreateOrEditSanPhamComponent;
   paginationParams: PaginationParamsModel;
 
   columnsDef;
@@ -26,21 +26,21 @@ export class EmployeeComponent implements OnInit {
 
 
   selectedData;
-  fullName: string;
-  email: string;
-  tel: string;
-  code: string;
-  registerNo  : string;
-  cmnd: string;
+  masp: string;
+  loaiID: string;
+  tenSP: string;
+  gia: string;
+  soLuong: number;
+
   searchType= [
-    {value:1,label:"mã nhân viên"},
-    {value:2,label:"họ tên"},
-    {value:3,label:"chứng minh thư"},
+    {value:1,label:"sản phẩm theo loại thú cưng"},
+    {value:2,label:"sản phẩm theo tên "},
+    {value:3,label:"tất cả"},
   ];
   type : number = 1;
   filter = "";
 
-  constructor(private _employeeService: UserService,private _cacheService: CacheService) {
+  constructor(private _sanPhamService: sanPhamService,private _cacheService: CacheService) {
     this.columnsDef = [
       {
         headerName: 'STT',
@@ -51,26 +51,25 @@ export class EmployeeComponent implements OnInit {
           1,
       },
       {
-        headerName: 'Mã nhân vien',
-        field: 'MaNv',
+        headerName: 'mã sản phẩm',
+        field: 'masp',
       },
       {
-        headerName: 'Tên nhân viên',
-        field: 'HoTen',
+        headerName: 'tên sản phẩm',
+        field: 'tenSP',
       },
       {
-        headerName: 'Số điện thoại',
-        field: 'Sdt',
+        headerName: 'cho loại thú cưng',
+        field: 'loaiID',
       },
       {
-        headerName: 'Số chứng minh thư',
-        field: 'Cmnd',
+        headerName: 'giá',
+        field: 'gia',
       },
       {
-        headerName: 'Chức vụ',
-        field: 'ChucVu',
+        headerName: 'số lượng',
+        field: 'soLuong',
       },
-
     ];
 
     this.defaultColDef = {
@@ -91,20 +90,17 @@ export class EmployeeComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
-
   onSearch() {
     this.callBackEvent(this.params);
   }
 
   callBackEvent(event) {
     this.params = event;
-    var employee = new GetNhanVienInput();
-    employee.Value = this.type ?? 1;
-    employee.Filter = this.filter ?? '';
+    var sanPham = new GetOptionInput();
+    sanPham.Value = this.type ?? 1;
+    sanPham.Filter = this.filter ?? '';
 
-    console.log(employee)
-
-    this._employeeService.getEmployees(employee).subscribe((res) => {
+    this._sanPhamService.getSanPham(sanPham).subscribe((res) => {
       this.rowData = res;
       this.pagedRowData =
         this.rowData.length > 0
@@ -128,11 +124,11 @@ export class EmployeeComponent implements OnInit {
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
 
-    var employee = new GetNhanVienInput();
-    employee.Value = this.type ?? 1;
-    employee.Filter = this.filter ?? '';
-    
-    this._employeeService.getEmployees(employee).subscribe((res) => {
+    var sanPham = new GetOptionInput();
+    sanPham.Value = this.type ?? 1;
+    sanPham.Filter = this.filter ?? '';
+
+    this._sanPhamService.getSanPham(sanPham).subscribe((res) => {
       this.rowData = res;
       this.pagedRowData = this.rowData
         ? this.rowData.slice(
@@ -154,21 +150,21 @@ export class EmployeeComponent implements OnInit {
   }
 
   add() {
-    this.selectedData = undefined;
-    this.createOrEditEmployee.show(this.selectedData);
+    this.selectedData = new sanPham();
+    this.CreateOrEditSanPham.show(this.selectedData);
   }
 
   edit() {
-    this.createOrEditEmployee.show(this.selectedData);
+    this.CreateOrEditSanPham.show(this.selectedData);
   }
 
   delete() {
     
-    this._employeeService
-      .deleteEmployee(this.selectedData)
+    this._sanPhamService
+      .deleteSanPham(this.selectedData)
       .subscribe(
         (res) => {
-          alertify.success('Xóa shipper thành công');
+          alertify.success('Xóa sản phẩm thành công');
           this.callBackEvent(this.params);
         },
         (err) => console.log(err)
@@ -183,12 +179,14 @@ export class EmployeeComponent implements OnInit {
         bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes;
-}
+  }
+
+
   modalSave(event) {
     console.log(event);
-    
-    if (event.MaNv) {
-      this._employeeService.updateEmployee(event).subscribe(res => {
+
+    if (event.masp) {
+      this._sanPhamService.updateSanPham(event).subscribe(res => {
       }, er => console.log(er), () => {
         this.callBackEvent(this.params);
       });
@@ -196,12 +194,13 @@ export class EmployeeComponent implements OnInit {
       this.callBackEvent(this.params);
       this.selectedData = undefined;
     } else {
-      this._employeeService.registerEmployee(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
+      this._sanPhamService.registerSanPham(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
       alertify.success('Thêm mới thành công');
       this.callBackEvent(this.params);
       this.selectedData = undefined;
     }
   }
+
   exportExcel(){
     this.params.api.exportDataAsCsv();
   }

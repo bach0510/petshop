@@ -18,6 +18,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   url: SafeResourceUrl | any | undefined;
   @Input() areaList = [];
   @Input() empList = [];
+  
   employee: NhanVien = new NhanVien();
   EmpName;
   Username;
@@ -26,6 +27,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   BirthDay;
   Password;
   RegisterNo;
+  
   constructor(private _sanitizer: DomSanitizer,) { }
 
   ngOnInit() {

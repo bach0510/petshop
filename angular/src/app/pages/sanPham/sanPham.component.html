@@ -3,6 +3,7 @@
     <h6 class="card-header">
       {{ "Tìm kiếm " }}
     </h6>
+
     <div class="row mt-1">
       <div class="col-5">
         <tmss-text-input [text]="'giá trị tìm kiếm'" (onSearch)="onSearch()" [(ngModel)]="filter"></tmss-text-input>
@@ -17,11 +18,13 @@
         </button>
       </div>
     </div>
+
+
   </div>
 
   <div class="main mt-2">
     <h6 class="card-header">
-      {{ "Danh sách khách hàng" }}
+      {{ "Danh sách sản phẩm" }}
     </h6>
 
     <div class="row mt-1">
@@ -49,4 +52,4 @@
   </div>
 </div>
 
-<app-create-or-edit-customer #createOrEditCustomer [areaList]="areaList" (modalSave)="modalSave($event)"></app-create-or-edit-customer>
+<app-create-or-edit-customer #createOrEditSanPham [empList]="rowData"  (modalSave)="modalSave($event)"></app-create-or-edit-customer>
