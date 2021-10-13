@@ -12,19 +12,19 @@ namespace AppApi.Entities.Dtos
         public int DONGIA { get; set; }
 
         [StringLength(10)]
-        public String MAGIONG { get; set; }
+        public string MAGIONG { get; set; }
 
         [StringLength(50)]
-        public String TENGIONG { get; set; }
+        public string TENGIONG { get; set; }
 
         [StringLength(500)]
-        public String MOTA { get; set; }
+        public string MOTA { get; set; }
 
         [StringLength(5)]
-        public String MALOAI { get; set; }
+        public string MALOAI { get; set; }
 
         [StringLength(50)]
-        public String TENLOAI { get; set; }
+        public string TENLOAI { get; set; }
 
     }
 }

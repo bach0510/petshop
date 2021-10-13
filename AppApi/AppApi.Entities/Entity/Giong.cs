@@ -7,15 +7,15 @@ namespace AppApi.Entities.Entity
     public class Giong
     {
         [StringLength(10)]
-        public String giongID { get; set; }
+        public string giongID { get; set; }
 
         [StringLength(5)]
-        public String loaiID { get; set; }
+        public string loaiID { get; set; }
 
         [StringLength(50)]
-        public String tenGiong { get; set; }
+        public string tenGiong { get; set; }
 
         [StringLength(500)]
-        public String mota { get; set; }
+        public string mota { get; set; }
     }
 }
