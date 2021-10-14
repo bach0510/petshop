@@ -1,7 +1,5 @@
 ﻿using AppApi.DL;
-using AppApi.Entities;
 using AppApi.Entities.Dtos;
-using AppApi.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -12,19 +10,19 @@ namespace AppApi.Controllers
     {
         PetDL pets = new PetDL();
 
-        //[HttpPost]
-        //[Route("get-pets")]
-        //public List<PetInputDTO> GetPets(PetInputDTO input)
-        //{
-        //    try
-        //    {
-        //        return pets.GetPet(input);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        [HttpPost]
+        [Route("get-pets")]
+        public List<PetInputDTO> GetPets(GetOptionInput input)
+        {
+            try
+            {
+               return pets.GetPet(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
         [HttpPost]

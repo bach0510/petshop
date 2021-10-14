@@ -11,6 +11,7 @@ import { Customer } from 'src/app/_models/customer';
 import { CacheService } from 'src/app/_services/cache.service';
 import { OrderService } from 'src/app/_services/order.service';
 import { GetOrderInputDto } from 'src/app/_models/get-order-input-dto';
+import { GetOptionInput } from 'src/app/_models/GetOptionInput';
 declare let alertify: any;
 @Component({
   selector: 'app-customer',
@@ -27,13 +28,24 @@ export class CustomerComponent implements OnInit {
   pagedRowData = [];
   params: any;
   user;
+
   selectedData;
-  cusName: string;
-  cusEmail: string;
-  cusTel: string;
-  cusCmnd: string;
-  areaList: any[]=[];
-  areaId : number = 0;
+  MAKH: string;
+  HoTen: string;
+  gioiTinh: string;
+  diaChi: string;
+  ngaySinh: Date;
+  CMND: string;
+  sdt: string;
+
+  searchType= [
+    {value:1,label:"lấy danh sách khách hàng theo mã"},
+    {value:2,label:"lấy danh sách khách hàng theo tên "},
+    {value:3,label:"lấy danh sách khách hàng theo số điện thoại"},
+    {value:4,label:"lấy hết danh sách khách hàng"},
+  ];
+  type : number = 1;
+  filter = "";
 
   constructor(private _customerService: CustomerService,private _cacheService: CacheService,private _orderService :OrderService) {
     this.columnsDef = [
@@ -46,24 +58,28 @@ export class CustomerComponent implements OnInit {
           1,
       },
       {
-        headerName: 'Tên KH',
-        field: 'CusName',
+        headerName: 'Tên khách hàng',
+        field: 'HoTen',
+      },
+      {
+        headerName: 'giới tính',
+        field: 'gioiTinh',
+      },
+      {
+        headerName: 'địa chỉ',
+        field: 'diaChi',
+      },
+      {
+        headerName: 'ngày sinh',
+        field: 'ngaySinh',
+      },
+      {
+        headerName: 'số điện thoại',
+        field: 'sdt',
       },
       {
         headerName: 'CMND',
-        field: 'CusCmnd',
-      },
-      {
-        headerName: 'SĐT',
-        field: 'CusTel',
-      },
-      {
-        headerName: 'Email',
-        field: 'CusEmail',
-      },
-      {
-        headerName: 'Địa chỉ',
-        field: 'CusAdd',
+        field: 'CMND',
       },
     ];
 
@@ -83,19 +99,9 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.paginationParams = { pageNum: 1, pageSize: 10, totalCount: 0 };
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.getCacheData();
   }
 
-  getCacheData(){
-    this.areaList = [];
-    this._cacheService.getArea().subscribe(res => {
-      this.areaList.push({label:"Tất cả",value:0});
-      res.forEach(e => this.areaList!.push({
-        label: e.AreaName!,
-        value: e.Id!,
-      }))
-    })
-  }
+  
 
   onSearch() {
     this.callBackEvent(this.params);
@@ -103,12 +109,9 @@ export class CustomerComponent implements OnInit {
 
   callBackEvent(event) {
     this.params = event;
-    var cus = new GetCusInputDto();
-    cus.CusName = this.cusName ?? '';
-    cus.CusEmail = this.cusEmail ?? '';
-    cus.CusTel = this.cusTel ?? '';
-    cus.CusCmnd = this.cusCmnd ?? '';
-    cus.AreaId = this.areaId ?? 0;
+    var cus = new GetOptionInput();
+    cus.Value = this.type ?? 1;
+    cus.Filter = this.filter ?? '';
 
     this._customerService.getCustomers(cus).subscribe((res) => {
       this.rowData = res;
@@ -133,12 +136,10 @@ export class CustomerComponent implements OnInit {
     this.paginationParams.skipCount =
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
-    var cus = new GetCusInputDto();
-    cus.CusName = this.cusName ?? '';
-    cus.CusEmail = this.cusEmail ?? '';
-    cus.CusTel = this.cusTel ?? '';
-    cus.CusCmnd = this.cusCmnd ?? '';
-    cus.AreaId = this.areaId ?? 0;
+
+    var cus = new GetOptionInput();
+    cus.Value = this.type ?? 1;
+    cus.Filter = this.filter ?? '';
 
 
     this._customerService.getCustomers(cus).subscribe((res) => {
@@ -172,27 +173,25 @@ export class CustomerComponent implements OnInit {
   }
 
   delete() {
-    var order = new GetOrderInputDto();
-    order.OrderCode = '';
-    order.OrderName = '';
-    order.Status = '';
-    this._orderService.getOrders(order).subscribe(e => {
-      if(e.filter(k => k.CustomerId == this.selectedData.Id).length > 0){
-        alertify.error("Khách hàng này đang có đơn bạn không thể xóa thông tin của khách hàng này");
-      }
-      else{
-        this._customerService
-      .deleteCustomer(this.selectedData)
-      .subscribe(
-        (res) => {
-          alertify.success('Xóa khách hàng thành công');
-          this.callBackEvent(this.params);
-        },
-        (err) => console.log(err)
-      );
-      }
-    })
-    
+    this._customerService
+    .deleteCustomer(this.selectedData)
+    .subscribe(
+      (res) => {
+        alertify.success('Xóa khách hàng thành công');
+        this.callBackEvent(this.params);
+      },
+      (err) => console.log(err)
+    );
+  }
+
+  base64ToArrayBuffer(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
   }
 
   modalSave(event) {
@@ -211,5 +210,8 @@ export class CustomerComponent implements OnInit {
       this.callBackEvent(this.params);
       this.selectedData = undefined;
     }
+  }
+  exportExcel(){
+    this.params.api.exportDataAsCsv();
   }
 }

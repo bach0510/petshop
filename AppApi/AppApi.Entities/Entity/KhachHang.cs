@@ -7,24 +7,24 @@ namespace AppApi.Entities.Entity
     public class KhachHang
     {
         [StringLength(5)]
-        public String MAKH { get; set; }
+        public string MAKH { get; set; }
 
         [StringLength(50)]
-        public String HoTen { get; set; }
+        public string HoTen { get; set; }
 
         [StringLength(3)]
-        public String gioiTinh { get; set; }
+        public string gioiTinh { get; set; }
 
         public DateTime ngaySinh { get; set; }
 
         [StringLength(200)]
-        public String diaChi { get; set; }
+        public string diaChi { get; set; }
 
         [StringLength(12)]
-        public String sdt { get; set; }
+        public string sdt { get; set; }
 
         [StringLength(10)]
-        public String CMND { get; set; }
+        public string CMND { get; set; }
 
 
     }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Customer } from 'src/app/_models/customer';
@@ -12,68 +13,60 @@ declare let alertify: any;
 })
 export class CreateOrEditCustomerComponent implements OnInit {
   @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('imgContainer') imgContainer: { nativeElement: { getBoundingClientRect: () => { (): any; new(): any; height: number; width: number; }; }; } | undefined;
   @Output('modalSave') modalSave = new EventEmitter();
+  url: SafeResourceUrl | any | undefined;
   @Input() areaList = [];
+  @Input() empList = [];
+
   cus: Customer = new Customer();
-  CusName;
-  CusTel;
-  CusAdd;
-  BirthDay;
-  CusEmail;
-  CusCmnd;
-  AreaId;
-  // EmpTypes = [
-  //   {
-  //     label: 'Nhân viên trông xe',
-  //     value: 2,
-  //   },
-  //   {
-  //     label: 'Nhân viên quản lý',
-  //     value: 1,
-  //   },
-  // ]
+  MAKH;
+  HoTen;
+  gioiTinh =[{label:"Nam",value:"Nam"},{label:"Nữ",value:"Nữ"}];
+  diaChi;
+  ngaySinh;
+  CMND;
+  sdt;
+
   constructor() { }
 
   ngOnInit() {
+    this.modalSave.emit(this.cus);
+    this.modal.hide();
   }
 
   hide() {
-    this.AreaId = undefined;
     this.modal.hide();
   }
 
   show(event?) {
     this.cus = new Customer
-    this.areaList = this.areaList.filter(e => e.value != 0);
-    this.cus.AreaId = 1;
-    this.AreaId = 1;
     if (event.Id != undefined) {
       this.cus = event;
-      this.AreaId = this.cus.AreaId;
     }
     this.modal.show();
   }
 
   createOrEdit() {
-    if (!this.checkValidate()) return;
-    this.cus.AreaId = this.AreaId;
+    // if (!this.checkValidate()) return;
+    // this.cus.AreaId = this.AreaId;
     this.modalSave.emit(this.cus);
     this.modal.hide();
   }
 
   checkValidate() {
-    if (!this.cus?.CusName || this.cus?.CusName === '') {
-      alertify.error('Tên khách hàng không được trống');
-      return false;
-    }
-    if (!this.cus?.CusTel || this.cus?.CusTel === '') {
-      alertify.error('Số điện thoại khách hàng không được trống');
-      return false;
-    }
-    if (!this.cus?.CusAdd || this.cus?.CusAdd === '') {
-      alertify.error('Địa chỉ khách hàng không được trống');
-      return false;
-    }
+    // if (!this.cus?.CusName || this.cus?.CusName === '') {
+    //   alertify.error('Tên khách hàng không được trống');
+    //   return false;
+    // }
+    // if (!this.cus?.CusTel || this.cus?.CusTel === '') {
+    //   alertify.error('Số điện thoại khách hàng không được trống');
+    //   return false;
+    // }
+    // if (!this.cus?.CusAdd || this.cus?.CusAdd === '') {
+    //   alertify.error('Địa chỉ khách hàng không được trống');
+    //   return false;
+    // }
     
     return true;
   }

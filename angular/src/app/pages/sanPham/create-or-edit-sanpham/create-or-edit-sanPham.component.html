@@ -4,7 +4,7 @@
     <div class="modal-content tmss-modal">
       <div class="tmss-modal-header">
         <h6 class="modal-title">
-          <p> Khách hàng </p>
+          <p> sản phẩm </p>
         </h6>
         <button type="button" class="close" aria-label="Close" (click)="hide()">
           <span class="tmss-close" aria-hidden="true">&times;</span>
@@ -12,38 +12,29 @@
       </div>
 
       <div class="modal-body">
+
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'mã khách hàng'"  [(ngModel)]="cus.MAKH"></tmss-text-input>
+            <tmss-text-input [text]="'mã sản phẩm'"  [(ngModel)]="sanPham.masp"></tmss-text-input>
           </div>
           <div class="col-6">
-            <tmss-text-input [text]="'họ tên'"  [(ngModel)]="cus.HoTen"></tmss-text-input>
+            <tmss-text-input [text]="'tên sản phẩm"  [(ngModel)]="sanPham.tenSP"></tmss-text-input>
           </div>
         </div>
+
         <div class="row mt-1">
-          <div class="col-6">
-            <tmss-text-input [text]="'giới tính'"  [(ngModel)]="cus.gioiTinh">
+          <div class="col-4">
+            <tmss-text-input [text]="'loại thú cưng'"  [(ngModel)]="sanPham.loaiID">
             </tmss-text-input>
           </div>
-          <div class="col-6">
-            <tmss-text-input [text]="'địa chỉ'"  [(ngModel)]="cus.diaChi"></tmss-text-input>
+          <div class="col-4">
+            <tmss-text-input [text]="'giá'"  [(ngModel)]="sanPham.gia"></tmss-text-input>
           </div>
-        </div>
-        <div class="row mt-1">
-          <div class="col-6">
-            <tmss-text-input [text]="'ngày sinh'"  [(ngModel)]="cus.ngaySinh">
-            </tmss-text-input>
+          <div class="col-4">
+            <tmss-text-input [text]="'số lượng'"  [(ngModel)]="sanPham.soLuong"></tmss-text-input>
           </div>
-          <div class="col-6">
-            <tmss-text-input [text]="'cmnd'"  [(ngModel)]="cus.CMND">
-            </tmss-text-input>
-          </div>
-          <div class="col-6">
-            <tmss-text-input [text]="'số điện thoại'"  [(ngModel)]="cus.sdt">
-            </tmss-text-input>
-          </div>
-          
-        </div>
+
+
       </div>
 
       <div class="ui-g-12 text-right mt-1 mr-2 mb-1">

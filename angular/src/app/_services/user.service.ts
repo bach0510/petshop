@@ -1,17 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Employee } from '../_models/employee';
-import { GetShippersInputDto } from '../_models/get-shippers-input-dto';
 import { GetNhanVienInput } from '../_models/get-nhanvien-input';
 import { NhanVien } from '../_models/nhan-vien';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   readonly APIUrl = 'http://localhost:60276';
-
   constructor(private http: HttpClient) {}
+
+
 
   getEmployees(val: GetNhanVienInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/employees', val);

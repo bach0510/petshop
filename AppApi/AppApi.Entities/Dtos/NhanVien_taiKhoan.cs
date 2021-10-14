@@ -11,30 +11,30 @@ namespace AppApi.Entities.Dtos
         public string MaNv { get; set; }
 
         [StringLength(50)]
-        public String HoTen { get; set; }
+        public string HoTen { get; set; }
 
         [StringLength(3)]
-        public String GioiTinh { get; set; }
+        public string GioiTinh { get; set; }
 
         public DateTime NgaySinh { get; set; }
 
         [StringLength(200)]
-        public String DiaChi { get; set; }
+        public string DiaChi { get; set; }
 
         [StringLength(12)]
-        public String Sdt { get; set; }
+        public string Sdt { get; set; }
 
         [StringLength(10)]
-        public String ChucVu { get; set; }
+        public string ChucVu { get; set; }
 
         public int Luong { get; set; }
 
         [StringLength(10)]
-        public String CMND { get; set; }
+        public string CMND { get; set; }
 
         [StringLength(50)]
-        public String taiKhoan { get; set; }
-        public String matKhau { get; set; }
+        public string taiKhoan { get; set; }
+        public string matKhau { get; set; }
 
 
     }

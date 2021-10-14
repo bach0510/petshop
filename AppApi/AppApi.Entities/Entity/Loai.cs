@@ -7,9 +7,9 @@ namespace AppApi.Entities.Entity
     public class Loai
     {
         [StringLength(5)]
-        public String loaiID { get; set; }
+        public string loaiID { get; set; }
 
         [StringLength(50)]
-        public String TenLoai { get; set; }
+        public string TenLoai { get; set; }
     }
 }
