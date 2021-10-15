@@ -39,7 +39,7 @@ namespace AppApi.DL
             }
             else if (input.Value == 4)
             {
-                spName = @"dbo.[GetAllPetInfor]";
+                spName = @"dbo.[GetAllPetsInfor]";
                 cmd = new SqlCommand(spName, _conn);
 
                 cmd.Parameters.AddWithValue("@MATC", input.Filter);

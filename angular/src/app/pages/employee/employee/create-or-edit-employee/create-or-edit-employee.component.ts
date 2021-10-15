@@ -31,7 +31,8 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer,) { }
 
   ngOnInit() {
-
+    this.modalSave.emit(this.employee);
+    this.modal.hide();
   }
 
   hide() {

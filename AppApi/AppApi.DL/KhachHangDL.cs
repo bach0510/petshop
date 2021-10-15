@@ -25,7 +25,7 @@ namespace AppApi.DL
 
             if (input.Value == 1)
             {
-                spName = @"dbo.[findKhachHangByMAKH]";
+                spName = @"dbo.[findKhachHangByMAKH]"; 
                 cmd = new SqlCommand(spName, _conn);
 
                 cmd.Parameters.AddWithValue("@makh", input.Filter);

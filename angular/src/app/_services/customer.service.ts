@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { khachHang } from '../_models/khachHang';
+
 import { GetOptionInput } from '../_models/GetOptionInput';
 
 @Injectable({ providedIn: 'root' })

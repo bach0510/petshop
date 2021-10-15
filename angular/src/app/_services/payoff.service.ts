@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GetCusInputDto } from '../_models/get-cus-input-dto';
-import { Customer } from '../_models/khachHang';
+import { khachHang } from '../_models/khachHang';
 
 @Injectable({ providedIn: 'root' })
 export class PayoffService {
