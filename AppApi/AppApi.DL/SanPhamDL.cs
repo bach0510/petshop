@@ -11,7 +11,7 @@ namespace AppApi.DL
 {
     public class SanPhamDL : DBConnect
     {
-        public List<Sanpham> GetOrder(GetOptionInput input)
+        public List<Sanpham> GetOrder(GetSanPhamInput input)
         {
             _conn.Open();
             string spName = "";

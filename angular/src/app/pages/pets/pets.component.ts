@@ -3,12 +3,11 @@ import { PaginationParamsModel } from 'src/app/_components/shared/common/models/
 import { ceil } from 'lodash';
 import * as moment from 'moment';
 import { CreateOrEditPetsComponent } from './create-or-edit-pets/create-or-edit-pets.component';
-import { sanPham } from 'src/app/_models/sanPham';
 import { CacheService } from 'src/app/_services/cache.service';
-import { sanPhamService } from 'src/app/_services/sanPham.service';
-import { GetOptionInput } from 'src/app/_models/getOptionInput';
 import { petsService } from 'src/app/_services/pets.service';
 import { PetAllInfor } from 'src/app/_models/PetInputDTO';
+import { GetPetsInput } from 'src/app/_models/GetPetsInput';
+
 declare let alertify: any;
 
 @Component({
@@ -16,7 +15,7 @@ declare let alertify: any;
   templateUrl: './pets.component.html',
   styleUrls: ['./pets.component.scss'],
 })
-export class CustomerComponent implements OnInit {
+export class PetsComponent implements OnInit {
   @ViewChild('createOrEditPets', { static: true }) CreateOrEditPets: CreateOrEditPetsComponent;
   paginationParams: PaginationParamsModel;
 
@@ -44,7 +43,7 @@ export class CustomerComponent implements OnInit {
   type : number = 1;
   filter = "";
 
-  constructor(private _petsService: petsService,private _cacheService: CacheService) {
+  constructor(private _petsService: petsService) {
     this.columnsDef = [
       {
         headerName: 'STT',
@@ -100,7 +99,7 @@ export class CustomerComponent implements OnInit {
 
   callBackEvent(event) {
     this.params = event;
-    var pets = new GetOptionInput();
+    var pets = new GetPetsInput();
     pets.Value = this.type ?? 1;
     pets.Filter = this.filter ?? '';
 
@@ -128,7 +127,7 @@ export class CustomerComponent implements OnInit {
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
 
-    var pets = new GetOptionInput();
+    var pets = new GetPetsInput();
     pets.Value = this.type ?? 1;
     pets.Filter = this.filter ?? '';
 

@@ -14,7 +14,7 @@ namespace AppApi.Controllers
 
         [HttpPost]
         [Route("customer")]
-        public List<KhachHang> GetCustomer(GetOptionInput input)
+        public List<KhachHang> GetCustomer(GetKhachHangInput input)
         {
             try
             {

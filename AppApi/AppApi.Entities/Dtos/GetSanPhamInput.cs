@@ -1,8 +1,10 @@
 ﻿
 
+
+
 namespace AppApi.Entities.Dtos
 {
-    public class GetOptionInput
+    public class GetSanPhamInput
     {
         public int Value { get; set; }
         public string Filter { get; set; }

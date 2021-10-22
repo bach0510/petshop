@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { sanPham } from '../_models/sanPham';
-import { GetOptionInput } from '../_models/getOptionInput';
+import { GetSanPhamInput } from '../_models/GetSanPhamInput';
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,7 +12,7 @@ export class sanPhamService {
 
 
 
-  getSanPham(val: GetOptionInput): Observable<any[]> {
+  getSanPham(val: GetSanPhamInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/sanPham', val);
   }
 

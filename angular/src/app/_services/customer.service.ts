@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { khachHang } from '../_models/khachHang';
-import { GetOptionInput } from '../_models/GetOptionInput';
+import { GetKhachHangInput } from '../_models/GetKhachHangInput';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
@@ -10,7 +10,7 @@ export class CustomerService {
 
   constructor(private http: HttpClient) {}
 
-  getCustomers(val: GetOptionInput): Observable<any[]> {
+  getCustomers(val: GetKhachHangInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/customer', val);
   }
 

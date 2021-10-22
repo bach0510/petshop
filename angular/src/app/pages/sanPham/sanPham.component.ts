@@ -5,7 +5,7 @@ import { CreateOrEditSanPhamComponent } from './create-or-edit-sanpham/create-or
 import { sanPham } from 'src/app/_models/sanPham';
 import { CacheService } from 'src/app/_services/cache.service';
 import { sanPhamService } from 'src/app/_services/sanPham.service';
-import { GetOptionInput } from 'src/app/_models/getOptionInput';
+import { GetSanPhamInput } from 'src/app/_models/GetSanPhamInput';
 declare let alertify: any;
 
 @Component({
@@ -13,7 +13,7 @@ declare let alertify: any;
   templateUrl: './sanPham.component.html',
   styleUrls: ['./sanPham.component.scss'],
 })
-export class CustomerComponent implements OnInit {
+export class SanPhamComponent implements OnInit {
   @ViewChild('createOrEditSanPham', { static: true }) CreateOrEditSanPham: CreateOrEditSanPhamComponent;
   paginationParams: PaginationParamsModel;
 
@@ -96,7 +96,7 @@ export class CustomerComponent implements OnInit {
 
   callBackEvent(event) {
     this.params = event;
-    var sanPham = new GetOptionInput();
+    var sanPham = new GetSanPhamInput();
     sanPham.Value = this.type ?? 1;
     sanPham.Filter = this.filter ?? '';
 
@@ -124,7 +124,7 @@ export class CustomerComponent implements OnInit {
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
 
-    var sanPham = new GetOptionInput();
+    var sanPham = new GetSanPhamInput();
     sanPham.Value = this.type ?? 1;
     sanPham.Filter = this.filter ?? '';
 

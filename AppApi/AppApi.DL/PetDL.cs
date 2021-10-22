@@ -9,7 +9,7 @@ namespace AppApi.DL
 {
     public class PetDL : DBConnect
     {
-        public List<PetInputDTO> GetPet(GetOptionInput input)
+        public List<PetInputDTO> GetPet(GetPetsInput input)
         {
             _conn.Open();
             string spName = "";

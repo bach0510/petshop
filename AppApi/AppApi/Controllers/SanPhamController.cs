@@ -15,7 +15,7 @@ namespace AppApi.Controllers
 
         [HttpPost]
         [Route("order")]
-        public List<Sanpham> GetOrder(GetOptionInput input)
+        public List<Sanpham> GetOrder(GetSanPhamInput input)
         {
             try
             {

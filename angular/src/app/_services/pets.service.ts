@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PetAllInfor } from '../_models/PetInputDTO';
-import { GetOptionInput } from '../_models/getOptionInput';
+import { GetPetsInput } from '../_models/GetPetsInput';
 
 @Injectable({ providedIn: 'root' })
 
@@ -12,7 +12,7 @@ export class petsService {
 
 
 
-  GetPets(val: GetOptionInput): Observable<any[]> {
+  GetPets(val: GetPetsInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/get-pets', val);
   }
 

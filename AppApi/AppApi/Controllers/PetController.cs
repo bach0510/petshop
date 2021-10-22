@@ -12,7 +12,7 @@ namespace AppApi.Controllers
 
         [HttpPost]
         [Route("get-pets")]
-        public List<PetInputDTO> GetPets(GetOptionInput input)
+        public List<PetInputDTO> GetPets(GetPetsInput input)
         {
             try
             {

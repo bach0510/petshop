@@ -164,11 +164,11 @@ export class CreateOrEditOrderComponent implements OnInit {
       // else {  this.isSuccess = false;}
 
       cusInput.Id = this.order.CustomerId;
-      this._cusService.getCustomerById(cusInput).subscribe(res => {
-        if (res.length === 1){
-          this.cus = res[0];
-        }
-      })
+      // this._cusService.getCustomerById(cusInput).subscribe(res => {
+      //   if (res.length === 1){
+      //     this.cus = res[0];
+      //   }
+      // })
     }
     setTimeout(()=>{
       this.modal.show();
@@ -196,25 +196,25 @@ export class CreateOrEditOrderComponent implements OnInit {
     cusInput.CusCmnd =  '';
     cusInput.AreaId = 0;
 
-    this._cusService.getCustomerByTel(cusInput).subscribe(res => {
-      if (res.length === 1){
-        alertify.success('Số điện thoại có sẵn ! Thông tin khách hàng sẽ được tự động cập nhật lên màn hình')
-        // this.cus.CusName = res[0].CusName;
-        // this.cus.CusEmail = res[0].CusEmail;
-        // this.cus.CusCmnd = res[0].CusCmnd;
-        // this.cus.CusAdd = res[0].CusAdd;
-        // this.cus.AreaId = res[0].AreaId;
-        this.cus = res[0];
-        this.order.CustomerId = res[0].Id;
-        this.order.DeliveryAdd= res[0].CusAdd;
-      }
-      else {
-        let tel = this.cus.CusTel;
-        this.cus = new Customer;
-        this.cus.CusTel = tel;
-        this.cus.AreaId = 1;
-      }
-    })
+    // this._cusService.getCustomerByTel(cusInput).subscribe(res => {
+    //   if (res.length === 1){
+    //     alertify.success('Số điện thoại có sẵn ! Thông tin khách hàng sẽ được tự động cập nhật lên màn hình')
+    //     // this.cus.CusName = res[0].CusName;
+    //     // this.cus.CusEmail = res[0].CusEmail;
+    //     // this.cus.CusCmnd = res[0].CusCmnd;
+    //     // this.cus.CusAdd = res[0].CusAdd;
+    //     // this.cus.AreaId = res[0].AreaId;
+    //     this.cus = res[0];
+    //     this.order.CustomerId = res[0].Id;
+    //     this.order.DeliveryAdd= res[0].CusAdd;
+    //   }
+    //   else {
+    //     let tel = this.cus.CusTel;
+    //     this.cus = new Customer;
+    //     this.cus.CusTel = tel;
+    //     this.cus.AreaId = 1;
+    //   }
+    // })
   }
 
   createOrEdit() {
@@ -226,24 +226,24 @@ export class CreateOrEditOrderComponent implements OnInit {
     this.order.Price = this.order.Price ?? 0;
     this.order.Status = this.Status;
     this.order.ErrStatus = this.ErrStatus;
-    if (!this.cus.Id){
-      this.cus.CusEmail = this.cus.CusEmail ?? ""; 
-      this._cusService.registerCustomer(this.cus)
-      .subscribe(res => {
-        let cusInput = new GetCusInputDto();
-        cusInput.CusTel =  this.cus.CusTel ?? '';
-        this._cusService.getCustomerByTel(cusInput).subscribe(res => {
-          if (res.length == 1){
-            this.cus = res[0];
-            console.log(res[0].Id)
-            this.order.CustomerId = res[0].Id;
-            this.order.DeliveryAdd = res[0].CusAdd;
-            this.modalSave.emit(this.order);
-          }
-        })
-      }, er => console.log(er), () => {
-      });
-    }
+    // if (!this.cus.Id){
+    //   this.cus.CusEmail = this.cus.CusEmail ?? ""; 
+    //   //this._cusService.registerCustomer(this.cus)
+    //   .subscribe(res => {
+    //     let cusInput = new GetCusInputDto();
+    //     cusInput.CusTel =  this.cus.CusTel ?? '';
+    //     this._cusService.getCustomerByTel(cusInput).subscribe(res => {
+    //       if (res.length == 1){
+    //         this.cus = res[0];
+    //         console.log(res[0].Id)
+    //         this.order.CustomerId = res[0].Id;
+    //         this.order.DeliveryAdd = res[0].CusAdd;
+    //         this.modalSave.emit(this.order);
+    //       }
+    //     })
+    //   }, er => console.log(er), () => {
+    //   });
+    // }
     if (!this.order.Id){
       this.order.OrderCode = "HN." + this.areaCodeList.find(e => e.value == this.cus.AreaId)?.label + "." + moment().format("DDMMYY") ;
     }

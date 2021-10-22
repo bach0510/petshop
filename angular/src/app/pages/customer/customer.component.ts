@@ -6,12 +6,10 @@ import * as moment from 'moment';
 import { GetShippersInputDto } from 'src/app/_models/get-shippers-input-dto';
 import { CreateOrEditCustomerComponent } from './create-or-edit-customer/create-or-edit-customer.component';
 import { CustomerService } from 'src/app/_services/customer.service';
-import { GetCusInputDto } from 'src/app/_models/get-cus-input-dto';
 import { Customer } from 'src/app/_models/customer';
 import { CacheService } from 'src/app/_services/cache.service';
 import { OrderService } from 'src/app/_services/order.service';
-import { GetOrderInputDto } from 'src/app/_models/get-order-input-dto';
-import { GetOptionInput } from 'src/app/_models/GetOptionInput';
+import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
 declare let alertify: any;
 @Component({
   selector: 'app-customer',
@@ -109,7 +107,7 @@ export class CustomerComponent implements OnInit {
 
   callBackEvent(event) {
     this.params = event;
-    var cus = new GetOptionInput();
+    var cus = new GetKhachHangInput();
     cus.Value = this.type ?? 1;
     cus.Filter = this.filter ?? '';
 
@@ -137,7 +135,7 @@ export class CustomerComponent implements OnInit {
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
 
-    var cus = new GetOptionInput();
+    var cus = new GetKhachHangInput();
     cus.Value = this.type ?? 1;
     cus.Filter = this.filter ?? '';
 

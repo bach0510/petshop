@@ -3,14 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { EmployeeComponent } from './pages/employee/employee/employee.component';
 
+import { EmployeeComponent } from './pages/employee/employee/employee.component';
 import { HomeComponent } from './_components/home/home.component';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { AssignComponent } from './pages/assign/assign.component';
 import { LogInfoComponent } from './pages/log-info/log-info.component';
 import { PayoffComponent } from './pages/payoff/payoff.component';
 import { SalaryComponent } from './pages/salary/salary.component';
+import { SanPhamComponent } from './pages/sanPham/sanPham.component';
+import { PetsComponent } from './pages/pets/pets.component';
 
 const appRoutes: Routes = [
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] ,data: { state: 'assign' } },
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
   },
   { path: 'payoff', component: PayoffComponent, canActivate: [AuthGuard] ,data: { state: 'payoff' } },
   { path: 'salary', component: SalaryComponent, canActivate: [AuthGuard] ,data: { state: 'salary' } },
+  { path: 'sanPham', component: SanPhamComponent, canActivate: [AuthGuard] ,data: { state: 'sanPham' } },
+  { path: 'pets', component: PetsComponent, canActivate: [AuthGuard] ,data: { state: 'pets' } },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
 

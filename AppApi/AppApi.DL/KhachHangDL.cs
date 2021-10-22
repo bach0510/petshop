@@ -1,12 +1,10 @@
 ﻿using AppApi.Entities;
 using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -17,7 +15,7 @@ namespace AppApi.DL
 {
     public class KhachHangDL : DBConnect
     {
-        public List<KhachHang> GetKhachHang(GetOptionInput input)
+        public List<KhachHang> GetKhachHang(GetKhachHangInput input)
         {
             _conn.Open();
             string spName = "";
