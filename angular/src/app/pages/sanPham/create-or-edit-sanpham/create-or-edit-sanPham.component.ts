@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import * as moment from 'moment';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { sanPham } from 'src/app/_models/sanPham';
 declare let alertify: any;
@@ -15,8 +14,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   @ViewChild('imgContainer') imgContainer: { nativeElement: { getBoundingClientRect: () => { (): any; new(): any; height: number; width: number; }; }; } | undefined;
   @Output('modalSave') modalSave = new EventEmitter();
   url: SafeResourceUrl | any | undefined;
-  @Input() areaList = [];
-  @Input() empList = [];
+  @Input() SanPhamList = [];
   
   sanPham: sanPham = new sanPham();
   masp;

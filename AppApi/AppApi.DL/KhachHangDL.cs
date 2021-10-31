@@ -62,10 +62,10 @@ namespace AppApi.DL
                     customer.MAKH = sqlDataReader["MAKH"].ToString();
                     customer.HoTen = sqlDataReader["HOTEN"].ToString();
                     customer.gioiTinh = sqlDataReader["GIOITINH"].ToString();
-                    customer.ngaySinh = (DateTime)sqlDataReader["NGAYSINH"];
+                    customer.sdt = sqlDataReader["SDT"].ToString();
+                    customer.ngaySinh = DateTime.Parse(sqlDataReader["NGAYSINH"].ToString());
                     customer.diaChi = sqlDataReader["DIACHI"].ToString();
                     customer.CMND = sqlDataReader["CMND"].ToString();
-                    customer.sdt = sqlDataReader["LUONG"].ToString();
 
                     Customers.Add(customer);
                 }

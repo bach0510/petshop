@@ -15,7 +15,7 @@ export class CreateOrEditPetsComponent implements OnInit {
   @Output('modalSave') modalSave = new EventEmitter();
   url: SafeResourceUrl | any | undefined;
   @Input() areaList = [];
-  @Input() empList = [];
+  @Input() petsList = [];
 
   pet: PetAllInfor = new PetAllInfor();
   MATC;

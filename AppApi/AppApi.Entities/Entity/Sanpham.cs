@@ -16,6 +16,7 @@ namespace AppApi.Entities.Entity
         public string tenSP { get; set; }
 
         public int gia { get; set; }
+
         public int soLuong { get; set; }
     }
 }

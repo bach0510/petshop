@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\GetKhachHangInput.cs" />
+    <Compile Include="Dtos\GetPetsInput - Copy.cs" />
+    <Compile Include="Dtos\GetSanPhamInput.cs" />
     <Compile Include="Dtos\PetInputDTO.cs" />
     <Compile Include="Dtos\NhanVien_taiKhoan.cs" />
     <Compile Include="Dtos\GetOptionInput.cs" />

@@ -38,7 +38,7 @@
     <div class="ui-g-12 text-right mt-2">
       <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="add()" [disabled]="user.EmpType === 2">
         <i class="fa tmss-fa fa-plus"></i>
-        <span class="ml-1">Thêm khách hàng</span>
+        <span class="ml-1">Thêm sản phẩm</span>
       </button>
       <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="edit()" [disabled]="!selectedData || user.EmpType === 2">
         <i class="fa tmss-fa fa-edit"></i>
@@ -46,10 +46,10 @@
       </button>
       <button class="tmss-btn btn-outline-danger mr-2 mt-1" (click)="delete()" [disabled]="!selectedData || user.EmpType === 2">
         <i class="fa tmss-fa fa-eraser"></i>
-        <span class="ml-1">Xóa khách hàng</span>
+        <span class="ml-1">Xóa sản phẩm</span>
       </button>
     </div>
   </div>
 </div>
 
-<app-create-or-edit-customer #createOrEditSanPham [empList]="rowData"  (modalSave)="modalSave($event)"></app-create-or-edit-customer>
+<app-create-or-edit-sanPham #createOrEditSanPham [SanPhamList]="rowData"  (modalSave)="modalSave($event)"></app-create-or-edit-sanPham>

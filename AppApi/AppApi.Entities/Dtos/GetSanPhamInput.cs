@@ -1,7 +1,5 @@
 ﻿
 
-
-
 namespace AppApi.Entities.Dtos
 {
     public class GetSanPhamInput

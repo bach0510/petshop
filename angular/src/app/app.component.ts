@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { PaginationParamsModel } from './_components/shared/common/models/base.model';
-import { Employee } from './_models/employee';
 import { AuthenticationService } from './_services/authentication.service';
 import { ceil } from 'lodash';
 import { animate, query, style, transition, trigger } from '@angular/animations';

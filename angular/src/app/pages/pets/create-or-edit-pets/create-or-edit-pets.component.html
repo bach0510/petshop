@@ -14,18 +14,21 @@
       <div class="modal-body">
 
         <div class="row mt-1">
-          <div class="col-4">
+          <div class="col-1">
             <tmss-text-input [text]="'mã thú cưng'"  [(ngModel)]="pets.masp"></tmss-text-input>
+          </div>
+          <div class="col-4">
+            <tmss-text-input [text]="'tên mã giống"  [(ngModel)]="pets.MAGIONG"></tmss-text-input>
           </div>
           <div class="col-4">
             <tmss-text-input [text]="'tên giống"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
           </div>
+          <div class="col-6">
+            <tmss-text-input [text]="'mã loại"  [(ngModel)]="pets.MALOAI"></tmss-text-input>
+          </div>
           <div class="col-4">
             <tmss-text-input [text]="'tên loại'"  [(ngModel)]="pets.TENLOAI"></tmss-text-input>
           </div>
-        </div>
-
-        <div class="row mt-1">
           <div class="col-6">
             <tmss-text-input [text]="'mô tả'"  [(ngModel)]="pets.MOTA"></tmss-text-input>
           </div>
@@ -33,7 +36,6 @@
             <tmss-text-input [text]="'giá"  [(ngModel)]="pets.DONGIA"></tmss-text-input>
           </div>
         </div>
-
         
 
 

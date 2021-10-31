@@ -6,6 +6,7 @@ import { sanPham } from 'src/app/_models/sanPham';
 import { CacheService } from 'src/app/_services/cache.service';
 import { sanPhamService } from 'src/app/_services/sanPham.service';
 import { GetSanPhamInput } from 'src/app/_models/GetSanPhamInput';
+import { NhanVien } from 'src/app/_models/nhan-vien';
 declare let alertify: any;
 
 @Component({
@@ -29,7 +30,7 @@ export class SanPhamComponent implements OnInit {
   masp: string;
   loaiID: string;
   tenSP: string;
-  gia: string;
+  gia: number;
   soLuong: number;
 
   searchType= [
@@ -37,10 +38,10 @@ export class SanPhamComponent implements OnInit {
     {value:2,label:"sản phẩm theo tên "},
     {value:3,label:"tất cả"},
   ];
-  type : number = 1;
+  type : number=1;
   filter = "";
 
-  constructor(private _sanPhamService: sanPhamService,private _cacheService: CacheService) {
+  constructor(private _sanPhamService: sanPhamService) {
     this.columnsDef = [
       {
         headerName: 'STT',
@@ -88,6 +89,7 @@ export class SanPhamComponent implements OnInit {
   ngOnInit() {
     this.paginationParams = { pageNum: 1, pageSize: 10, totalCount: 0 };
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log([sanPham]);
   }
 
   onSearch() {

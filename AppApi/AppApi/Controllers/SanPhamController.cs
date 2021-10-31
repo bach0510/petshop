@@ -9,17 +9,15 @@ namespace AppApi.Controllers
 {
     public class SanPhamController : ApiController
     {
-        SanPhamDL order = new SanPhamDL();
-
-
+        SanPhamDL Order = new SanPhamDL();
 
         [HttpPost]
-        [Route("order")]
+        [Route("get-Order")]
         public List<Sanpham> GetOrder(GetSanPhamInput input)
         {
             try
             {
-                return order.GetOrder(input);
+                return Order.GetOrder(input);
             }
             catch (Exception)
             {
@@ -28,12 +26,12 @@ namespace AppApi.Controllers
         }
 
         [HttpPost]
-        [Route("update-order")]
-        public bool Update(Sanpham input)
+        [Route("update-Order")]
+        public bool UpdateDL(Sanpham input)
         {
             try
             {
-                return order.UpdateDL(input);
+                return Order.UpdateDL(input);
             }
             catch (Exception)
             {
@@ -42,12 +40,12 @@ namespace AppApi.Controllers
         }
 
         [HttpPost]
-        [Route("delete-order")]
-        public bool DeleteOrder(Sanpham input)
+        [Route("delete-Order")]
+        public bool DeleteDL(Sanpham input)
         {
             try
             {
-                return order.DeleteDL(input);
+                return Order.DeleteDL(input);
             }
             catch (Exception)
             {
@@ -57,12 +55,12 @@ namespace AppApi.Controllers
 
 
         [HttpPost]
-        [Route("add-order")]
-        public bool RegisterOrder(Sanpham input)
+        [Route("add-Order")]
+        public bool RegisterDL(Sanpham input)
         {
             try
             {
-                return order.RegisterDL(input);
+                return Order.RegisterDL(input);
             }
             catch (Exception)
             {

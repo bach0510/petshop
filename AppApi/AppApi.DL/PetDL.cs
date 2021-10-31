@@ -63,10 +63,12 @@ namespace AppApi.DL
                 {
                     var pet = new PetInputDTO();
                     pet.MATC = sqlDataReader["MATC"].ToString();
-                    pet.DONGIA = (int)sqlDataReader["DONGIA"];
+                    /*pet.DONGIA = (int)sqlDataReader["DONGIA"];*/
+
                     pet.MAGIONG = sqlDataReader["MAGIONG"].ToString();
                     pet.TENGIONG = sqlDataReader["TENGIONG"].ToString();
                     pet.MOTA = sqlDataReader["MOTA"].ToString();
+
                     pet.MALOAI = sqlDataReader["MALOAI"].ToString();
                     pet.TENLOAI = sqlDataReader["TENLOAI"].ToString();
 
@@ -78,6 +80,7 @@ namespace AppApi.DL
 
             
         }
+
         public bool RegisterPet(PetInputDTO input)
         {
             _conn.Open();

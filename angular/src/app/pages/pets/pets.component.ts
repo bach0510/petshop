@@ -3,7 +3,6 @@ import { PaginationParamsModel } from 'src/app/_components/shared/common/models/
 import { ceil } from 'lodash';
 import * as moment from 'moment';
 import { CreateOrEditPetsComponent } from './create-or-edit-pets/create-or-edit-pets.component';
-import { CacheService } from 'src/app/_services/cache.service';
 import { petsService } from 'src/app/_services/pets.service';
 import { PetAllInfor } from 'src/app/_models/PetInputDTO';
 import { GetPetsInput } from 'src/app/_models/GetPetsInput';
@@ -50,24 +49,30 @@ export class PetsComponent implements OnInit {
         field: 'stt',
         cellRenderer: (params) =>
           (this.paginationParams.pageNum - 1) * this.paginationParams.pageSize +
-          params.rowIndex +
-          1,
+          params.rowIndex + 1,
+          flex: 1,
       },
       {
         headerName: 'mã thú cưng',
-        field: 'MATC',
+          flex: 2,
+          field: 'MATC',
       },
       {
         headerName: 'tên giống',
-        field: 'TENGIONG',
+          flex: 1,
+          field: 'TENGIONG',
       },
       {
         headerName: 'tên loại',
         field: 'TENLOAI',
+        flex: 1,
+
       },
       {
         headerName: 'mô tả',
         field: 'MOTA',
+        flex: 4,
+
       },
       {
         headerName: 'giá',

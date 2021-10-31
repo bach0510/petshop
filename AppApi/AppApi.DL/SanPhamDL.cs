@@ -25,15 +25,6 @@ namespace AppApi.DL
                 cmd.Parameters.AddWithValue("@maloai", input.Filter);
             }
 
-            else if (input.Value == 2)
-            {
-                spName = @"dbo.[lay_danh_sach_san_pham_theo_loai_DK]";
-                cmd = new SqlCommand(spName, _conn);
-
-                cmd.Parameters.AddWithValue("@maloai", input.Filter);
-                cmd.Parameters.AddWithValue("@name", input.Filter);
-            }
-          
             if (string.IsNullOrWhiteSpace(input.Filter))
             {
                 spName = @"dbo.[getAllSanPham]";

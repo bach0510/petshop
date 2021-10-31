@@ -1,14 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaginationParamsModel } from 'src/app/_components/shared/common/models/base.model';
-import { UserService } from 'src/app/_services/user.service';
 import { ceil } from 'lodash';
-import * as moment from 'moment';
-import { GetShippersInputDto } from 'src/app/_models/get-shippers-input-dto';
 import { CreateOrEditCustomerComponent } from './create-or-edit-customer/create-or-edit-customer.component';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { Customer } from 'src/app/_models/customer';
-import { CacheService } from 'src/app/_services/cache.service';
-import { OrderService } from 'src/app/_services/order.service';
 import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
 declare let alertify: any;
 @Component({
@@ -45,7 +40,7 @@ export class CustomerComponent implements OnInit {
   type : number = 1;
   filter = "";
 
-  constructor(private _customerService: CustomerService,private _cacheService: CacheService,private _orderService :OrderService) {
+  constructor(private _customerService: CustomerService) {
     this.columnsDef = [
       {
         headerName: 'STT',

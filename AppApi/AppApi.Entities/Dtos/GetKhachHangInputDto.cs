@@ -11,6 +11,7 @@ namespace AppApi.Entities.Dtos
         public String MAKH { get; set; }
         public string HoTen { get; set; }
         public string gioiTinh { get; set; }
+
         public string sdt { get; set; }
         public string CMND { get; set; }
         public DateTime ngaySinh { get; set; }

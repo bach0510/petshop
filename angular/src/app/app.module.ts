@@ -22,14 +22,23 @@ import { TmssTextInputComponent } from './_components/shared/common/input-types/
 import { GridTableComponent } from './_components/shared/common/grid/grid-table/grid-table.component';
 import { GridPaginationComponent } from './_components/shared/common/grid/grid-pagination/grid-pagination.component';
 import { AgCellButtonRendererComponent } from './_components/ag-cell-button-renderer/ag-cell-button-renderer.component';
-
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 import { EmployeeComponent } from './pages/employee/employee/employee.component';
 import { CreateOrEditEmployeeComponent } from './pages/employee/employee/create-or-edit-employee/create-or-edit-employee.component';
+
 import { CustomerComponent } from './pages/customer/customer.component';
 import { CreateOrEditCustomerComponent } from './pages/customer/create-or-edit-customer/create-or-edit-customer.component';
+
 import { CreateOrEditOrderComponent } from './pages/order/create-or-edit-order/create-or-edit-order.component';
 import { OrderComponent } from './pages/order/order.component';
+
+import { CreateOrEditPetsComponent } from './pages/pets/create-or-edit-pets/create-or-edit-pets.component';
+import { PetsComponent } from './pages/pets/pets.component';
+
+import { CreateOrEditSanPhamComponent } from './pages/sanPham/create-or-edit-sanpham/create-or-edit-sanPham.component';
+import { SanPhamComponent } from './pages/sanPham/sanPham.component';
+
 import { AssignComponent } from './pages/assign/assign.component';
 import { LogInfoComponent } from './pages/log-info/log-info.component';
 import { AssignListComponent } from './pages/assign/assign-list/assign-list.component';
@@ -48,6 +57,8 @@ import { DataFormatService } from './_services/data-format.service';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
+    PetsComponent,
+    SanPhamComponent,
     TmssDatepickerComponent,
     NavbarComponent,
     TmssComboboxComponent,
