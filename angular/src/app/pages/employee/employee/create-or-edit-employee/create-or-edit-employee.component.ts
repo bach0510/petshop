@@ -14,7 +14,7 @@ declare let alertify: any;
 export class CreateOrEditEmployeeComponent implements OnInit {
   @ViewChild('modal') public modal: ModalDirective;
   @ViewChild('imgContainer') imgContainer: { nativeElement: { getBoundingClientRect: () => { (): any; new(): any; height: number; width: number; }; }; } | undefined;
-  @Output('modalSave') modalSave = new EventEmitter();
+  @Output('modalSave') modalSave: EventEmitter<any> = new EventEmitter<any>();
   url: SafeResourceUrl | any | undefined;
   @Input() areaList = [];
   @Input() empList = [];
@@ -31,7 +31,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer,) { }
 
   ngOnInit() {
-    this.modalSave.emit(this.employee);
+    //this.modalSave.emit(this.employee);
     this.modal.hide();
   }
 

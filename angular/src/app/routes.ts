@@ -17,8 +17,8 @@ const appRoutes: Routes = [
   { path: 'log-info', component: LogInfoComponent, canActivate: [AuthGuard] ,data: { state: 'log-info' } },
   { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard] ,data: { state: 'employee' } },
   { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] ,data: { state: 'customer' } },
-  { path: 'sanPham', component: CustomerComponent, canActivate: [AuthGuard] ,data: { state: 'sanPham' } },
-  { path: 'pets', component: CustomerComponent, canActivate: [AuthGuard] ,data: { state: 'pets' } },
+  // { path: 'sanPham', component: CustomerComponent, canActivate: [AuthGuard] ,data: { state: 'sanPham' } },
+  // { path: 'pets', component: CustomerComponent, canActivate: [AuthGuard] ,data: { state: 'pets' } },
   {
     path: 'order',
     canActivate: [AuthGuard],

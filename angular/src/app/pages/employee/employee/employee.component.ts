@@ -184,8 +184,7 @@ export class EmployeeComponent implements OnInit {
     }
     return bytes;
 }
-  modalSave(event) {
-    console.log(event);
+  save(event) {
     
     if (event.MaNv) {
       this._employeeService.updateEmployee(event).subscribe(res => {
