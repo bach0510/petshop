@@ -67,7 +67,7 @@ namespace AppApi.DL
                     customer.ngaySinh = (DateTime)sqlDataReader["NGAYSINH"];
                     customer.diaChi = sqlDataReader["DIACHI"].ToString();
                     customer.CMND = sqlDataReader["CMND"].ToString();
-                    customer.sdt = sqlDataReader["LUONG"].ToString();
+                    customer.sdt = sqlDataReader["SDT"].ToString();
 
                     Customers.Add(customer);
                 }
