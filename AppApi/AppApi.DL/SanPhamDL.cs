@@ -1,6 +1,5 @@
 ﻿using AppApi.Entities.Dtos;
 using AppApi.Entities.Entity;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -88,7 +87,7 @@ namespace AppApi.DL
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            //SqlDataReader sqlDataReader = cmd.ExecuteReader();
+         
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();

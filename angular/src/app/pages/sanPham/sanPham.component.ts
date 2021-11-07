@@ -3,10 +3,8 @@ import { PaginationParamsModel } from 'src/app/_components/shared/common/models/
 import { ceil } from 'lodash';
 import { CreateOrEditSanPhamComponent } from './create-or-edit-sanpham/create-or-edit-sanPham.component';
 import { sanPham } from 'src/app/_models/sanPham';
-import { CacheService } from 'src/app/_services/cache.service';
 import { sanPhamService } from 'src/app/_services/sanPham.service';
 import { GetSanPhamInput } from 'src/app/_models/GetSanPhamInput';
-import { NhanVien } from 'src/app/_models/nhan-vien';
 declare let alertify: any;
 
 @Component({

@@ -80,6 +80,8 @@ export class CreateOrEditOrderComponent implements OnInit {
   constructor(private _cusService : CustomerService,private cacheService : CacheService) { }
 
   ngOnInit() {
+    this.modal.hide();
+
   }
 
   hide() {

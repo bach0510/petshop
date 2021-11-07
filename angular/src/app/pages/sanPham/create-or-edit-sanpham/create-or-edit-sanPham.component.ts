@@ -26,7 +26,6 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.modalSave.emit(this.sanPham);
     this.modal.hide();
   }
 

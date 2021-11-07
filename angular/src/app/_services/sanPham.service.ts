@@ -13,18 +13,18 @@ export class sanPhamService {
 
 
   getSanPham(val: GetSanPhamInput): Observable<any[]> {
-    return this.http.post<any>(this.APIUrl + '/sanPham', val);
+    return this.http.post<any>(this.APIUrl + '/get-Order', val);
   }
 
   updateSanPham(val: sanPham) {
-    return this.http.post(this.APIUrl + '/update-SanPham', val);
+    return this.http.post(this.APIUrl + '/update-Order', val);
   }
 
   deleteSanPham(val: sanPham): Observable<any[]> {
-    return this.http.post<any>(this.APIUrl + '/delete-SanPham', val);
+    return this.http.post<any>(this.APIUrl + '/delete-Order', val);
   }
 
   registerSanPham(val: sanPham) {
-    return this.http.post(this.APIUrl + '/add-SanPham', val);
+    return this.http.post(this.APIUrl + '/add-Order', val);
   }
 }
