@@ -13,6 +13,7 @@ import { PayoffComponent } from './pages/payoff/payoff.component';
 import { SalaryComponent } from './pages/salary/salary.component';
 import { SanPhamComponent } from './pages/sanPham/sanPham.component';
 import { PetsComponent } from './pages/pets/pets.component';
+import { HoaDonComponent } from './pages/HoaDon/HoaDon.component';
 
 const appRoutes: Routes = [
   { path: 'assign', component: AssignComponent, canActivate: [AuthGuard] ,data: { state: 'assign' } },
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
   { path: 'payoff', component: PayoffComponent, canActivate: [AuthGuard] ,data: { state: 'payoff' } },
   { path: 'salary', component: SalaryComponent, canActivate: [AuthGuard] ,data: { state: 'salary' } },
   { path: 'sanPham', component: SanPhamComponent, canActivate: [AuthGuard] ,data: { state: 'sanPham' } },
+  { path: 'hoaDon', component: HoaDonComponent, canActivate: [AuthGuard] ,data: { state: 'HoaDon' } },
   { path: 'pets', component: PetsComponent, canActivate: [AuthGuard] ,data: { state: 'pets' } },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

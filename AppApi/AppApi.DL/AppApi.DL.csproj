@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HoaDonDL.cs" />
     <Compile Include="PetDL.cs" />
     <Compile Include="TaiKhoanDL.cs" />
     <Compile Include="SalaryDL.cs" />

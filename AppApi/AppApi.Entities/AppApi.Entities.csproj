@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\GetKhachHangInput.cs" />
+    <Compile Include="Dtos\GetHoaDonInput.cs" />
     <Compile Include="Dtos\GetPetsInput - Copy.cs" />
     <Compile Include="Dtos\GetSanPhamInput.cs" />
     <Compile Include="Dtos\PetInputDTO.cs" />

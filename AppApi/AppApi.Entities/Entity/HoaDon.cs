@@ -7,18 +7,21 @@ namespace AppApi.Entities.Entity
     public class HoaDon
     {
         [StringLength(10)]
-        public string hdID { get; set; }
+        public string MAHD { get; set; }
 
         [StringLength(5)]
-        public string nguoiLap { get; set; }
+        public string NGUOILAPHD { get; set; }
 
-        public DateTime ngayLap { get; set; }
+        public DateTime NGAYLAP { get; set; }
 
         [StringLength(5)]
-        public string khachHangID { get; set; }
+        public string MAKH { get; set; }
 
         [StringLength(10)]
-        public string khuyenMaiID { get; set; }
+        public string MAKM { get; set; }
+        public int giaKhuyenMai { get; set; }
+
+        public int tong { get; set; }
 
     }
 }

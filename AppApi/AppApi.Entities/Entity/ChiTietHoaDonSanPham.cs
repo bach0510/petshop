@@ -6,6 +6,7 @@ namespace AppApi.Entities.Entity
 {
     public class ChiTietHoaDonSanPham
     {
+
         [StringLength(10)]
         public string hdID { get; set; }
 

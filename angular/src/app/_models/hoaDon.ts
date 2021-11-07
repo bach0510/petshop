@@ -1,8 +1,11 @@
-﻿export class Customer {
-  hdID: string;
-  nguoiLap: string;
-  ngayLap: Date;
-  khachHangID: string;
-  khuyenMaiID: string;
+﻿export class HoaDon {
+  
+  MAHD: string;
+  NGUOILAPHD: string;
+  NGAYLAP: Date;
+  MAKH: string;
+  MAKM: string;
+  giaKhuyenMai: number;
+  tong: number;
 
 }

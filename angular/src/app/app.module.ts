@@ -39,6 +39,9 @@ import { PetsComponent } from './pages/pets/pets.component';
 import { CreateOrEditSanPhamComponent } from './pages/sanPham/create-or-edit-sanpham/create-or-edit-sanPham.component';
 import { SanPhamComponent } from './pages/sanPham/sanPham.component';
 
+import { CreateOrEditHoaDonComponent } from './pages/HoaDon/create-or-edit-order/create-or-edit-HoaDon.component';
+import { HoaDonComponent } from './pages/HoaDon/HoaDon.component';
+
 import { AssignComponent } from './pages/assign/assign.component';
 import { LogInfoComponent } from './pages/log-info/log-info.component';
 import { AssignListComponent } from './pages/assign/assign-list/assign-list.component';
@@ -68,6 +71,7 @@ import { DataFormatService } from './_services/data-format.service';
     AgCellButtonRendererComponent,
     EmployeeComponent,
     CustomerComponent,
+    HoaDonComponent,
     CreateOrEditCustomerComponent,
     CreateOrEditEmployeeComponent,
     OrderComponent,
