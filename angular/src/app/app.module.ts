@@ -83,6 +83,9 @@ import { DataFormatService } from './_services/data-format.service';
     CreateOrEditUserPayoffComponent,
     PayoffComponent,
     SalaryComponent,
+    CreateOrEditPetsComponent,
+    CreateOrEditSanPhamComponent,
+    CreateOrEditHoaDonComponent
   ],
   imports: [
     BrowserModule,

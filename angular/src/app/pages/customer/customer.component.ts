@@ -94,7 +94,7 @@ export class CustomerComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  
+
 
   onSearch() {
     this.callBackEvent(this.params);
@@ -157,8 +157,8 @@ export class CustomerComponent implements OnInit {
   }
 
   add() {
-    this.selectedData = new Customer();
-    this.createOrEditCustomer.show(this.selectedData);
+    //this.selectedData = new Customer();
+    this.createOrEditCustomer.show(new Customer());
   }
 
   edit() {

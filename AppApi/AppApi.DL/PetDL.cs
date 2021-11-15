@@ -1,4 +1,5 @@
 ﻿using AppApi.Entities.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,41 +16,45 @@ namespace AppApi.DL
             string spName = "";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
-
-            if (input.Value == 1)
-            {
-                spName = @"dbo.[lay_danh_sach_vat_nuoi_theo_ma_giong]";
-                cmd = new SqlCommand(spName, _conn);
-
-                cmd.Parameters.AddWithValue("@MAGIONG", input.Filter);
-            }
-            else if (input.Value == 2)
-            {
-                spName = @"dbo.[lay_danh_sach_vat_nuoi_theo_loai]";
-                cmd = new SqlCommand(spName, _conn);
-
-                cmd.Parameters.AddWithValue("@MALOAI", input.Filter);
-            }
-            else if (input.Value == 3)
-            {
-                spName = @"dbo.[lay_danh_sach_giong_vat_nuoi]";
-                cmd = new SqlCommand(spName, _conn);
-
-                cmd.Parameters.AddWithValue("@MALOAI", input.Filter);
-            }
-            else if (input.Value == 4)
-            {
-                spName = @"dbo.[GetAllPetInfor]";
-                cmd = new SqlCommand(spName, _conn);
-
-                cmd.Parameters.AddWithValue("@MATC", input.Filter);
-            }
-
             if (string.IsNullOrWhiteSpace(input.Filter))
             {
                 spName = @"dbo.[GetAllPetsInfor]";
                 cmd = new SqlCommand(spName, _conn);
             }
+            else
+            {
+                if (input.Value == 1)
+                {
+                    spName = @"dbo.[lay_danh_sach_vat_nuoi_theo_ma_giong]";
+                    cmd = new SqlCommand(spName, _conn);
+
+                    cmd.Parameters.AddWithValue("@MAGIONG", input.Filter);
+                }
+                else if (input.Value == 2)
+                {
+                    spName = @"dbo.[lay_danh_sach_vat_nuoi_theo_loai]";
+                    cmd = new SqlCommand(spName, _conn);
+
+                    cmd.Parameters.AddWithValue("@MALOAI", input.Filter);
+                }
+                else if (input.Value == 3)
+                {
+                    spName = @"dbo.[lay_danh_sach_giong_vat_nuoi]";
+                    cmd = new SqlCommand(spName, _conn);
+
+                    cmd.Parameters.AddWithValue("@MALOAI", input.Filter);
+                }
+                else if (input.Value == 4)
+                {
+                    spName = @"dbo.[GetAllPetInfor]";
+                    cmd = new SqlCommand(spName, _conn);
+
+                    cmd.Parameters.AddWithValue("@MATC", input.Filter);
+                }
+            }
+            
+
+            
 
 
 
@@ -71,6 +76,11 @@ namespace AppApi.DL
 
                     pet.MALOAI = sqlDataReader["MALOAI"].ToString();
                     pet.TENLOAI = sqlDataReader["TENLOAI"].ToString();
+                    if (!Convert.IsDBNull(sqlDataReader["DONGIA"]))
+                    {
+                        pet.DONGIA = (int)sqlDataReader["DONGIA"];
+                    }
+                    //pet.DONGIA = (int)sqlDataReader["DONGIA"];
 
                     pets.Add(pet);
                 }
@@ -122,7 +132,10 @@ namespace AppApi.DL
             string spName = @"dbo.[sua_thu_cung]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            cmd.Parameters.AddWithValue("@DONGIA", input.DONGIA);
+            cmd.Parameters.AddWithValue("@donGia", input.DONGIA);
+            cmd.Parameters.AddWithValue("@maTC", input.MATC);
+            cmd.Parameters.AddWithValue("@magiong", input.MAGIONG);
+
             cmd.CommandType = CommandType.StoredProcedure;
 
 

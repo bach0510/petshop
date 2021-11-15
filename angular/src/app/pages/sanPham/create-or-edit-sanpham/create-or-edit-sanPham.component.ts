@@ -15,7 +15,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   @Output('modalSave') modalSave = new EventEmitter();
   url: SafeResourceUrl | any | undefined;
   @Input() SanPhamList = [];
-  
+
   sanPham: sanPham = new sanPham();
   masp;
   loaiID;
@@ -29,10 +29,13 @@ export class CreateOrEditSanPhamComponent implements OnInit {
     this.modal.hide();
   }
 
+  hide(){
+    this.modal.hide();
+  }
 
   show(event?) {
     this.sanPham = new sanPham
-    if (event.Id != undefined) {
+    if (event.masp != undefined) {
       this.sanPham = event;
     }
     this.modal.show();
@@ -62,7 +65,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
       alertify.error('số lượng sản phẩm không được trống');
       return false;
     }
-    
+
     return true;
   }
 }

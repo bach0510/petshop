@@ -1,3 +1,4 @@
+import { khachHang } from './../../../_models/khachHang';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import * as moment from 'moment';
@@ -19,7 +20,7 @@ export class CreateOrEditCustomerComponent implements OnInit {
   @Input() areaList = [];
   @Input() empList = [];
 
-  cus: Customer = new Customer();
+  cus: khachHang = new khachHang();
   MAKH;
   HoTen;
   gioiTinh =[{label:"Nam",value:"Nam"},{label:"Nữ",value:"Nữ"}];
@@ -40,8 +41,8 @@ export class CreateOrEditCustomerComponent implements OnInit {
   }
 
   show(event?) {
-    this.cus = new Customer
-    if (event.Id != undefined) {
+    this.cus = new khachHang
+    if (event.MAKH != undefined) {
       this.cus = event;
     }
     this.modal.show();
@@ -67,7 +68,7 @@ export class CreateOrEditCustomerComponent implements OnInit {
     //   alertify.error('Địa chỉ khách hàng không được trống');
     //   return false;
     // }
-    
+
     return true;
   }
 }

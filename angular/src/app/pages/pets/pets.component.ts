@@ -15,7 +15,7 @@ declare let alertify: any;
   styleUrls: ['./pets.component.scss'],
 })
 export class PetsComponent implements OnInit {
-  @ViewChild('createOrEditPets', { static: true }) CreateOrEditPets: CreateOrEditPetsComponent;
+  @ViewChild('createOrEditPets', { static: true }) createOrEditPets: CreateOrEditPetsComponent;
   paginationParams: PaginationParamsModel;
 
   columnsDef;
@@ -77,6 +77,7 @@ export class PetsComponent implements OnInit {
       {
         headerName: 'giá',
         field: 'DONGIA',
+
       },
     ];
 
@@ -158,16 +159,16 @@ export class PetsComponent implements OnInit {
   }
 
   add() {
-    this.selectedData = new PetAllInfor();
-    this.CreateOrEditPets.show(this.selectedData);
+    // this.selectedData = new PetAllInfor();
+    this.createOrEditPets.show(new PetAllInfor());
   }
 
   edit() {
-    this.CreateOrEditPets.show(this.selectedData);
+    this.createOrEditPets.show(this.selectedData);
   }
 
   delete() {
-    
+
     this._petsService
       .deletePet(this.selectedData)
       .subscribe(
@@ -187,26 +188,6 @@ export class PetsComponent implements OnInit {
         bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes;
-  }
-
-
-  modalSave(event) {
-    console.log(event);
-
-    if (event.masp) {
-      this._petsService.updatePet(event).subscribe(res => {
-      }, er => console.log(er), () => {
-        this.callBackEvent(this.params);
-      });
-      alertify.success('Cập nhật thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    } else {
-      this._petsService.registerPet(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
-      alertify.success('Thêm mới thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    }
   }
 
   exportExcel(){

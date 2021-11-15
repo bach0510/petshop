@@ -22,8 +22,8 @@
         </div>
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'giới tính'"  [(ngModel)]="cus.gioiTinh">
-            </tmss-text-input>
+            <tmss-combobox [text]="'giới tính'" [items]="gioiTinh" [(ngModel)]="cus.gioiTinh">
+            </tmss-combobox>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'địa chỉ'"  [(ngModel)]="cus.diaChi"></tmss-text-input>
@@ -31,8 +31,8 @@
         </div>
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'ngày sinh'"  [(ngModel)]="cus.ngaySinh">
-            </tmss-text-input>
+            <tmss-datepicker [text]="'ngày sinh'"  [(ngModel)]="cus.ngaySinh">
+            </tmss-datepicker>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'cmnd'"  [(ngModel)]="cus.CMND">
@@ -42,7 +42,7 @@
             <tmss-text-input [text]="'số điện thoại'"  [(ngModel)]="cus.sdt">
             </tmss-text-input>
           </div>
-          
+
         </div>
       </div>
 
