@@ -1,4 +1,5 @@
 ﻿using AppApi.Entities.Dtos;
+using AppApi.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -52,13 +53,8 @@ namespace AppApi.DL
                     cmd.Parameters.AddWithValue("@MATC", input.Filter);
                 }
             }
-            
 
-            
-
-
-
-            cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
             var pets = new List<PetInputDTO>();
@@ -90,6 +86,65 @@ namespace AppApi.DL
 
             
         }
+
+        public List<Loai> GetLoai()
+        {
+            _conn.Open();
+            string spName = "";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            spName = @"dbo.[getLoai]";
+            cmd = new SqlCommand(spName, _conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            var list = new List<Loai>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    var loai = new Loai();
+                    loai.MaLoai = sqlDataReader["MALOAI"].ToString();
+                    /*pet.DONGIA = (int)sqlDataReader["DONGIA"];*/
+
+                    loai.TenLoai = sqlDataReader["TENLOAI"].ToString();
+
+                    list.Add(loai);
+                }
+            }
+            _conn.Close();
+            return list.ToList();
+        }
+
+        public List<Giong> GetGiong()
+        {
+            _conn.Open();
+            string spName = "";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            spName = @"dbo.[getGiong]";
+            cmd = new SqlCommand(spName, _conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            var list = new List<Giong>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    var giong = new Giong();
+                    giong.MaGiong = sqlDataReader["MAGIONG"].ToString();
+                    giong.TenGiong = sqlDataReader["TENGIONG"].ToString();
+                    giong.Maloai = sqlDataReader["MALOAI"].ToString();
+                    giong.Mota = sqlDataReader["MOTA"].ToString();
+
+                    list.Add(giong);
+                }
+            }
+            _conn.Close();
+            return list.ToList();
+        }
+
 
         public bool RegisterPet(PetInputDTO input)
         {

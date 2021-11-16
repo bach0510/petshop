@@ -27,4 +27,11 @@ export class petsService {
   registerPet(val: PetAllInfor) {
     return this.http.post(this.APIUrl + '/add-Pet', val);
   }
+
+  getLoai(): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/get-loai', undefined);
+  }
+  getGiong(): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/get-giong', undefined);
+  }
 }

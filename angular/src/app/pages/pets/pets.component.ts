@@ -193,4 +193,9 @@ export class PetsComponent implements OnInit {
   exportExcel(){
     this.params.api.exportDataAsCsv();
   }
+
+  saved(event){
+    this.callBackEvent(this.params);
+    this.selectedData = undefined;
+  }
 }

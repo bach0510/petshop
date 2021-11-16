@@ -188,21 +188,9 @@ export class CustomerComponent implements OnInit {
   }
 
   modalSave(event) {
-    console.log(event);
-    if (event.Id) {
-      this._customerService.updateCustomer(event).subscribe(res => {
-      }, er => console.log(er), () => {
-        this.callBackEvent(this.params);
-      });
-      alertify.success('Cập nhật thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    } else {
-      this._customerService.registerCustomer(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
-      alertify.success('Thêm mới thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    }
+    this.callBackEvent(this.params);
+    this.selectedData = undefined;
+
   }
   exportExcel(){
     this.params.api.exportDataAsCsv();

@@ -1,3 +1,4 @@
+import { CustomerService } from './../../../_services/customer.service';
 import { khachHang } from './../../../_models/khachHang';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -5,6 +6,7 @@ import * as moment from 'moment';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Customer } from 'src/app/_models/customer';
 import { Employee } from 'src/app/_models/employee';
+import { isFirstDayOfWeek } from 'ngx-bootstrap/chronos';
 declare let alertify: any;
 
 @Component({
@@ -29,11 +31,13 @@ export class CreateOrEditCustomerComponent implements OnInit {
   CMND;
   sdt;
 
-  constructor() { }
+  isNew : boolean =false;
+
+  constructor(private _customerService : CustomerService) { }
 
   ngOnInit() {
     //this.modalSave.emit(this.cus);
-    this.modal.hide();
+    this.modal!.hide();
   }
 
   hide() {
@@ -41,17 +45,36 @@ export class CreateOrEditCustomerComponent implements OnInit {
   }
 
   show(event?) {
-    this.cus = new khachHang
+    this.cus = new khachHang;
+    this.ngaySinh = undefined;
+    this.isNew = true;
     if (event.MAKH != undefined) {
       this.cus = event;
+      this.isNew = false;
+      this.ngaySinh = event.ngaySinh;
     }
     this.modal.show();
   }
 
   createOrEdit() {
+    this.cus.ngaySinh = this.ngaySinh;
+    console.log(this.cus);
     // if (!this.checkValidate()) return;
     // this.cus.AreaId = this.AreaId;
-    this.modalSave.emit(this.cus);
+    setTimeout(() => {
+      if(this.isNew){
+        this._customerService.registerCustomer(this.cus).subscribe(res => { }, err => console.log(err), () => {this.modalSave.emit(undefined);});
+        alertify.success('Thêm mới thành công');
+      }
+      else{
+        this._customerService.updateCustomer(this.cus).subscribe(res => {
+        }, er => console.log(er), () => {
+          this.modalSave.emit(undefined);
+        });
+        alertify.success('Cập nhật thành công');
+      }
+    }, 100);
+
     this.modal.hide();
   }
 

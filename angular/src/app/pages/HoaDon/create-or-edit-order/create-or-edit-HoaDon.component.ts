@@ -37,6 +37,10 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
   }
 
+  hide(){
+    this.modal.hide();
+  }
+
   show(event) {
     this.HoaDon = new HoaDon()
     if (event.Id != undefined) {
@@ -45,7 +49,7 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     this.modal.show();
   }
 
-    
+
 
   createOrEdit() {
     if (!this.checkValidate()) return;
@@ -54,8 +58,8 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   }
 
   checkValidate() {
-    
-    
+
+
     return true;
   }
 }

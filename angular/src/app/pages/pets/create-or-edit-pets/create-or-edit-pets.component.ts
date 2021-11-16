@@ -28,6 +28,9 @@ export class CreateOrEditPetsComponent implements OnInit {
   MALOAI;
   TENLOAI;
 
+  maLoai = [];
+  maGiong = [];
+
   isNew = false;
 
   constructor(private _petsService: petsService) { }
@@ -35,6 +38,28 @@ export class CreateOrEditPetsComponent implements OnInit {
   ngOnInit() {
     //this.modalSave.emit(this.pet);
     //his.modal!.hide();
+    this.maLoai =[];
+    this._petsService.getLoai().subscribe(res => {
+      console.log(res)
+      res.forEach(e => {
+        this.maLoai.push({
+          label: e.MaLoai,
+          value: e.tTenLoai,
+        })
+      })
+    })
+    this.maGiong =[];
+    this._petsService.getGiong().subscribe(res => {
+      res.forEach(e => {
+        this.maGiong.push({
+          label: e.MaGiong,
+          value: e.TenGiong,
+          maLoai: e.TaLoai,
+        })
+      })
+    })
+
+
   }
 
   hide(){
@@ -43,6 +68,8 @@ export class CreateOrEditPetsComponent implements OnInit {
 
 
   show(event? ) {
+    console.log(this.maLoai);
+    console.log(this.maGiong);
     this.isNew = true;
     this.pets = new PetAllInfor()
     if (event.MATC != undefined) {
@@ -55,16 +82,16 @@ export class CreateOrEditPetsComponent implements OnInit {
 
   createOrEdit() {
     if (!this.checkValidate()) return;
-    if (this.isNew) this.modalAdd.emit(this.pets);
-    else this.modalSave.emit(this.pets);
+
 
     if (!this.isNew) {
       this._petsService.updatePet(this.pets).subscribe(res => {
       }, er => console.log(er), () => {
+         this.modalSave.emit(this.pets);
       });
       alertify.success('Cập nhật thành công');
     } else {
-      this._petsService.registerPet(this.pets).subscribe(res => { }, err => console.log(err), () => {});
+      this._petsService.registerPet(this.pets).subscribe(res => { }, err => console.log(err), () => { this.modalSave.emit(this.pets);});
       alertify.success('Thêm mới thành công');
     }
     this.modalSave.emit();

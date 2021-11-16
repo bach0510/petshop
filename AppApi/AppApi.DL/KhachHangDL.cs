@@ -96,6 +96,7 @@ namespace AppApi.DL
 
         public bool UpdateDL(KhachHang input)
         {
+            _conn.Open();
             string spName = @"dbo.[updateKhachHang]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 

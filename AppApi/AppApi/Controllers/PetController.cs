@@ -1,5 +1,6 @@
 ﻿using AppApi.DL;
 using AppApi.Entities.Dtos;
+using AppApi.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -89,6 +90,34 @@ namespace AppApi.Controllers
             try
             {
                 return pets.DeleteLoai(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("get-loai")]
+        public List<Loai> GetLoai()
+        {
+            try
+            {
+                return pets.GetLoai();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("get-giong")]
+        public List<Giong> GetGiong()
+        {
+            try
+            {
+                return pets.GetGiong();
             }
             catch (Exception)
             {

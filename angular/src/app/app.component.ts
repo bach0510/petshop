@@ -11,26 +11,27 @@ import { NhanVien } from './_models/nhan-vien';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [ // <-- add your animations here
-    trigger('routeAnimations', [
-      transition('* <=> *', [
-        // Set a default  style for enter and leave
-        query(':enter, :leave', [
-          style({
-            position: 'absolute',
-            left: '260px' ,
-            width: '79%',
-            opacity: 0,
-            transform: 'scale(110%) translateY(100%)',
-          }),
-        ],{ optional: true }),
-        // Animate the new page in
-        query(':enter', [
-          animate('600ms ease', style({ opacity: 1, transform: 'scale(1) translateY(0)' })),
-        ],{ optional: true })
-      ]),
-    ])
-  ]
+  // animations: [ // <-- add your animations here
+  //   trigger('routeAnimations', [
+  //     transition('* <=> *', [
+  //       // Set a default  style for enter and leave
+  //       query(':enter, :leave', [
+  //         style({
+  //           position: 'absolute',
+  //           left:  '260px' ,
+  //           right: '0px' ,
+  //           width: 'auto',
+  //           opacity: 0,
+  //           transform: 'scale(110%) translateY(100%)',
+  //         }),
+  //       ],{ optional: true }),
+  //       // Animate the new page in
+  //       query(':enter', [
+  //         animate('600ms ease', style({ opacity: 1, transform: 'scale(1) translateY(0)' })),
+  //       ],{ optional: true })
+  //     ]),
+  //   ])
+  // ]
 })
 export class AppComponent {
   checkMenu: boolean = true;

@@ -16,9 +16,10 @@
         <div class="row mt-1">
           <div class="col-6">
             <tmss-text-input [text]="'mã thú cưng'" [disabled]="!isNew" [(ngModel)]="pets.MATC"></tmss-text-input>
+            Định dạng mã khách hàng có kiểu : TC001
           </div>
           <div class="col-6">
-            <tmss-text-input [text]="'tên mã giống'"  [(ngModel)]="pets.MAGIONG"></tmss-text-input>
+            <tmss-combobox [text]="'tên mã giống'" [items]="maGiong"   [(ngModel)]="pets.MAGIONG"></tmss-combobox>
           </div>
         </div>
 
@@ -27,7 +28,7 @@
             <tmss-text-input [text]="'tên giống'"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
           </div>
           <div class="col-6">
-            <tmss-text-input [text]="'mã loại'"  [(ngModel)]="pets.MALOAI"></tmss-text-input>
+            <tmss-combobox [text]="'mã loại'" [items]="maLoai" [(ngModel)]="pets.MALOAI"></tmss-combobox>
           </div>
         </div>
 
