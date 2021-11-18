@@ -15,7 +15,8 @@
 
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'mã sản phẩm'"  [(ngModel)]="sanPham.masp"></tmss-text-input>
+            <tmss-text-input [text]="'mã sản phẩm'" [disabled]="!isNew" [(ngModel)]="sanPham.masp"></tmss-text-input>
+            Định dạng mã sản phẩm có kiểu : SP001
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'tên sản phẩm'"  [(ngModel)]="sanPham.tenSP"></tmss-text-input>

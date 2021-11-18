@@ -119,6 +119,8 @@ namespace AppApi.DL
 
         public bool DeleteDL(KhachHang input)
         {
+            _conn.Open();
+
             string spName = @"dbo.[deleteKhachHang]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 

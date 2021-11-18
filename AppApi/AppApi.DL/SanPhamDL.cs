@@ -76,7 +76,9 @@ namespace AppApi.DL
 
         public bool UpdateDL(Sanpham input)
         {
-            string spName = @"dbo.[updateSanPham]";
+            _conn.Open();
+
+            string spName = @"dbo.[SP_updateSanPham]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
             cmd.Parameters.AddWithValue("@masp", input.masp ?? "");
@@ -96,6 +98,8 @@ namespace AppApi.DL
 
         public bool DeleteDL(Sanpham input)
         {
+            _conn.Open();
+
             string spName = @"dbo.[deleteSanPham]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
