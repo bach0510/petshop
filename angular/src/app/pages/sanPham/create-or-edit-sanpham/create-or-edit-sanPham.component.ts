@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { GetSanPhamInput } from 'src/app/_models/GetSanPhamInput';
 import { sanPham } from 'src/app/_models/sanPham';
+import { sanPhamService } from 'src/app/_services/sanPham.service';
 declare let alertify: any;
 
 @Component({
@@ -22,8 +24,9 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   tenSP;
   gia;
   soLuong;
+  isNew;
 
-  constructor() { }
+  constructor(private _sanPhamService: sanPhamService) { }
 
   ngOnInit() {
     this.modal.hide();
@@ -34,10 +37,32 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   }
 
   show(event?) {
+    
+
     this.sanPham = new sanPham
+    this.isNew = true;
     if (event.masp != undefined) {
       this.sanPham = event;
+      this.isNew = false;
     }
+
+    // tự động cộng và gen mã sản phẩm
+    var sanPhamInput = new GetSanPhamInput();
+    sanPhamInput.Value =  1;
+    sanPhamInput.Filter =  '';
+    this._sanPhamService.getSanPham(sanPhamInput).subscribe(r => {
+      var code = [];
+      r.forEach(e => {
+        // cắt SP lấy số đằng sau rồi đưa vào mảng
+        code.push(parseInt(e.masp.toString().substr(e.masp.length - 3)))
+      })
+      // check nếu là add mới thì gen code ko thì thôi
+      if(this.isNew == true){
+        // cộng max của mã lên 1 trong database sau đó chuyển về string và cộng vs loại đầu ví dụ SP thì cộng "SP" (TC thì công "TC")
+        this.sanPham.masp = "SP" + (Math.max(...code) + 1).toString();
+      }
+    }); 
+    
     this.modal.show();
   }
 
