@@ -54,7 +54,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
       var code = [];
       r.forEach(e => {
         // cắt SP lấy số đằng sau rồi đưa vào mảng
-        code.push(parseInt(e.masp.toString().substr(e.masp.length - 3)))
+        code.push(parseInt(e.masp.toString().substr(e.masp.length - (e.masp.length-2))))
       })
       // check nếu là add mới thì gen code ko thì thôi
       if(this.isNew == true){
@@ -62,7 +62,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
         this.sanPham.masp = "SP" + (Math.max(...code) + 1).toString();
       }
     }); 
-    
+
     this.modal.show();
   }
 
