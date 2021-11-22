@@ -1,8 +1,9 @@
-import { CustomerService } from '../../../_services/customer.service';
+import { HoaDonService } from '../../../_services/HoaDon.service';
 import { HoaDon } from '../../../_models/HoaDon';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Employee } from 'src/app/_models/employee';
+import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 declare let alertify: any;
 
 @Component({
@@ -27,25 +28,40 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   MAKM: string;
   giaKhuyenMai: number;
   tong: number;
+  isNew: boolean = false;
 
 
-  constructor() { }
+  constructor(private _HoaDonService: HoaDonService) { }
 
 
   ngOnInit() {
     this.modal.hide();
-
   }
-
-  hide(){
+  hide() {
     this.modal.hide();
   }
 
   show(event) {
     this.HoaDon = new HoaDon()
-    if (event.Id != undefined) {
+    this.isNew = true;
+    if (event.MAHD != undefined) {
       this.HoaDon = event;
+      this.isNew = false;
     }
+    var getHoaDonInput = new GetHoaDonInput();
+    getHoaDonInput.Value = 1;
+    getHoaDonInput.Filter = '';
+    this._HoaDonService.getHoaDon(getHoaDonInput).subscribe(r => {
+      var code = [];
+      r.forEach(e => {
+        // cắt hk lấy số đằng sau rồi đưa vào mảng
+        code.push(parseInt(e.MAHD.toString().substr(e.MAHD.length - (e.MAHD.length - 2))))
+      })
+      if (this.isNew == true) {
+        this.HoaDon.MAHD = "HD" + (Math.max(...code) + 1).toString();
+      }
+    });
+
     this.modal.show();
   }
 

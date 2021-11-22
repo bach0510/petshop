@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import * as moment from 'moment';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Employee } from 'src/app/_models/employee';
+import { GetNhanVienInput } from 'src/app/_models/get-nhanvien-input';
 import { NhanVien } from 'src/app/_models/nhan-vien';
 declare let alertify: any;
 
@@ -27,6 +27,8 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   BirthDay;
   Password;
   RegisterNo;
+
+  isNew: boolean = false;
   
   constructor(private _sanitizer: DomSanitizer,) { }
 
@@ -40,9 +42,25 @@ export class CreateOrEditEmployeeComponent implements OnInit {
 
   show(event?) {
     this.employee = new NhanVien();
-    if (event !== undefined) {
+    this.isNew = true;
+    if (event.MANV !== undefined) {
       this.employee = event;
+      this.isNew = true;
     }
+    // var getNhanVienInput = new GetNhanVienInput();
+    // getNhanVienInput.Value = 1;
+    // getNhanVienInput.Filter = '';
+    // this._sanitizer.get(getNhanVienInput).subscribe(r => {
+    //   var code = [];
+    //   r.forEach(e => {
+    //     // cắt hk lấy số đằng sau rồi đưa vào mảng
+    //     code.push(parseInt(e.MAHD.toString().substr(e.MAHD.length - (e.MAHD.length - 2))))
+    //   })
+    //   if (this.isNew == true) {
+    //     this.HoaDon.MAHD = "HD" + (Math.max(...code) + 1).toString();
+    //   }
+    // });
+
     this.modal.show();
   }
 

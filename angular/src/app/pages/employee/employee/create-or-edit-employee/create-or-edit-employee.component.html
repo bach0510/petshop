@@ -15,13 +15,19 @@
 
         <div class="col-12" style="padding-top: 20px;">
           <div class="row mt-1">
-            <div class="col-6">
+
+            <div class="col-4">
+              <tmss-text-input [text]="'mã nhân viên'" [disabled]="true" [(ngModel)]="employee.MaNv"></tmss-text-input>
+            </div>
+            <div class="col-4">
               <tmss-text-input [text]="'Tên'" [(ngModel)]="employee.HoTen"></tmss-text-input>
             </div>
-            <div class="col-6">
+
+            <div class="col-4">
               <tmss-combobox [text]="'Giới tính'" [items]="genderList" [(ngModel)]="employee.GioiTinh">
               </tmss-combobox>
             </div>
+
           </div>
           <div class="row mt-1">
             <div class="col-6">
@@ -31,6 +37,7 @@
               <tmss-text-input [text]="'Tel'"  [(ngModel)]="employee.Sdt"></tmss-text-input>
             </div>
           </div>
+
           <div class="row mt-1">
             <div class="col-6">
               <tmss-text-input [text]="'Địa chỉ'" [(ngModel)]="employee.DiaChi"></tmss-text-input>
@@ -39,6 +46,7 @@
               <tmss-datepicker [text]="'Ngày sinh'" [(ngModel)]="employee.NgaySinh"></tmss-datepicker>
             </div>
           </div>
+
           <div class="row mt-1">
             <div class="col-6">
               <tmss-text-input [text]="'Tên đăng nhập'" [(ngModel)]="employee.TenTk"></tmss-text-input>
@@ -47,6 +55,7 @@
               <tmss-text-input [text]="'Mật khẩu'" [(ngModel)]="employee.MatKhau"></tmss-text-input>
             </div>
           </div>
+
         </div>
       </div>
 

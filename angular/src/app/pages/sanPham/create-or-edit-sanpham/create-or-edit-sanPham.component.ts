@@ -32,7 +32,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
     this.modal.hide();
   }
 
-  hide(){
+  hide() {
     this.modal.hide();
   }
 
@@ -46,20 +46,20 @@ export class CreateOrEditSanPhamComponent implements OnInit {
 
     // tự động cộng và gen mã sản phẩm
     var sanPhamInput = new GetSanPhamInput();
-    sanPhamInput.Value =  1;
-    sanPhamInput.Filter =  '';
+    sanPhamInput.Value = 1;
+    sanPhamInput.Filter = '';
     this._sanPhamService.getSanPham(sanPhamInput).subscribe(r => {
       var code = [];
       r.forEach(e => {
         // cắt SP lấy số đằng sau rồi đưa vào mảng
-        code.push(parseInt(e.masp.toString().substr(e.masp.length - (e.masp.length-2))))
+        code.push(parseInt(e.masp.toString().substr(e.masp.length - (e.masp.length - 2))))
       })
       // check nếu là add mới thì gen code ko thì thôi
-      if(this.isNew == true){
+      if (this.isNew == true) {
         // cộng max của mã lên 1 trong database sau đó chuyển về string và cộng vs loại đầu ví dụ SP thì cộng "SP" (TC thì công "TC")
         this.sanPham.masp = "SP" + (Math.max(...code) + 1).toString();
       }
-    }); 
+    });
 
     this.modal.show();
   }
