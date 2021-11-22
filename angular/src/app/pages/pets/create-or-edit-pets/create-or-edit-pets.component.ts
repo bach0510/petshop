@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import {GetPetsInput } from 'src/app/_models/GetPetsInput';
 import { PetAllInfor } from 'src/app/_models/PetInputDTO';
 import { petsService } from 'src/app/_services/pets.service';
 declare let alertify: any;
@@ -68,15 +69,30 @@ export class CreateOrEditPetsComponent implements OnInit {
 
 
   show(event? ) {
-    console.log(this.maLoai);
-    console.log(this.maGiong);
+    this.pets = new PetAllInfor
     this.isNew = true;
-    this.pets = new PetAllInfor()
     if (event.MATC != undefined) {
       this.pets = event;
       this.isNew = false;
     }
-    this.modal!.show();
+
+    var getPetsInput = new GetPetsInput();
+    getPetsInput.Value =  1;
+    getPetsInput.Filter =  '';
+    this._petsService.GetPets(getPetsInput).subscribe(r => {
+      var code = [];
+      r.forEach(e => {
+        // cắt pets lấy số đằng sau rồi đưa vào mảng
+        code.push(parseInt(e.MATC.toString().substr(e.MATC.length - (e.MATC.length-2))))
+      })
+      // check nếu là add mới thì gen code ko thì thôi
+      if(this.isNew == true){
+        // cộng max của mã lên 1 trong database sau đó chuyển về string và cộng vs loại đầu ví dụ SP thì cộng "SP" (TC thì công "TC")
+        this.pets.MATC = "TC" + (Math.max(...code) + 1).toString();
+      }
+    });
+
+    this.modal.show();
   }
 
 

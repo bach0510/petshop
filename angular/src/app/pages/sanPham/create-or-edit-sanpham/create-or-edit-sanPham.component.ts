@@ -37,8 +37,6 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   }
 
   show(event?) {
-    
-
     this.sanPham = new sanPham
     this.isNew = true;
     if (event.masp != undefined) {
