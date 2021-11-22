@@ -87,7 +87,6 @@ export class CreateOrEditPetsComponent implements OnInit {
       })
       // check nếu là add mới thì gen code ko thì thôi
       if(this.isNew == true){
-        // cộng max của mã lên 1 trong database sau đó chuyển về string và cộng vs loại đầu ví dụ SP thì cộng "SP" (TC thì công "TC")
         this.pets.MATC = "TC" + (Math.max(...code) + 1).toString();
       }
     });

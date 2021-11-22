@@ -4,9 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { SafeResourceUrl } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Customer } from 'src/app/_models/customer';
-import { Employee } from 'src/app/_models/employee';
-import { isFirstDayOfWeek } from 'ngx-bootstrap/chronos';
+import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
 declare let alertify: any;
 
 @Component({
@@ -53,6 +51,21 @@ export class CreateOrEditCustomerComponent implements OnInit {
       this.isNew = false;
       this.ngaySinh = event.ngaySinh;
     }
+    
+    var getKhachHangInput = new GetKhachHangInput();
+    getKhachHangInput.Value =  1;
+    getKhachHangInput.Filter =  '';
+    this._customerService.getCustomers(getKhachHangInput).subscribe(r => {
+      var code = [];
+      r.forEach(e => {
+        // cắt hk lấy số đằng sau rồi đưa vào mảng
+        code.push(parseInt(e.MAKH.toString().substr(e.MAKH.length - (e.MAKH.length-2))))
+      })
+      if(this.isNew == true){
+        this.cus.MAKH = "KH" + (Math.max(...code) + 1).toString();
+      }
+    });
+
     this.modal.show();
   }
 
