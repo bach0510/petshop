@@ -24,7 +24,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   EmpName;
   Username;
   genderList =[{label:"Nam",value:"Nam"},{label:"Nữ",value:"Nữ"}]
-  chucVu =[{label:"Nhân viên bán hàng",value:"NVBH"},{label:"Nhân viên khách hàng",value:"NVKH"},{label:"Chủ cửa hàng (quản lý)",value:"CHCH"}]
+  chucVu =[{label:"Nhân viên bán hàng",value:"NVBH"},{label:"Nhân viên kho hàng",value:"NVKH"},{label:"Chủ cửa hàng (quản lý)",value:"CHCH"}]
   EmpType;
   BirthDay;
   Password;

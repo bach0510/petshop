@@ -185,20 +185,8 @@ export class SanPhamComponent implements OnInit {
   modalSave(event) {
     console.log(event);
 
-    if (event.masp) {
-      this._sanPhamService.updateSanPham(event).subscribe(res => {
-      }, er => console.log(er), () => {
-        this.callBackEvent(this.params);
-      });
-      alertify.success('Cập nhật thành công');
-      this.callBackEvent(this.params);
+    this.callBackEvent(this.params);
       this.selectedData = undefined;
-    } else {
-      this._sanPhamService.registerSanPham(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
-      alertify.success('Thêm mới thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    }
   }
 
   exportExcel(){

@@ -67,6 +67,17 @@ export class CreateOrEditSanPhamComponent implements OnInit {
 
   createOrEdit() {
     if (!this.checkValidate()) return;
+    if (!this.isNew) {
+      this._sanPhamService.updateSanPham(this.sanPham).subscribe(res => {
+      }, er => console.log(er), () => {
+      });
+      alertify.success('Cập nhật thành công');
+      
+    } else {
+      this._sanPhamService.registerSanPham(this.sanPham).subscribe(res => { }, err => console.log(err), );
+      alertify.success('Thêm mới thành công');
+      
+    }
     this.modalSave.emit(this.sanPham);
     this.modal.hide();
   }
