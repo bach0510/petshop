@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { GetShippersInputDto } from 'src/app/_models/get-shippers-input-dto';
 import { CacheService } from 'src/app/_services/cache.service';
 import { GetNhanVienInput } from 'src/app/_models/get-nhanvien-input';
+import { NhanVien } from 'src/app/_models/nhan-vien';
 declare let alertify: any;
 @Component({
   selector: 'app-employee',
@@ -155,7 +156,7 @@ export class EmployeeComponent implements OnInit {
 
   add() {
     this.selectedData = undefined;
-    this.createOrEditEmployee.show(this.selectedData);
+    this.createOrEditEmployee.show(new NhanVien());
   }
 
   edit() {
@@ -186,21 +187,23 @@ export class EmployeeComponent implements OnInit {
 }
   modalSave(event) {
     console.log(event);
+    this.callBackEvent(this.params);
+    this.selectedData = undefined;
     
-    if (event.MaNv) {
-      this._employeeService.updateEmployee(event).subscribe(res => {
-      }, er => console.log(er), () => {
-        this.callBackEvent(this.params);
-      });
-      alertify.success('Cập nhật thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    } else {
-      this._employeeService.registerEmployee(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
-      alertify.success('Thêm mới thành công');
-      this.callBackEvent(this.params);
-      this.selectedData = undefined;
-    }
+    // if (event.MaNv) {
+    //   this._employeeService.updateEmployee(event).subscribe(res => {
+    //   }, er => console.log(er), () => {
+    //     this.callBackEvent(this.params);
+    //   });
+    //   alertify.success('Cập nhật thành công');
+    //   this.callBackEvent(this.params);
+    //   this.selectedData = undefined;
+    // } else {
+    //   this._employeeService.registerEmployee(event).subscribe(res => { }, err => console.log(err), () => this.callBackEvent(this.params));
+    //   alertify.success('Thêm mới thành công');
+    //   this.callBackEvent(this.params);
+    //   this.selectedData = undefined;
+    // }
   }
   exportExcel(){
     this.params.api.exportDataAsCsv();

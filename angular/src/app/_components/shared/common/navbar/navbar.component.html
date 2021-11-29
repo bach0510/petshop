@@ -7,61 +7,60 @@
           align-items: center;
           display: flex;
           justify-content: center;
-          color: blcak;
         "
         class="fa fa-bars"
       ></i>
-      <h4 style="margin-left: 20px; margin-top: 10px;">PetStore</h4>
+      <h4 style="margin-left: 20px; margin-top: 10px;color: #9899ac;">PetStore</h4>
     </div>
 
 
   </div>
   <nav class="main-menu" [ngStyle]="checkMenu ? { 'width.px': 250 } : ''">
     <div style="text-align: center;cursor: pointer;" *ngIf="checkMenu" >
-      <h5 (click)="icon.click()" style="margin-top: 10px;">{{currentUser.FullName}}</h5>
+      <h5 class="active" (click)="icon.click()" style="margin-top: 10px;">{{currentUser.FullName}}</h5>
     </div>
-    <ul>
-      <li>
-        <a routerLink="home" style="color: black;">
+    <ul id="menu" >
+      <li  >
+        <a routerLink="home" style="color: #646c9a;">
           <i class="fa fa-home fa-2x" ></i>
           <span class="nav-text"> Home </span>
         </a>
       </li>
       <li>
-        <a routerLink="log-info" style="color: black;">
+        <a routerLink="log-info" style="color: #646c9a;">
           <i class="fa fa-address-card" ></i>
           <span class="nav-text"> Thông tin cá nhân </span>
         </a>
       </li>
 
       <li>
-        <a routerLink="sanPham" style="color: black;">
+        <a routerLink="sanPham" style="color: #646c9a;">
           <i class="fa fa-shopping-bag" ></i>
           <span class="nav-text"> sản phẩm </span>
         </a>
       </li>
       <li>
-        <a routerLink="pets" style="color: black;">
+        <a routerLink="pets" style="color: #646c9a;">
           <i class="fa fa-paw" ></i>
           <span class="nav-text"> thú cưng </span>
         </a>
       </li>
 
       <li>
-        <a routerLink="employee"  style="color: black;">
+        <a routerLink="employee"  style="color: #646c9a;">
           <i class="fa fa-user fa-2x"></i>
           <span class="nav-text"> Nhân viên </span>
         </a>
       </li>
 
       <li>
-        <a routerLink="customer" style="color: black;">
+        <a routerLink="customer" style="color: #646c9a;">
           <i class="fa fa-group fa-2x"></i>
           <span class="nav-text"> Thông tin khách hàng </span>
         </a>
       </li>
       <li>
-        <a routerLink="HoaDon" style="color: black;">
+        <a routerLink="HoaDon" style="color: #646c9a;">
           <i class="fa fa-file-text fa-2x"></i>
           <span class="nav-text"> Thông tin Hóa Đơn </span>
         </a>
@@ -72,7 +71,7 @@
 
     <ul class="logout">
       <li>
-        <a (click)="logout()" style="color: black;">
+        <a (click)="logout()" style="color: #646c9a;">
           <i class="fa fa-power-off fa-2x"></i>
           <span class="nav-text"> Logout </span>
         </a>

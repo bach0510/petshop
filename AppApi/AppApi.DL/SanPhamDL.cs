@@ -23,6 +23,13 @@ namespace AppApi.DL
 
                 cmd.Parameters.AddWithValue("@maloai", input.Filter);
             }
+            if (input.Value == 2)
+            {
+                spName = @"dbo.[lay_danh_sach_san_pham_theo_ten]";
+                cmd = new SqlCommand(spName, _conn);
+
+                cmd.Parameters.AddWithValue("@ten", input.Filter);
+            }
 
             if (string.IsNullOrWhiteSpace(input.Filter))
             {

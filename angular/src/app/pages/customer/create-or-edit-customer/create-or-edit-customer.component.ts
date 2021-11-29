@@ -35,7 +35,7 @@ export class CreateOrEditCustomerComponent implements OnInit {
 
   ngOnInit() {
     //this.modalSave.emit(this.cus);
-    this.modal!.hide();
+    // this.modal!.hide();
   }
 
   hide() {

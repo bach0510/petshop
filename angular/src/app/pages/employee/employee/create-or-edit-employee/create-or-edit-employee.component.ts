@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Employee } from 'src/app/_models/employee';
 import { GetNhanVienInput } from 'src/app/_models/get-nhanvien-input';
 import { NhanVien } from 'src/app/_models/nhan-vien';
+import { UserService } from 'src/app/_services/user.service';
 declare let alertify: any;
 
 @Component({
@@ -23,6 +24,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   EmpName;
   Username;
   genderList =[{label:"Nam",value:"Nam"},{label:"Nữ",value:"Nữ"}]
+  chucVu =[{label:"Nhân viên bán hàng",value:"NVBH"},{label:"Nhân viên khách hàng",value:"NVKH"},{label:"Chủ cửa hàng (quản lý)",value:"CHCH"}]
   EmpType;
   BirthDay;
   Password;
@@ -30,7 +32,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
 
   isNew: boolean = false;
   
-  constructor(private _sanitizer: DomSanitizer,) { }
+  constructor(private _employeeService: UserService,) { }
 
   ngOnInit() {
 
@@ -42,24 +44,25 @@ export class CreateOrEditEmployeeComponent implements OnInit {
 
   show(event?) {
     this.employee = new NhanVien();
+    console.log(event)
     this.isNew = true;
-    if (event.MANV !== undefined) {
+    if (event?.MaNv !== undefined) {
       this.employee = event;
-      this.isNew = true;
+      this.isNew = false;
     }
-    // var getNhanVienInput = new GetNhanVienInput();
-    // getNhanVienInput.Value = 1;
-    // getNhanVienInput.Filter = '';
-    // this._sanitizer.get(getNhanVienInput).subscribe(r => {
-    //   var code = [];
-    //   r.forEach(e => {
-    //     // cắt hk lấy số đằng sau rồi đưa vào mảng
-    //     code.push(parseInt(e.MAHD.toString().substr(e.MAHD.length - (e.MAHD.length - 2))))
-    //   })
-    //   if (this.isNew == true) {
-    //     this.HoaDon.MAHD = "HD" + (Math.max(...code) + 1).toString();
-    //   }
-    // });
+    var getNhanVienInput = new GetNhanVienInput();
+    getNhanVienInput.Value = 1;
+    getNhanVienInput.Filter = '';
+    this._employeeService.getEmployees(getNhanVienInput).subscribe(r => {
+      var code = [];
+      r.forEach(e => {
+        // cắt hk lấy số đằng sau rồi đưa vào mảng
+        code.push(parseInt(e.MaNv.toString().substr(e.MaNv.length - (e.MaNv.length - 2))))
+      })
+      if (this.isNew == true) {
+        this.employee.MaNv = "NV" + (Math.max(...code) + 1).toString();
+      }
+    });
 
     this.modal.show();
   }
@@ -67,6 +70,17 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   createOrEdit() {
     //if (!this.checkValidate()) return;
     // this.convertImageToByteType();
+    if (!this.isNew) {
+      this._employeeService.updateEmployee(this.employee).subscribe(res => {
+      }, er => console.log(er), () => {
+      });
+      alertify.success('Cập nhật thành công');
+
+    } else {
+      this._employeeService.registerEmployee(this.employee).subscribe(res => { }, err => console.log(err), );
+      alertify.success('Thêm mới thành công');
+
+    }
 
     this.modalSave.emit(this.employee);
     this.modal.hide();

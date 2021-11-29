@@ -29,7 +29,7 @@ export class CreateOrEditSanPhamComponent implements OnInit {
   constructor(private _sanPhamService: sanPhamService) { }
 
   ngOnInit() {
-    this.modal.hide();
+    // this.modal.hide();
   }
 
   hide() {

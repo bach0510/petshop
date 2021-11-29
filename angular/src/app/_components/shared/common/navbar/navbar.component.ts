@@ -47,11 +47,30 @@ export class NavbarComponent {
   
   ngOnInit(){
     console.log(this.currentUser)
+
+    
     // if (!this.currentUser.ImageString)
     //   this.url = "assets/img/userIcon.jpg" 
     // else
     //    this.url = 'data:image/jpeg;base64,' + this.currentUser.ImageString;
   }
+
+  ngAfterViewInit(){
+    var btnContainer = document.getElementById("menu");
+
+    // Get all buttons with class="btn" inside the container
+    var btns = document.getElementsByTagName("li");
+
+    // Loop through the buttons and add the active class to the current/clicked button
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace("active", "");
+        this.className += " active";
+      });
+    }
+  }
+
 
   logout() {
 

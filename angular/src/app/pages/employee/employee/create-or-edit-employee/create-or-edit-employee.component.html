@@ -14,16 +14,28 @@
       <div class="modal-body">
 
         <div class="col-12" style="padding-top: 20px;">
-          <div class="row mt-1">
+          <div class="row mt-1" *ngIf="!isNew">
 
             <div class="col-4">
-              <tmss-text-input [text]="'mã nhân viên'" [disabled]="true" [(ngModel)]="employee.MaNv"></tmss-text-input>
+              <tmss-text-input [text]="'mã nhân viên'"  [disabled]="true" [(ngModel)]="employee.MaNv"></tmss-text-input>
             </div>
             <div class="col-4">
               <tmss-text-input [text]="'Tên'" [(ngModel)]="employee.HoTen"></tmss-text-input>
             </div>
 
             <div class="col-4">
+              <tmss-combobox [text]="'Giới tính'" [items]="genderList" [(ngModel)]="employee.GioiTinh">
+              </tmss-combobox>
+            </div>
+
+          </div>
+          <div class="row mt-1" *ngIf="isNew">
+
+            <div class="col-6">
+              <tmss-text-input [text]="'Tên'" [(ngModel)]="employee.HoTen"></tmss-text-input>
+            </div>
+
+            <div class="col-6">
               <tmss-combobox [text]="'Giới tính'" [items]="genderList" [(ngModel)]="employee.GioiTinh">
               </tmss-combobox>
             </div>
@@ -54,6 +66,16 @@
             <div class="col-6">
               <tmss-text-input [text]="'Mật khẩu'" [(ngModel)]="employee.MatKhau"></tmss-text-input>
             </div>
+          </div>
+
+          <div class="row mt-1">
+            <div class="col-6">
+              <tmss-combobox [items]="chucVu" [text]="'Chức vụ'" [(ngModel)]="employee.ChucVu"></tmss-combobox>
+            </div>
+            <div class="col-6">
+              <tmss-text-input [text]="'Lương'" [(ngModel)]="employee.Luong"></tmss-text-input>
+            </div>
+            
           </div>
 
         </div>
