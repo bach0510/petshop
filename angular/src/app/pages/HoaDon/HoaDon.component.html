@@ -6,11 +6,11 @@
 
     <div class="row mt-1">
       <div class="col-5">
-        <tmss-text-input [text]="'giá trị tìm kiếm'" (onSearch)="onSearch()" [(ngModel)]="filter"></tmss-text-input>
+        <tmss-datepicker [text]="'Ngày'" (onSearch)="onSearch()" [(ngModel)]="filter"></tmss-datepicker>
       </div>
-      <div class="col-3">
+      <!-- <div class="col-3">
         <tmss-combobox [text]="'search theo'"  [items]="searchType" [(ngModel)]="type"></tmss-combobox>
-      </div>
+      </div> -->
       <div class="col-1">
         <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="onSearch()">
           <i class="fa tmss-fa fa-search"></i>
@@ -30,11 +30,24 @@
       <div class="col-12">
         <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
           (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
-          [height]="'312px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+          [height]="'200px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
         </grid-table>
       </div>
     </div>
-    <div class="ui-g-12 text-right mt-2">
+
+    <h6 class="card-header">
+      {{ "Chi tiết hóa đơn" }}
+    </h6>
+
+    <div class="row mt-1">
+      <div class="col-12">
+        <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
+          (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
+          [height]="'200px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+        </grid-table>
+      </div>
+    </div>
+    <!-- <div class="ui-g-12 text-right mt-2">
       <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="add()" [disabled]="user.EmpType === 2">
         <i class="fa tmss-fa fa-plus"></i>
         <span class="ml-1">Thêm hóa đơn</span>
@@ -43,11 +56,11 @@
         <i class="fa tmss-fa fa-edit"></i>
         <span class="ml-1">Sửa hóa đơn</span>
       </button>
-      <button class="tmss-btn btn-outline-danger mr-2 mt-1" (click)="delete()" [disabled]="!selectedData || user.EmpType === 2">
+      <button class="tmss-btn btn-outline-danger mr-2 mt-1" (click)="deleteHoadon()" [disabled]="!selectedData || user.EmpType === 2">
         <i class="fa tmss-fa fa-eraser"></i>
         <span class="ml-1">Xóa hóa đơn</span>
       </button>
-    </div>
+    </div> -->
   </div>
 </div>
 

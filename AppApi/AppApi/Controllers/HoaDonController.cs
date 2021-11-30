@@ -7,14 +7,14 @@ using System.Web.Http;
 
 namespace AppApi.Controllers
 {
-    public class HoaDonComtroller : ApiController
+    public class HoaDonController : ApiController
     {
         HoaDonDL HoaDon = new HoaDonDL();
 
 
         [HttpPost]
         [Route("HoaDon")]
-        public List<HoaDon> GetCustomer(GetHoaDonInput input)
+        public List<HoaDon> GetHoaDon(GetHoaDonInput input)
         {
             try
             {

@@ -105,8 +105,8 @@ export class HoaDonComponent implements OnInit {
   callBackEvent(event) {
     this.params = event;
     var HoaDon = new GetHoaDonInput();
-    HoaDon.Value = this.type ?? 1;
-    HoaDon.Filter = this.filter ?? '';
+    HoaDon.Value = this.type ?? 3;
+    HoaDon.Filter = this.filter  ?? '';
 
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
@@ -133,11 +133,11 @@ export class HoaDonComponent implements OnInit {
       (paginationParams.pageNum - 1) * paginationParams.pageSize;
     this.paginationParams.pageSize = paginationParams.pageSize;
 
-    var pets = new GetHoaDonInput();
-    pets.Value = this.type ?? 1;
-    pets.Filter = this.filter ?? '';
+    var HoaDon = new GetHoaDonInput();
+    HoaDon.Value = this.type ?? 3;
+    HoaDon.Filter = this.filter  ?? '';
 
-    this.HoaDonService.getHoaDon(pets).subscribe((res) => {
+    this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
       this.pagedRowData = this.rowData
         ? this.rowData.slice(
@@ -178,6 +178,9 @@ export class HoaDonComponent implements OnInit {
   //       (err) => console.log(err)
   //     );
   // }
+  deleteHoadon(){
+
+  }
 
   base64ToArrayBuffer(base64) {
     var binary_string = window.atob(base64);
@@ -190,6 +193,9 @@ export class HoaDonComponent implements OnInit {
   }
 
 
+  modalSave(event){
+
+  }
   // modalSave(event) {
   //   console.log(event);
 

@@ -18,22 +18,22 @@ namespace AppApi.DL
             string spName = "";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
-            if (input.Value == 1)
-            {
-                spName = @"dbo.[[XemChiTietHoaDon]]";
-                cmd = new SqlCommand(spName, _conn);
+            //if (input.Value == 1)
+            //{
+            //    spName = @"dbo.[XemChiTietHoaDon]";
+            //    cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@maHD", input.Filter);
-            }
+            //    cmd.Parameters.AddWithValue("@maHD", input.Filter);
+            //}
           
-            if (string.IsNullOrWhiteSpace(input.Filter))
-            {
+            //if (string.IsNullOrWhiteSpace(input.Filter))
+            //{
                 spName = @"dbo.[XuatHoaDon]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@NgayBD", input.Filter);
-                cmd.Parameters.AddWithValue("@NgayKT", input.Filter);
-            }
+                cmd.Parameters.AddWithValue("@NgayBD", input.Filter ?? "01/01/2000");
+                cmd.Parameters.AddWithValue("@NgayKT", input.Filter ?? DateTime.Now.ToString());
+            //}
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sqlDataReader = cmd.ExecuteReader();

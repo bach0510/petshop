@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   { path: 'payoff', component: PayoffComponent, canActivate: [AuthGuard] ,data: { state: 'payoff' } },
   { path: 'salary', component: SalaryComponent, canActivate: [AuthGuard] ,data: { state: 'salary' } },
   { path: 'sanPham', component: SanPhamComponent, canActivate: [AuthGuard] ,data: { state: 'sanPham' } },
-  { path: 'hoaDon', component: HoaDonComponent, canActivate: [AuthGuard] ,data: { state: 'HoaDon' } },
+  { path: 'HoaDon', component: HoaDonComponent, canActivate: [AuthGuard] ,data: { state: 'HoaDon' } },
   { path: 'pets', component: PetsComponent, canActivate: [AuthGuard] ,data: { state: 'pets' } },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
