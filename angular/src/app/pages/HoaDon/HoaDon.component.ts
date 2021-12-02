@@ -6,6 +6,7 @@ import { CreateOrEditHoaDonComponent } from './create-or-edit-order/create-or-ed
 import { HoaDonService } from 'src/app/_services/HoaDon.service';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 import { HoaDon } from 'src/app/_models/HoaDon';
+import * as moment from 'moment';
 declare let alertify: any;
 @Component({
   selector: 'app-HoaDon',
@@ -39,6 +40,8 @@ export class HoaDonComponent implements OnInit {
   ];
   type : number = 1;
   filter = "";
+  fromdate = "";
+  todate = "";
 
   constructor(private HoaDonService: HoaDonService,) {
     this.columnsDef = [
@@ -71,10 +74,10 @@ export class HoaDonComponent implements OnInit {
         headerName: 'giá khuyến mại',
         field: 'giaKhuyenMai',
       },
-      {
-        headerName: 'tổng',
-        field: 'tong',
-      },
+      // {
+      //   headerName: 'tổng',
+      //   field: 'tong',
+      // },
 
     ];
 
@@ -106,7 +109,8 @@ export class HoaDonComponent implements OnInit {
     this.params = event;
     var HoaDon = new GetHoaDonInput();
     HoaDon.Value = this.type ?? 3;
-    HoaDon.Filter = this.filter  ?? '';
+    HoaDon.FromDate = moment(this.fromdate).format("dd/mm/yyyy").toString()  ?? '';
+    HoaDon.ToDate = moment(this.todate).format("dd/mm/yyyy").toString()  ?? '';
 
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
@@ -135,7 +139,8 @@ export class HoaDonComponent implements OnInit {
 
     var HoaDon = new GetHoaDonInput();
     HoaDon.Value = this.type ?? 3;
-    HoaDon.Filter = this.filter  ?? '';
+    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
+    HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
 
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;

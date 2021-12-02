@@ -31,8 +31,8 @@ namespace AppApi.DL
                 spName = @"dbo.[XuatHoaDon]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@NgayBD", input.Filter ?? "01/01/2000");
-                cmd.Parameters.AddWithValue("@NgayKT", input.Filter ?? DateTime.Now.ToString());
+                cmd.Parameters.AddWithValue("@NgayBD", input.FromDate.ToLower() == "invalid date" ? "01/01/2000" : input.FromDate);
+                cmd.Parameters.AddWithValue("@NgayKT", input.ToDate.ToLower() == "invalid date" ? "01/01/2022" : input.FromDate);
             //}
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -49,9 +49,9 @@ namespace AppApi.DL
                     hoaDon.NGUOILAPHD = sqlDataReader["NGUOILAPHD"].ToString();
                     hoaDon.MAKH = sqlDataReader["MAKH"].ToString();
                     hoaDon.MAKM = sqlDataReader["MAKM"].ToString(); 
-                    hoaDon.giaKhuyenMai = (int)sqlDataReader["giaKhuyenMai"];
+                    //hoaDon.giaKhuyenMai = (int)sqlDataReader["giaKhuyenMai"];
                     hoaDon.NGAYLAP = DateTime.Parse(sqlDataReader["NGAYLAP"].ToString());
-                    hoaDon.tong = (int)sqlDataReader["tong"];
+                    hoaDon.tong = (int)sqlDataReader["TONG"];
 
                     DanhSachHoaDon.Add(hoaDon);
                 }
@@ -59,6 +59,54 @@ namespace AppApi.DL
             _conn.Close();
             return DanhSachHoaDon.ToList();
         }
+
+        public List<HoaDon> GetChiTietHoaDon(GetHoaDonInput input)
+        {
+            _conn.Open();
+            string spName = "";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            //if (input.Value == 1)
+            //{
+            //    spName = @"dbo.[XemChiTietHoaDon]";
+            //    cmd = new SqlCommand(spName, _conn);
+
+            //    cmd.Parameters.AddWithValue("@maHD", input.Filter);
+            //}
+
+            //if (string.IsNullOrWhiteSpace(input.Filter))
+            //{
+            spName = @"dbo.[XemChiTietHoaDon]";
+            cmd = new SqlCommand(spName, _conn);
+
+            cmd.Parameters.AddWithValue("@maHD", input.Value);
+            //}
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader sqlDataReader = cmd.ExecuteReader();
+
+            var DanhSachHoaDon = new List<HoaDon>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    var hoaDon = new HoaDon();
+
+                    hoaDon.MAKH = sqlDataReader["MAKH"].ToString();
+                    hoaDon.NGUOILAPHD = sqlDataReader["NGUOILAPHD"].ToString();
+                    hoaDon.MAKH = sqlDataReader["MAKH"].ToString();
+                    hoaDon.MAKM = sqlDataReader["MAKM"].ToString();
+                    //hoaDon.giaKhuyenMai = (int)sqlDataReader["giaKhuyenMai"];
+                    hoaDon.NGAYLAP = DateTime.Parse(sqlDataReader["NGAYLAP"].ToString());
+                    hoaDon.tong = (int)sqlDataReader["TONG"];
+
+                    DanhSachHoaDon.Add(hoaDon);
+                }
+            }
+            _conn.Close();
+            return DanhSachHoaDon.ToList();
+        }
+
 
         public bool UpdateDL(HoaDon input)
         {

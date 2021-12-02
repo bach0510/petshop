@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Employee } from 'src/app/_models/employee';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
+import * as moment from 'moment';
 declare let alertify: any;
 
 @Component({
@@ -48,19 +49,20 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       this.HoaDon = event;
       this.isNew = false;
     }
-    var getHoaDonInput = new GetHoaDonInput();
-    getHoaDonInput.Value = 1;
-    getHoaDonInput.Filter = '';
-    this._HoaDonService.getHoaDon(getHoaDonInput).subscribe(r => {
-      var code = [];
-      r.forEach(e => {
-        // cắt hk lấy số đằng sau rồi đưa vào mảng
-        code.push(parseInt(e.MAHD.toString().substr(e.MAHD.length - (e.MAHD.length - 2))))
-      })
-      if (this.isNew == true) {
-        this.HoaDon.MAHD = "HD" + (Math.max(...code) + 1).toString();
-      }
-    });
+    // var getHoaDonInput = new GetHoaDonInput();
+    // getHoaDonInput.Value = 3;
+    // getHoaDonInput.FromDate = moment(this.fromdate).format("dd/mm/yyyy").toString()  ?? '';
+    // getHoaDonInput.ToDate = moment(this.todate).format("dd/mm/yyyy").toString()  ?? '';
+    // this._HoaDonService.getHoaDon(getHoaDonInput).subscribe(r => {
+    //   var code = [];
+    //   r.forEach(e => {
+    //     // cắt hk lấy số đằng sau rồi đưa vào mảng
+    //     code.push(parseInt(e.MAHD.toString().substr(e.MAHD.length - (e.MAHD.length - 2))))
+    //   })
+    //   if (this.isNew == true) {
+    //     this.HoaDon.MAHD = "HD" + (Math.max(...code) + 1).toString();
+    //   }
+    // });
 
     this.modal.show();
   }

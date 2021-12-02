@@ -1,4 +1,5 @@
 export class GetHoaDonInput {
   Value: number;
-  Filter: string;
+  FromDate: string;
+  ToDate: string;
 }

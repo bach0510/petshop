@@ -5,8 +5,11 @@
     </h6>
 
     <div class="row mt-1">
-      <div class="col-5">
-        <tmss-datepicker [text]="'Ngày'" (onSearch)="onSearch()" [(ngModel)]="filter"></tmss-datepicker>
+      <div class="col-3">
+        <tmss-datepicker [text]="'Từ Ngày'" (onSearch)="onSearch()" [(ngModel)]="fromdate"></tmss-datepicker>
+      </div>
+      <div class="col-3">
+        <tmss-datepicker [text]="'Đến Ngày'" (onSearch)="onSearch()" [(ngModel)]="todate"></tmss-datepicker>
       </div>
       <!-- <div class="col-3">
         <tmss-combobox [text]="'search theo'"  [items]="searchType" [(ngModel)]="type"></tmss-combobox>
