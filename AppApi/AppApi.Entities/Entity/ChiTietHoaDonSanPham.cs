@@ -12,6 +12,7 @@ namespace AppApi.Entities.Entity
 
         public int stt { get; set; }
 
+        public string ten { get; set; }
         [StringLength(5)]
         public string spID { get; set; }
 

@@ -26,6 +26,20 @@ namespace AppApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("chiTietHoaDon")]
+        public List<ChiTietHoaDonSanPham> GetChiTietHoaDon(GetHoaDonInput input)
+        {
+            try
+            {
+                return HoaDon.GetChiTietHoaDon(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         [HttpPost]
         [Route("update-HoaDon")]

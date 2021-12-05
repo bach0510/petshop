@@ -44,10 +44,18 @@
 
     <div class="row mt-1">
       <div class="col-12">
-        <grid-table [columnDefs]="columnsDef" [defaultColDef]="defaultColDef" [rowData]="pagedRowData"
-          (callBackEvent)="callBackEvent($event)" (changePaginationParams)="changePaginationParams(paginationParams)"
-          [height]="'200px'" [paginationParams]="paginationParams" (onChangeSelection)="onChangeSelection($event)">
+        <grid-table [columnDefs]="detailColDef" [defaultColDef]="defaultColDef" [rowData]="rowDataDetail"
+           [showPagination]="false"
+          [height]="'200px'"  (onChangeSelection)="onChangeSelection($event)">
         </grid-table>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="col-8">
+      </div>
+      <div class="col-4">
+        <tmss-text-input [text]="'Tổng'"  [(ngModel)]="tongTien"></tmss-text-input>
       </div>
     </div>
     <!-- <div class="ui-g-12 text-right mt-2">

@@ -42,6 +42,11 @@ export class HoaDonComponent implements OnInit {
   filter = "";
   fromdate = "";
   todate = "";
+  tongTien = 0;
+
+  detailColDef;
+
+  rowDataDetail = [];
 
   constructor(private HoaDonService: HoaDonService,) {
     this.columnsDef = [
@@ -67,12 +72,12 @@ export class HoaDonComponent implements OnInit {
         field: 'NGAYLAP',
       },
       {
-        headerName: 'MAKH',
-        field: 'mã khuyến mại',
+        headerName: 'Mã Khách hàng',
+        field: 'MAKH',
       },
       {
-        headerName: 'giá khuyến mại',
-        field: 'giaKhuyenMai',
+        headerName: 'Mã Khuyến mại',
+        field: 'MAKM',
       },
       // {
       //   headerName: 'tổng',
@@ -80,6 +85,22 @@ export class HoaDonComponent implements OnInit {
       // },
 
     ];
+
+    this.detailColDef = [
+      {
+        headerName: 'Tên SP',
+        field: 'ten',
+      },
+      {
+        headerName: 'Số lượng',
+        field: 'soLuong',
+      },
+      {
+        headerName: 'Đơn giá',
+        field: 'gia',
+      },
+
+    ]
 
     this.defaultColDef = {
       flex: 1,
@@ -109,9 +130,9 @@ export class HoaDonComponent implements OnInit {
     this.params = event;
     var HoaDon = new GetHoaDonInput();
     HoaDon.Value = this.type ?? 3;
-    HoaDon.FromDate = moment(this.fromdate).format("dd/mm/yyyy").toString()  ?? '';
-    HoaDon.ToDate = moment(this.todate).format("dd/mm/yyyy").toString()  ?? '';
-
+    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
+    HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
+    console.log(this.todate)
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
       this.pagedRowData =
@@ -141,6 +162,7 @@ export class HoaDonComponent implements OnInit {
     HoaDon.Value = this.type ?? 3;
     HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
     HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
+    
 
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
@@ -157,6 +179,14 @@ export class HoaDonComponent implements OnInit {
   onChangeSelection(params) {
     const selectedData = params.api.getSelectedRows();
     if (selectedData) this.selectedData = selectedData[0];
+    this.tongTien = this.selectedData?.tong ?? 0;
+    console.log(this.selectedData)
+    var HoaDon = new GetHoaDonInput();
+    HoaDon.MaHd = this.selectedData.MAHD ?? 0;
+    this.HoaDonService.getChiTietHoaDon(HoaDon).subscribe(res => {
+        this.rowDataDetail = res;
+        console.log(this.rowDataDetail)
+    })
   }
 
   getVehicleCard() {

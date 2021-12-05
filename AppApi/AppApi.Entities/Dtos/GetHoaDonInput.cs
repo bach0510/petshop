@@ -7,6 +7,7 @@ namespace AppApi.Entities.Dtos
         public int Value { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string MaHd { get; set; }
 
 
     }

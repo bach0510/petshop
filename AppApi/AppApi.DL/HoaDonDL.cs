@@ -52,6 +52,7 @@ namespace AppApi.DL
                     //hoaDon.giaKhuyenMai = (int)sqlDataReader["giaKhuyenMai"];
                     hoaDon.NGAYLAP = DateTime.Parse(sqlDataReader["NGAYLAP"].ToString());
                     hoaDon.tong = (int)sqlDataReader["TONG"];
+                    hoaDon.MAHD = sqlDataReader["MAHD"].ToString();
 
                     DanhSachHoaDon.Add(hoaDon);
                 }
@@ -60,7 +61,7 @@ namespace AppApi.DL
             return DanhSachHoaDon.ToList();
         }
 
-        public List<HoaDon> GetChiTietHoaDon(GetHoaDonInput input)
+        public List<ChiTietHoaDonSanPham> GetChiTietHoaDon(GetHoaDonInput input)
         {
             _conn.Open();
             string spName = "";
@@ -79,26 +80,22 @@ namespace AppApi.DL
             spName = @"dbo.[XemChiTietHoaDon]";
             cmd = new SqlCommand(spName, _conn);
 
-            cmd.Parameters.AddWithValue("@maHD", input.Value);
+            cmd.Parameters.AddWithValue("@maHD", input.MaHd);
             //}
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
-            var DanhSachHoaDon = new List<HoaDon>();
+            var DanhSachHoaDon = new List<ChiTietHoaDonSanPham>();
             if (sqlDataReader.HasRows)
             {
                 while (sqlDataReader.Read())
                 {
-                    var hoaDon = new HoaDon();
+                    var hoaDon = new ChiTietHoaDonSanPham();
 
-                    hoaDon.MAKH = sqlDataReader["MAKH"].ToString();
-                    hoaDon.NGUOILAPHD = sqlDataReader["NGUOILAPHD"].ToString();
-                    hoaDon.MAKH = sqlDataReader["MAKH"].ToString();
-                    hoaDon.MAKM = sqlDataReader["MAKM"].ToString();
-                    //hoaDon.giaKhuyenMai = (int)sqlDataReader["giaKhuyenMai"];
-                    hoaDon.NGAYLAP = DateTime.Parse(sqlDataReader["NGAYLAP"].ToString());
-                    hoaDon.tong = (int)sqlDataReader["TONG"];
+                    hoaDon.ten = sqlDataReader["TEN"].ToString();
+                    hoaDon.soLuong = (int)sqlDataReader["SOLUONG"];
+                    hoaDon.gia = (int)sqlDataReader["DONGIA"];
 
                     DanhSachHoaDon.Add(hoaDon);
                 }
