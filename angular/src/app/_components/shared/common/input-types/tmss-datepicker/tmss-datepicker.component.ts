@@ -54,12 +54,13 @@ export class TmssDatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   onValueChange(val?) {
-    if (val && val != null) {
+    if (val && val != null ) {
       this.value = val;
       if (typeof this.onChange === 'function') {
         this.onChange(this.value);
       }
     }
+    // if (!val ||(val && val.trim() == "")) this.datepicker?.bsValueChange.emit(undefined);
   }
 
   writeValue(val) {

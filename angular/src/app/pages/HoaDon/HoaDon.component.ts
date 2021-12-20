@@ -123,6 +123,8 @@ export class HoaDonComponent implements OnInit {
   }
 
   onSearch() {
+    console.log(this.todate)
+    console.log(this.fromdate)
     this.callBackEvent(this.params);
   }
 
@@ -130,9 +132,12 @@ export class HoaDonComponent implements OnInit {
     this.params = event;
     var HoaDon = new GetHoaDonInput();
     HoaDon.Value = this.type ?? 3;
-    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
-    HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
-    console.log(this.todate)
+    // HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
+    // HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
+
+    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999',"DD/MM/YYYY").format('L').toString()  ?? '';
+    HoaDon.ToDate = moment(this.todate ?? moment(),"DD/MM/YYYY").format('L').toString()  ?? '';
+
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;
       this.pagedRowData =
@@ -151,7 +156,7 @@ export class HoaDonComponent implements OnInit {
     });
   }
 
- 
+
   changePaginationParams(paginationParams: PaginationParamsModel) {
     this.paginationParams = paginationParams;
     this.paginationParams.skipCount =
@@ -160,9 +165,8 @@ export class HoaDonComponent implements OnInit {
 
     var HoaDon = new GetHoaDonInput();
     HoaDon.Value = this.type ?? 3;
-    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999').format("dd/mm/yyyy").toString()  ?? '';
-    HoaDon.ToDate = moment(this.todate ?? moment()).format("dd/mm/yyyy").toString()  ?? '';
-    
+    HoaDon.FromDate = moment(this.fromdate ?? '01/01/1999',"DD/MM/YYYY").format('L').toString()  ?? '';
+    HoaDon.ToDate = moment(this.todate ?? moment(),"DD/MM/YYYY").format('L').toString()  ?? '';
 
     this.HoaDonService.getHoaDon(HoaDon).subscribe((res) => {
       this.rowData = res;

@@ -32,7 +32,7 @@ namespace AppApi.DL
                 cmd = new SqlCommand(spName, _conn);
 
                 cmd.Parameters.AddWithValue("@NgayBD", input.FromDate.ToLower() == "invalid date" ? "01/01/2000" : input.FromDate);
-                cmd.Parameters.AddWithValue("@NgayKT", input.ToDate.ToLower() == "invalid date" ? "01/01/2022" : input.FromDate);
+                cmd.Parameters.AddWithValue("@NgayKT", input.ToDate.ToLower() == "invalid date" ? "01/01/2022" : input.ToDate);
             //}
 
             cmd.CommandType = CommandType.StoredProcedure;
