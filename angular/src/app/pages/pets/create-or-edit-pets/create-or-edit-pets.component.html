@@ -15,26 +15,28 @@
 
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'mã thú cưng'" [disabled]="true" [(ngModel)]="pets.MATC"></tmss-text-input>
+            <tmss-text-input [text]="'mã thú cưng'" [disabled]="true"  [(ngModel)]="pets.MATC"></tmss-text-input>
             Định dạng mã thú cưng có kiểu : TC001
           </div>
           <div class="col-6">
-            <tmss-combobox [text]="'tên mã giống'" [items]="maGiong"   [(ngModel)]="pets.MAGIONG"></tmss-combobox>
+            
+            <tmss-combobox [text]="'mã loại'" [items]="maLoai"  (ngModelChange)="changeLoai($event)" [(ngModel)]="pets.MALOAI"></tmss-combobox>
           </div>
         </div>
 
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'tên giống'"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
+            
+            <tmss-text-input [text]="'tên loại'" disabled="true"  [(ngModel)]="pets.TENLOAI"></tmss-text-input>
           </div>
           <div class="col-6">
-            <tmss-combobox [text]="'mã loại'" [items]="maLoai" [(ngModel)]="pets.MALOAI"></tmss-combobox>
+            <tmss-combobox [text]="'tên mã giống'" [items]="maGiong"  (ngModelChange)="changeGiong($event)"  [(ngModel)]="pets.MAGIONG"></tmss-combobox>
           </div>
         </div>
 
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'tên loại'"  [(ngModel)]="pets.TENLOAI"></tmss-text-input>
+            <tmss-text-input [text]="'tên giống'" disabled="true"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'mô tả'"  [(ngModel)]="pets.MOTA"></tmss-text-input>

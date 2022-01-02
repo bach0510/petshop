@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { finalize } from 'rxjs/operators';
 import {GetPetsInput } from 'src/app/_models/GetPetsInput';
 import { PetAllInfor } from 'src/app/_models/PetInputDTO';
 import { petsService } from 'src/app/_services/pets.service';
@@ -45,17 +46,29 @@ export class CreateOrEditPetsComponent implements OnInit {
       res.forEach(e => {
         this.maLoai.push({
           label: e.MaLoai,
-          value: e.tTenLoai,
+          value: e.MaLoai,
+          tenLoai: e.TenLoai,
         })
       })
     })
     this.maGiong =[];
-    this._petsService.getGiong().subscribe(res => {
+    this._petsService.getGiong()
+    .pipe(finalize(()=>{
+      if(this.pets.MALOAI != undefined || this.pets.MALOAI?.trim() != ""){
+        this.maGiong = this.maGiong.filter(e => e.maLoai == this.pets.MALOAI );
+      }
+      else{
+        this.maGiong =[];
+      }
+      
+    }))
+    .subscribe(res => {
       res.forEach(e => {
         this.maGiong.push({
           label: e.MaGiong,
-          value: e.TenGiong,
-          maLoai: e.TaLoai,
+          value: e.MaGiong,
+          tenGiong: e.TenGiong,
+          maLoai: e.Maloai,
         })
       })
     })
@@ -94,6 +107,32 @@ export class CreateOrEditPetsComponent implements OnInit {
     this.modal.show();
   }
 
+  changeGiong(param){
+    this.pets.TENGIONG = this.maGiong.find(e => e.value == param)?.tenGiong;
+  }
+
+  changeLoai(param){
+    this.pets.TENLOAI = this.maLoai.find(e => e.value == param)?.tenLoai;
+    this.pets.MAGIONG = undefined;
+    this.pets.TENGIONG = undefined;
+
+    this.maGiong = [];
+    this._petsService.getGiong()
+    .pipe(finalize(()=>{
+      this.maGiong = this.maGiong.filter(e => e.maLoai == param);
+    }))
+    .subscribe(res => {
+      res.forEach(e => {
+        this.maGiong.push({
+          label: e.MaGiong,
+          value: e.MaGiong,
+          tenGiong: e.TenGiong,
+          maLoai: e.Maloai,
+        })
+      })
+    })
+    
+  }
 
   createOrEdit() {
     if (!this.checkValidate()) return;
