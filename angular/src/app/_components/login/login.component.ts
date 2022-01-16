@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (data) => {
           if (data === null) return alertify.error('Tài khoản hoặc mật khẩu không chính xác');
-          this.router.navigate(['log-info']);
+          this.router.navigate(['sanPham']);
           //window.location.reload();
           this.alertService.success('Success');
           alertify.success('Đăng nhập thành công');

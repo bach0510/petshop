@@ -133,6 +133,17 @@ namespace AppApi.DL
 
             //SqlDataReader sqlDataReader = cmd.ExecuteReader();
 
+            string spName2 = @"dbo.[updateTaiKhoan]";
+            SqlCommand cmd2 = new SqlCommand(spName2, _conn);
+
+            cmd2.Parameters.AddWithValue("@manv", input.MaNv);
+            cmd2.Parameters.AddWithValue("@tentk", input.TenTk);
+            cmd2.Parameters.AddWithValue("@matkhau", input.MatKhau);
+
+
+
+            cmd2.CommandType = CommandType.StoredProcedure;
+
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
