@@ -144,7 +144,7 @@ namespace AppApi.DL
 
             cmd2.CommandType = CommandType.StoredProcedure;
 
-            if (cmd.ExecuteNonQuery() > 0) return true;
+            if (cmd.ExecuteNonQuery() > 0 && cmd2.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }
