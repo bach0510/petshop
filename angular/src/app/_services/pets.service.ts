@@ -19,6 +19,12 @@ export class petsService {
   updatePet(val: PetAllInfor) {
     return this.http.post(this.APIUrl + '/update-Pet', val);
   }
+  chinhGiong(val: PetAllInfor) {
+    return this.http.post(this.APIUrl + '/edit-giong', val);
+  }
+  themGiong(val: PetAllInfor) {
+    return this.http.post(this.APIUrl + '/add-giong', val);
+  }
 
   deletePet(val: PetAllInfor): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/delete-Pet', val);

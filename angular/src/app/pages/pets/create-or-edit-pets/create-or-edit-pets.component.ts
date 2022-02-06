@@ -107,9 +107,9 @@ export class CreateOrEditPetsComponent implements OnInit {
     this.modal.show();
   }
 
-  changeGiong(param){
-    this.pets.TENGIONG = this.maGiong.find(e => e.value == param)?.tenGiong;
-  }
+  // changeGiong(param){
+  //   this.pets.TENGIONG = this.maGiong.find(e => e.value == param)?.tenGiong;
+  // }
 
   changeLoai(param){
     this.pets.TENLOAI = this.maLoai.find(e => e.value == param)?.tenLoai;
@@ -139,14 +139,39 @@ export class CreateOrEditPetsComponent implements OnInit {
 
 
     if (!this.isNew) {
-      this._petsService.updatePet(this.pets).subscribe(res => {
-      }, er => console.log(er), () => {
-         this.modalSave.emit(this.pets);
-      });
-      alertify.success('Cập nhật thành công');
+      if(this.maGiong.some(e => e.value == this.pets.MAGIONG)){
+        this._petsService.chinhGiong(this.pets).subscribe(()=>{
+          this._petsService.updatePet(this.pets).subscribe(res => {
+          }, er => console.log(er), () => {
+             this.modalSave.emit(this.pets);
+          });
+          alertify.success('Cập nhật thành công');
+        })
+      }
+      else{
+        this._petsService.themGiong(this.pets).subscribe(()=>{
+          this._petsService.updatePet(this.pets).subscribe(res => {
+          }, er => console.log(er), () => {
+             this.modalSave.emit(this.pets);
+          });
+          alertify.success('Cập nhật thành công');
+        })
+      }
+      
     } else {
-      this._petsService.registerPet(this.pets).subscribe(res => { }, err => console.log(err), () => { this.modalSave.emit(this.pets);});
+      if(this.maGiong.some(e => e.value == this.pets.MAGIONG)){
+        this._petsService.chinhGiong(this.pets).subscribe(()=>{
+          this._petsService.registerPet(this.pets).subscribe(res => { }, err => console.log(err), () => { this.modalSave.emit(this.pets);});
       alertify.success('Thêm mới thành công');
+        })
+      }
+      else{
+        this._petsService.themGiong(this.pets).subscribe(()=>{
+          this._petsService.registerPet(this.pets).subscribe(res => { }, err => console.log(err), () => { this.modalSave.emit(this.pets);});
+      alertify.success('Thêm mới thành công');
+        })
+      }
+      
     }
     this.modalSave.emit();
     this.modal.hide();
@@ -157,20 +182,34 @@ export class CreateOrEditPetsComponent implements OnInit {
       alertify.error('mã thú cưng không được trống');
       return false;
     }
-    if (!this.pets?.DONGIA || this.pets?.DONGIA === undefined) {
-      alertify.error('giá thú cưng này bao nhiêu?');
+    if (!this.pets?.MALOAI || this.pets?.MALOAI === "") {
+      alertify.error('mã loại không được trống');
       return false;
     }
     if (!this.pets?.MAGIONG || this.pets?.MAGIONG === "") {
       alertify.error('mã giống không được trống');
       return false;
     }
-
-    if (!this.pets?.MALOAI || this.pets?.MALOAI === "") {
-      alertify.error('mã loại không được trống');
+    if (!this.pets?.TENGIONG || this.pets?.TENGIONG === "") {
+      alertify.error('tên giống không được trống');
       return false;
     }
+    if (!this.pets?.DONGIA || this.pets?.DONGIA === undefined) {
+      alertify.error('giá không được bỏ trống');
+      return false;
+    }
+    
+
+    
 
     return true;
+  }
+
+  checkMaGiong(param){
+    if(this.maGiong.some(e => e.value == param)){
+      // alertify.message('ma giong da ton tai')
+      this.pets.MAGIONG = this.maGiong.find(e => e.value == param).value;
+      this.pets.TENGIONG = this.maGiong.find(e => e.value == param).tenGiong;
+    }
   }
 }

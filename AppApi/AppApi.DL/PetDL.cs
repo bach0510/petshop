@@ -168,17 +168,56 @@ namespace AppApi.DL
             cmd2.Parameters.AddWithValue("@MOTA", input.MOTA);
             cmd2.CommandType = CommandType.StoredProcedure;
 
-            string spName3 = @"dbo.[insertLoai]";
-            SqlCommand cmd3 = new SqlCommand(spName3, _conn);
-            cmd3.Parameters.AddWithValue("@MALOAI", input.MALOAI);
-            cmd3.Parameters.AddWithValue("@TENLOAI", input.TENLOAI);
-            cmd3.CommandType = CommandType.StoredProcedure;
+            //string spName3 = @"dbo.[insertLoai]";
+            //SqlCommand cmd3 = new SqlCommand(spName3, _conn);
+            //cmd3.Parameters.AddWithValue("@MALOAI", input.MALOAI);
+            //cmd3.Parameters.AddWithValue("@TENLOAI", input.TENLOAI);
+            //cmd3.CommandType = CommandType.StoredProcedure;
+
+
+            if (cmd.ExecuteNonQuery() > 0 ) return true;
+            _conn.Close();
+            return false;
+        }
+
+        public bool ThemGiong(PetInputDTO input)
+        {
+            _conn.Open();
+
+            string spName = @"dbo.[insertGiong]";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            cmd.Parameters.AddWithValue("@MAGIONG", input.MAGIONG);
+            cmd.Parameters.AddWithValue("@TENGIONG", input.TENGIONG);
+            cmd.Parameters.AddWithValue("@maloai", input.MALOAI);
+            cmd.Parameters.AddWithValue("@MOTA", input.MOTA);
+            cmd.CommandType = CommandType.StoredProcedure;
 
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
         }
+
+        public bool ChinhGiong(PetInputDTO input)
+        {
+            _conn.Open();
+
+            string spName = @"dbo.[sua_giong]";
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            cmd.Parameters.AddWithValue("@magiong", input.MAGIONG);
+            cmd.Parameters.AddWithValue("@tengiong", input.TENGIONG);
+            cmd.Parameters.AddWithValue("@mota", input.MOTA);
+            cmd.Parameters.AddWithValue("@maloai", input.MOTA);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            if (cmd.ExecuteNonQuery() > 0) return true;
+            _conn.Close();
+            return false;
+        }
+
 
         public bool UpdatePet(PetInputDTO input)
         {

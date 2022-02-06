@@ -84,6 +84,34 @@ namespace AppApi.Controllers
         }
 
         [HttpPost]
+        [Route("add-giong")]
+        public bool ThemGiong(PetInputDTO input)
+        {
+            try
+            {
+                return pets.ThemGiong(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("edit-giong")]
+        public bool ChinhGiong(PetInputDTO input)
+        {
+            try
+            {
+                return pets.ChinhGiong(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
         [Route("delete-loai")]
         public bool DeleteLoai(PetInputDTO input)
         {
