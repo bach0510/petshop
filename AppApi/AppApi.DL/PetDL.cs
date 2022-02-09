@@ -230,6 +230,7 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@maTC", input.MATC);
             cmd.Parameters.AddWithValue("@magiong", input.MAGIONG);
             cmd.Parameters.AddWithValue("@maloai", input.MALOAI);
+            cmd.Parameters.AddWithValue("@tenloai", input.TENLOAI);
 
             cmd.CommandType = CommandType.StoredProcedure;
 

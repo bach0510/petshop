@@ -14,29 +14,51 @@
       <div class="modal-body">
 
         <div class="row mt-1">
-          <div class="col-1">
+          <div class="col-4">
             <tmss-text-input [text]="'mã hóa đơn'" [disabled]="true" [(ngModel)]="HoaDon.MAHD"></tmss-text-input>
           </div>
           <div class="col-4">
-            <tmss-text-input [text]="'nhân viên'"  [(ngModel)]="HoaDon.NGUOILAPHD"></tmss-text-input>
+            <tmss-text-input [text]="'nhân viên'" [disabled]="true"  [(ngModel)]="HoaDon.NGUOILAPHD"></tmss-text-input>
           </div>
           <div class="col-4">
-            <tmss-text-input [text]="'ngày lập'"  [(ngModel)]="HoaDon.NGAYLAP"></tmss-text-input>
+            <tmss-datepicker [text]="'ngày lập'" [disabled]="true" [(ngModel)]="HoaDon.NGAYLAP"></tmss-datepicker>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'mã khách'"  [(ngModel)]="HoaDon.MAKH"></tmss-text-input>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <tmss-text-input [text]="'mã khuyến mại'"  [(ngModel)]="HoaDon.MAKM"></tmss-text-input>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'giá khuyến mại'"  [(ngModel)]="HoaDon.giaKhuyenMai"></tmss-text-input>
           </div>
+
+        </div>
+        <h6 class="card-header">
+          {{ "Chi tiết hóa đơn" }}
+        </h6>
+
+        <div class="row mt-1">
+          <div class="col-12">
+            <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail"
+               [showPagination]="false"
+              [height]="'200px'" >
+            </grid-table>
+          </div>
+
+        </div>
+
+        <div class="row mt-1">
+          <div class="col-6">
+
+          </div>
           <div class="col-6">
             <tmss-text-input [text]="'tổng'"  [(ngModel)]="HoaDon.tong"></tmss-text-input>
           </div>
+
         </div>
-        
+
+
 
 
       </div>

@@ -53,15 +53,15 @@ export class CreateOrEditPetsComponent implements OnInit {
     })
     this.maGiong =[];
     this._petsService.getGiong()
-    .pipe(finalize(()=>{
-      if(this.pets.MALOAI != undefined || this.pets.MALOAI?.trim() != ""){
-        this.maGiong = this.maGiong.filter(e => e.maLoai == this.pets.MALOAI );
-      }
-      else{
-        this.maGiong =[];
-      }
-      
-    }))
+    // .pipe(finalize(()=>{
+    //   if(this.pets.MALOAI != undefined || this.pets.MALOAI?.trim() != ""){
+    //     this.maGiong = this.maGiong.filter(e => e.maLoai == this.pets.MALOAI );
+    //   }
+    //   else{
+    //     this.maGiong =[];
+    //   }
+
+    // }))
     .subscribe(res => {
       res.forEach(e => {
         this.maGiong.push({
@@ -69,6 +69,7 @@ export class CreateOrEditPetsComponent implements OnInit {
           value: e.MaGiong,
           tenGiong: e.TenGiong,
           maLoai: e.Maloai,
+          mota: e.Mota,
         })
       })
     })
@@ -115,29 +116,33 @@ export class CreateOrEditPetsComponent implements OnInit {
     this.pets.TENLOAI = this.maLoai.find(e => e.value == param)?.tenLoai;
     this.pets.MAGIONG = undefined;
     this.pets.TENGIONG = undefined;
+    this.pets.MOTA = "";
 
     this.maGiong = [];
     this._petsService.getGiong()
-    .pipe(finalize(()=>{
-      this.maGiong = this.maGiong.filter(e => e.maLoai == param);
-    }))
+    // .pipe(finalize(()=>{
+    //   this.maGiong = this.maGiong.filter(e => e.maLoai == param);
+    // }))
     .subscribe(res => {
+      console.log(res)
       res.forEach(e => {
         this.maGiong.push({
           label: e.MaGiong,
           value: e.MaGiong,
           tenGiong: e.TenGiong,
           maLoai: e.Maloai,
+          mota: e.Mota,
         })
       })
     })
-    
+
   }
 
   createOrEdit() {
+
     if (!this.checkValidate()) return;
 
-
+    this.pets.MAGIONG = this.pets.MAGIONG.toUpperCase();
     if (!this.isNew) {
       if(this.maGiong.some(e => e.value == this.pets.MAGIONG)){
         this._petsService.chinhGiong(this.pets).subscribe(()=>{
@@ -157,7 +162,7 @@ export class CreateOrEditPetsComponent implements OnInit {
           alertify.success('Cập nhật thành công');
         })
       }
-      
+
     } else {
       if(this.maGiong.some(e => e.value == this.pets.MAGIONG)){
         this._petsService.chinhGiong(this.pets).subscribe(()=>{
@@ -171,7 +176,7 @@ export class CreateOrEditPetsComponent implements OnInit {
       alertify.success('Thêm mới thành công');
         })
       }
-      
+
     }
     this.modalSave.emit();
     this.modal.hide();
@@ -198,18 +203,26 @@ export class CreateOrEditPetsComponent implements OnInit {
       alertify.error('giá không được bỏ trống');
       return false;
     }
-    
 
-    
+
+
 
     return true;
   }
 
-  checkMaGiong(param){
-    if(this.maGiong.some(e => e.value == param)){
+  checkMaGiong(param: string ){
+    if(this.maGiong.some(e => e.value == param.toUpperCase())){
       // alertify.message('ma giong da ton tai')
-      this.pets.MAGIONG = this.maGiong.find(e => e.value == param).value;
-      this.pets.TENGIONG = this.maGiong.find(e => e.value == param).tenGiong;
+      // console.log(this.maGiong.find(e => e.value == param.toUpperCase()))
+      this.pets.MAGIONG = this.maGiong.find(e => e.value == param.toUpperCase()).value.toUpperCase();
+      // this.pets.MAGIONG = this.pets.MAGIONG.toUpperCase();
+      this.pets.TENGIONG = this.maGiong.find(e => e.value == param.toUpperCase()).tenGiong;
+      this.pets.MOTA = this.maGiong.find(e => e.value == param.toUpperCase()).mota;
     }
+
+  }
+
+  onFocusOut(){
+    this.pets.MAGIONG = this.pets.MAGIONG.toUpperCase();
   }
 }

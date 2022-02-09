@@ -19,24 +19,24 @@
             Định dạng mã thú cưng có kiểu : TC001
           </div>
           <div class="col-6">
-            
+
             <tmss-combobox [text]="'mã loại'" [items]="maLoai"  (ngModelChange)="changeLoai($event)" [(ngModel)]="pets.MALOAI"></tmss-combobox>
           </div>
         </div>
 
         <div class="row mt-1">
           <div class="col-6">
-            
+
             <tmss-text-input [text]="'tên loại'" disabled="true"  [(ngModel)]="pets.TENLOAI"></tmss-text-input>
           </div>
           <div class="col-6">
-            <tmss-text-input [text]="'mã giống'" (ngModelChange)="checkMaGiong($event)" [(ngModel)]="pets.MAGIONG"></tmss-text-input>
+            <tmss-text-input [text]="'mã giống'" [disabled]="!pets.MALOAI" (focusout)="onFocusOut()" (ngModelChange)="checkMaGiong($event)" [(ngModel)]="pets.MAGIONG"></tmss-text-input>
           </div>
         </div>
 
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'tên giống'"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
+            <tmss-text-input [text]="'tên giống'" [disabled]="!pets.MALOAI"  [(ngModel)]="pets.TENGIONG"></tmss-text-input>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'mô tả'"  [(ngModel)]="pets.MOTA"></tmss-text-input>

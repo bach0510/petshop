@@ -7,6 +7,8 @@ import { HoaDonService } from 'src/app/_services/HoaDon.service';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 import { HoaDon } from 'src/app/_models/HoaDon';
 import * as moment from 'moment';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { NhanVien } from 'src/app/_models/nhan-vien';
 declare let alertify: any;
 @Component({
   selector: 'app-HoaDon',
@@ -46,9 +48,11 @@ export class HoaDonComponent implements OnInit {
 
   detailColDef;
 
+  employee: NhanVien;
+
   rowDataDetail = [];
 
-  constructor(private HoaDonService: HoaDonService,) {
+  constructor(private HoaDonService: HoaDonService,private authenticationService: AuthenticationService) {
     this.columnsDef = [
       {
         headerName: 'STT',
@@ -115,6 +119,13 @@ export class HoaDonComponent implements OnInit {
 
     };
 
+    this.authenticationService.currentUser
+    .subscribe(
+      (x) => {
+        this.employee = x;
+
+      }
+    );
   }
 
   ngOnInit() {

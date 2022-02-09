@@ -31,16 +31,16 @@ namespace AppApi.DL
                 spName = @"dbo.[findKhachHangByName]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@hoten", input.Filter);
+                cmd.Parameters.AddWithValue("@name", input.Filter);
             }
             else if (input.Value == 3)
             {
                 spName = @"dbo.[findKhachHangByPhone]";
                 cmd = new SqlCommand(spName, _conn);
 
-                cmd.Parameters.AddWithValue("@SDT", input.Filter);
+                cmd.Parameters.AddWithValue("@phone", input.Filter);
             }
-            if (string.IsNullOrWhiteSpace(input.Filter))
+            if (string.IsNullOrWhiteSpace(input.Filter) || input.Value == 4)
             {
                 spName = @"dbo.[getAllKhachHang]";
                 cmd = new SqlCommand(spName, _conn);
