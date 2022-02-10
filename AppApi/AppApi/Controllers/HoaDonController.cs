@@ -55,6 +55,20 @@ namespace AppApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("khuyen-mai")]
+        public List<KhuyenMai> GetKhuyenMai(GetHoaDonInput input)
+        {
+            try
+            {
+                return HoaDon.GetKhuyenMai(input.MaHd);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /*[HttpPost]
         [Route("delete-HoaDon")]
         public bool DeleteCustomer(KhachHang input)

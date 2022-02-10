@@ -1,3 +1,5 @@
+import { CustomerService } from 'src/app/_services/customer.service';
+import { khuyenMai } from './../../../_models/khuyenMai';
 import { NhanVien } from 'src/app/_models/nhan-vien';
 import { HoaDonService } from '../../../_services/HoaDon.service';
 import { HoaDon } from '../../../_models/HoaDon';
@@ -6,6 +8,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Employee } from 'src/app/_models/employee';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 import * as moment from 'moment';
+import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
 declare let alertify: any;
 
 @Component({
@@ -33,10 +36,26 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   isNew: boolean = false;
   detailColDef: any;
 
+  customers=[];
+
   rowDataDetail=[];
 
+  defaultColDef = {
+    flex: 1,
+    resizable: true,
+    suppressMenu: true,
+    menuTabs: [],
+    tooltipValueGetter: (t: any) => t.value,
+    textFormatter: function (r) {
+      if (r == null) return null;
+      return r.toLowerCase();
+    },
 
-  constructor(private _HoaDonService: HoaDonService) {
+  };
+
+  tenKh: string="";
+
+  constructor(private _HoaDonService: HoaDonService,private _customerService : CustomerService) {
     this.detailColDef = [
       {
         headerName: 'Tên SP',
@@ -63,10 +82,22 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   }
 
   show(event) {
+    this._customerService.getCustomers(new GetKhachHangInput).subscribe(res => {
+      res.forEach(p => {
+        this.customers.push({
+          label:p.HoTen,
+          value:p.MAKH
+        })
+      })
+    })
     this.HoaDon = new HoaDon()
+    this.giaKhuyenMai = 0;
     this.isNew = true;
     if (event.MAHD != undefined) {
       this.HoaDon = event;
+      let input = new GetHoaDonInput();
+      input.MaHd = this.HoaDon.MAKM; // thay mã hóa đơn bằng mã khuyến mại để không phải tạo nhiều dto
+      if(this.HoaDon.MAKM || this.HoaDon.MAKM != "") this._HoaDonService.getKhuyenMai(input).subscribe((res: khuyenMai[]) => this.giaKhuyenMai = res[0].GiaKhuyenMai)
       this.isNew = false;
     }
     var getHoaDonInput = new GetHoaDonInput();
@@ -96,7 +127,11 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
   createOrEdit() {
     if (!this.checkValidate()) return;
-    this.modalSave.emit(this.HoaDon);
+    if(!this.isNew){
+      this._HoaDonService.updateHoaDon(this.HoaDon).subscribe(res => {
+        alertify.success("cập nhật thành công");
+      })
+    }
     this.modal.hide();
   }
 

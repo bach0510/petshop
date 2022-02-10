@@ -1,5 +1,5 @@
 export class khuyenMai {
-  kmID: string;
+  MaKm: string;
   GiaKhuyenMai: number;
   ngayBD: Date;
   ngayKT: Date;

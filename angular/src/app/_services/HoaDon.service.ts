@@ -15,7 +15,11 @@ export class HoaDonService {
   getHoaDon(val: GetHoaDonInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/HoaDon', val);
   }
-  
+
+  getKhuyenMai(val: GetHoaDonInput): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/khuyen-mai', val);
+  }
+
   getChiTietHoaDon(val: GetHoaDonInput): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/chiTietHoaDon', val);
   }

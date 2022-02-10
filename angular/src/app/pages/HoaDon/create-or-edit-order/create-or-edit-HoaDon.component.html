@@ -23,14 +23,18 @@
           <div class="col-4">
             <tmss-datepicker [text]="'ngày lập'" [disabled]="true" [(ngModel)]="HoaDon.NGAYLAP"></tmss-datepicker>
           </div>
-          <div class="col-6">
-            <tmss-text-input [text]="'mã khách'"  [(ngModel)]="HoaDon.MAKH"></tmss-text-input>
+        </div>
+        <div class="row mt-1">
+          <div class="col-12">
+            <tmss-combobox [text]="'tên khách hàng '" [items]="customers" [(ngModel)]="HoaDon.MAKH"></tmss-combobox>
           </div>
+        </div>
+        <div class="row mt-1">
           <div class="col-6">
             <tmss-text-input [text]="'mã khuyến mại'"  [(ngModel)]="HoaDon.MAKM"></tmss-text-input>
           </div>
           <div class="col-6">
-            <tmss-text-input [text]="'giá khuyến mại'"  [(ngModel)]="HoaDon.giaKhuyenMai"></tmss-text-input>
+            <tmss-text-input [text]="'giá khuyến mại'" [disabled]="true" [(ngModel)]="giaKhuyenMai"></tmss-text-input>
           </div>
 
         </div>
@@ -41,7 +45,7 @@
         <div class="row mt-1">
           <div class="col-12">
             <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail"
-               [showPagination]="false"
+               [showPagination]="false" [defaultColDef]="defaultColDef"
               [height]="'200px'" >
             </grid-table>
           </div>
