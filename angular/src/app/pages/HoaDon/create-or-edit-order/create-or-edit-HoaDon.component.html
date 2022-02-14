@@ -57,7 +57,7 @@
         <div class="row mt-1">
           <div class="col-12">
             <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail" (callBackEvent)="callBackEvent($event)"
-               [showPagination]="false" [defaultColDef]="defaultColDef" (onChangeSelection)="onChangeSelection($event)"
+               [showPagination]="false" [defaultColDef]="defaultColDef" (onChangeSelection)="onChangeSelection($event)"(onSearch)="searchByEnter($event)"
               [height]="'200px'" >
             </grid-table>
           </div>
@@ -92,3 +92,5 @@
     </div>
   </div>
 </div>
+
+<app-select-product #selectProduct (modalSave)="modalSaveProduct($event)"></app-select-product>

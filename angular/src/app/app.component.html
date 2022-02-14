@@ -3,6 +3,6 @@
     <router-outlet #outlet="outlet"></router-outlet>
 </div> -->
 <app-navbar *ngIf="currentUser"  [checkMenu]="checkMenu" (changeMenu)="changeMenu($event)"></app-navbar>
-<div  class="container-ui" [ngStyle]="(checkMenu && currentUser)  ? {'margin-left.px': 250} : {'margin-left.px': 60}" [ngStyle]="(checkMenu && currentUser)  ? {'wisth.%': 84} : {'wisth.%': 96}" [ngStyle]="(checkMenu && currentUser) ? {'margin-left.px': 250} : {'margin-left.px': 60}" style="height: 100vh;overflow-y: auto;">
+<div  class="container-ui" [ngStyle]="(checkMenu && currentUser)  ? {'margin-left.px': 250} : {'margin-left.px': 60}" [ngStyle]="(checkMenu && currentUser)  ? {'wisth.%': 84} : {'wisth.%': 96}" [ngStyle]="(checkMenu && currentUser) ? {'margin-left.px': 250} : {'margin-left.px': 60}" style="height: auto;overflow-y: auto;">
     <router-outlet #outlet="outlet"></router-outlet>
 </div>

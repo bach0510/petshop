@@ -1,3 +1,4 @@
+import { SelectProductComponent } from './../select-product/select-product.component';
 import { finalize } from 'rxjs/operators';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { khuyenMai } from './../../../_models/khuyenMai';
@@ -10,8 +11,10 @@ import { Employee } from 'src/app/_models/employee';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 import * as moment from 'moment';
 import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
-import { RowNode } from 'ag-grid-community';
+import { ICellEditorParams, RowNode } from 'ag-grid-community';
 import { pipe } from 'rxjs';
+import { sanPhamService } from 'src/app/_services/sanPham.service';
+import { petsService } from 'src/app/_services/pets.service';
 declare let alertify: any;
 
 @Component({
@@ -21,6 +24,7 @@ declare let alertify: any;
 })
 export class CreateOrEditHoaDonComponent implements OnInit {
   @ViewChild('modal') public modal: ModalDirective;
+  @ViewChild('selectProduct', { static: true }) selectProduct: SelectProductComponent;
   @Output('modalSave') modalSave = new EventEmitter();
   @Input() areaList = [];
   @Input() currentUser = new NhanVien;
@@ -63,7 +67,8 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
   tenKh: string="";
 
-  constructor(private _HoaDonService: HoaDonService,private _customerService : CustomerService) {
+  constructor(private _HoaDonService: HoaDonService,private _customerService : CustomerService
+    ,private _sanPhamService: sanPhamService,private _petsService: petsService) {
     this.detailColDef = [
       {
         headerName: 'Tên SP',
@@ -165,11 +170,11 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     else{
       this._HoaDonService.addHoaDon(this.HoaDon)
       .pipe(finalize(()=>{
-        let dataDetail =[];
-        this.params.api.forEachNode(node => {
-          dataDetail.push(node?.data);
-        })
-        console.log(dataDetail);
+        // let dataDetail =[];
+        // this.params.api.forEachNode(node => {
+        //   dataDetail.push(node?.data);
+        // })
+        // console.log(dataDetail);
       }))
       .subscribe(res => {
         alertify.success("thêm mới hóa đơn thành công")
@@ -186,17 +191,44 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   }
 
   addrow(){
-    this.params.api.applyTransaction({ add: [{soLuong: 1}] });
-    this.HoaDon.tong = 0 ;
-    console.log(this.rowDataDetail.length);
+    // this.params.api.applyTransaction({ add: [{soLuong: 1}] });
+    // this.HoaDon.tong = 0 ;
+    // console.log(this.rowDataDetail.length);
+    this.selectProduct.show();
   }
 
   deleterow(){
 
   }
 
+  searchByEnter(cellParams: ICellEditorParams) {
+    const col = cellParams?.colDef?.field;
+    if (col == 'ten') {
+        // var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+        // var valueFilter = cellParams.value?.split(' ')[0].split('').filter(e => !format.test(e)).join('').trim();
+        // this.selectedNode.setDataValue('partCode', valueFilter);
+        // this.selectPart.show(
+        //     valueFilter,
+        //     undefined,
+        //     undefined,
+        //     'partCode'
+        // );
+        this.selectProduct.show();
+
+    }
+}
+
   callBackEvent(event) {
     this.params = event;
+  }
+
+  modalSaveProduct(params){
+    console.log(params)
+    this.params.api.applyTransaction({ add: [{soLuong: 1,ten: params.ten,gia: params.gia, ma: params.ma }] });
+    this.HoaDon.tong = 0;
+    this.params.api.forEachNode(e => {
+      this.HoaDon.tong += (e.gia * e.soLuong);
+    })
   }
 
   onChangeSelection(params) {

@@ -170,7 +170,8 @@ export class GridTableComponent {
   }
 
   onCellKeyPress(params) {
-    this.cellKeyPress.emit(params);
+    if (['Enter'].indexOf(params.event.key.toString()) !== -1) this.onSearch.emit(params);
+    else this.cellKeyPress.emit(params);
   }
 
   changePage(params) {

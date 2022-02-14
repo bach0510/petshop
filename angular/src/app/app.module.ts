@@ -1,3 +1,4 @@
+import { SelectProductComponent } from './pages/HoaDon/select-product/select-product.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppBsModalModule } from './_components/shared/common/appBsModal/app-bs-modal.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -85,7 +86,8 @@ import { DataFormatService } from './_services/data-format.service';
     SalaryComponent,
     CreateOrEditPetsComponent,
     CreateOrEditSanPhamComponent,
-    CreateOrEditHoaDonComponent
+    CreateOrEditHoaDonComponent,
+    SelectProductComponent
   ],
   imports: [
     BrowserModule,
