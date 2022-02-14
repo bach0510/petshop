@@ -28,9 +28,12 @@ export class HoaDonService {
     return this.http.post(this.APIUrl + '/update-HoaDon', val);
   }
 
-  // deleteCustomer(val: khachHang): Observable<any[]> {
-  //   return this.http.post<any>(this.APIUrl + '/delete-customer', val);
-  // }
+  addHoaDon(val: HoaDon){
+    return this.http.post(this.APIUrl + '/add-HoaDon', val);
+  }
+  deleteHaoDon(val: HoaDon): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/delete-HoaDon', val);
+  }
 
   // registerCustomer(val: khachHang) {
   //   return this.http.post(this.APIUrl + '/add-customer', val);

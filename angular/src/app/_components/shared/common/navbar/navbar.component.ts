@@ -38,19 +38,19 @@ export class NavbarComponent {
     .subscribe(
       (x) => {
         this.currentUser = x;
-        
+
       }
     );
-    
-    
+
+
   }
-  
+
   ngOnInit(){
     console.log(this.currentUser)
 
-    
+
     // if (!this.currentUser.ImageString)
-    //   this.url = "assets/img/userIcon.jpg" 
+    //   this.url = "assets/img/userIcon.jpg"
     // else
     //    this.url = 'data:image/jpeg;base64,' + this.currentUser.ImageString;
   }
@@ -65,7 +65,7 @@ export class NavbarComponent {
     for (var i = 0; i < btns.length; i++) {
       btns[i].addEventListener("click", function() {
         var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace("active", "");
+        current[0].className = current[0]!.className!.replace("active", "");
         this.className += " active";
       });
     }

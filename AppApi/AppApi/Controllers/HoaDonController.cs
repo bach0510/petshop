@@ -56,6 +56,20 @@ namespace AppApi.Controllers
         }
 
         [HttpPost]
+        [Route("add-HoaDon")]
+        public bool Add(HoaDon input)
+        {
+            try
+            {
+                return HoaDon.AddHoaDon(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
         [Route("khuyen-mai")]
         public List<KhuyenMai> GetKhuyenMai(GetHoaDonInput input)
         {
@@ -69,9 +83,9 @@ namespace AppApi.Controllers
             }
         }
 
-        /*[HttpPost]
+        [HttpPost]
         [Route("delete-HoaDon")]
-        public bool DeleteCustomer(KhachHang input)
+        public bool DeleteCustomer(HoaDon input)
         {
             try
             {
@@ -81,7 +95,7 @@ namespace AppApi.Controllers
             {
                 throw;
             }
-        }*/
+        }
 
 
         /*[HttpPost]

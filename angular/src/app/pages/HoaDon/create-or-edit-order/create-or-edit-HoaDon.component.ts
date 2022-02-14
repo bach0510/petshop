@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs/operators';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { khuyenMai } from './../../../_models/khuyenMai';
 import { NhanVien } from 'src/app/_models/nhan-vien';
@@ -9,6 +10,8 @@ import { Employee } from 'src/app/_models/employee';
 import { GetHoaDonInput } from 'src/app/_models/GetHoaDonInput';
 import * as moment from 'moment';
 import { GetKhachHangInput } from 'src/app/_models/GetKhachHangInput';
+import { RowNode } from 'ag-grid-community';
+import { pipe } from 'rxjs';
 declare let alertify: any;
 
 @Component({
@@ -36,8 +39,13 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   isNew: boolean = false;
   detailColDef: any;
 
+  params;
+
+  selectedData;
+
   customers=[];
 
+  selectedNode: RowNode = new RowNode();
   rowDataDetail=[];
 
   defaultColDef = {
@@ -60,14 +68,17 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       {
         headerName: 'Tên SP',
         field: 'ten',
+        editable: true,
       },
       {
         headerName: 'Số lượng',
         field: 'soLuong',
+        editable: true,
       },
       {
         headerName: 'Đơn giá',
         field: 'gia',
+        editable: true,
       },
 
     ]
@@ -82,6 +93,7 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   }
 
   show(event) {
+    this.customers = [];
     this._customerService.getCustomers(new GetKhachHangInput).subscribe(res => {
       res.forEach(p => {
         this.customers.push({
@@ -118,18 +130,50 @@ export class CreateOrEditHoaDonComponent implements OnInit {
         this.HoaDon.MAHD =  codeString.length == 1 ? '00' + codeString : codeString.length == 2 ? '0' + codeString : codeString ;
       }
     });
+    // search chi tiết hóa đơn
+    var HoaDonDetail = new GetHoaDonInput();
+    HoaDonDetail.MaHd = event?.MAHD ?? 0;
+    this._HoaDonService.getChiTietHoaDon(HoaDonDetail).subscribe(res => {
+        this.rowDataDetail = res;
+    })
 
 
     this.modal.show();
   }
 
-
+  changeDispriceCode(params){
+    let input = new GetHoaDonInput();
+    input.MaHd = params; // thay mã hóa đơn bằng mã khuyến mại để không phải tạo nhiều dto
+    console.log(params)
+    this._HoaDonService.getKhuyenMai(input).subscribe((res: khuyenMai[]) =>{
+       if(res.length == 1){
+         this.giaKhuyenMai = res[0].GiaKhuyenMai ?? 0;
+        }
+        else this.giaKhuyenMai = 0;
+      })
+  }
 
   createOrEdit() {
     if (!this.checkValidate()) return;
     if(!this.isNew){
-      this._HoaDonService.updateHoaDon(this.HoaDon).subscribe(res => {
+      this._HoaDonService.updateHoaDon(this.HoaDon)
+      .subscribe(res => {
         alertify.success("cập nhật thành công");
+        this.modalSave.emit(null);
+      })
+    }
+    else{
+      this._HoaDonService.addHoaDon(this.HoaDon)
+      .pipe(finalize(()=>{
+        let dataDetail =[];
+        this.params.api.forEachNode(node => {
+          dataDetail.push(node?.data);
+        })
+        console.log(dataDetail);
+      }))
+      .subscribe(res => {
+        alertify.success("thêm mới hóa đơn thành công")
+        this.modalSave.emit(null);
       })
     }
     this.modal.hide();
@@ -140,4 +184,24 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
     return true;
   }
+
+  addrow(){
+    this.params.api.applyTransaction({ add: [{soLuong: 1}] });
+    this.HoaDon.tong = 0 ;
+    console.log(this.rowDataDetail.length);
+  }
+
+  deleterow(){
+
+  }
+
+  callBackEvent(event) {
+    this.params = event;
+  }
+
+  onChangeSelection(params) {
+    const selectedData = params.api.getSelectedRows();
+    if (selectedData) this.selectedData = selectedData[0];
+  }
+
 }

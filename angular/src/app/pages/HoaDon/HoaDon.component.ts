@@ -134,8 +134,8 @@ export class HoaDonComponent implements OnInit {
   }
 
   onSearch() {
-    console.log(this.todate)
-    console.log(this.fromdate)
+    // console.log(this.todate)
+    // console.log(this.fromdate)
     this.callBackEvent(this.params);
   }
 
@@ -167,6 +167,11 @@ export class HoaDonComponent implements OnInit {
     });
   }
 
+  refresh(){
+    this.fromdate = undefined;
+    this.todate = undefined;
+    this.onSearch();
+  }
 
   changePaginationParams(paginationParams: PaginationParamsModel) {
     this.paginationParams = paginationParams;
@@ -217,6 +222,15 @@ export class HoaDonComponent implements OnInit {
     this.createOrEditHoaDon.show(this.selectedData);
   }
 
+  deleteHoaDon(){
+    let input = new HoaDon();
+    input.MAHD = this.selectedData.MAHD;
+    this.HoaDonService.deleteHaoDon(input).subscribe(()=>{
+      alertify.success("xóa hóa đơn thành công ");
+      this.onSearch();
+    })
+  }
+
   // delete() {
   //   this.HoaDonService
   //     .deleteHoaDon(this.selectedData)
@@ -244,7 +258,7 @@ export class HoaDonComponent implements OnInit {
 
 
   modalSave(event){
-
+    this.onSearch()
   }
   // modalSave(event) {
   //   console.log(event);

@@ -32,7 +32,7 @@ namespace AppApi.DL
                 cmd = new SqlCommand(spName, _conn);
 
                 cmd.Parameters.AddWithValue("@NgayBD", input.FromDate.ToLower() == "invalid date" ? "01/01/2000" : input.FromDate);
-                cmd.Parameters.AddWithValue("@NgayKT", input.ToDate.ToLower() == "invalid date" ? "01/01/2022" : input.ToDate);
+                cmd.Parameters.AddWithValue("@NgayKT", input.ToDate.ToLower() == "invalid date" ? DateTime.Now.ToString("MM/dd/yyyy") : input.ToDate);
             //}
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -147,15 +147,14 @@ namespace AppApi.DL
         {
             _conn.Open();
 
-            string spName = @"dbo.[updateKhachHang]";
+            string spName = @"dbo.[updateHoaDon]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
+            cmd.Parameters.AddWithValue("@mahd", input.MAHD);
+            cmd.Parameters.AddWithValue("@manv", input.NGUOILAPHD);
             cmd.Parameters.AddWithValue("@makh", input.MAKH);
-            cmd.Parameters.AddWithValue("@NGUOILAPHD", input.NGUOILAPHD);
-            cmd.Parameters.AddWithValue("@MAKH", input.MAKH);
-            cmd.Parameters.AddWithValue("@MAKM", input.MAKM);
-            cmd.Parameters.AddWithValue("@giaKhuyenMai", input.giaKhuyenMai);
-            cmd.Parameters.AddWithValue("@NGAYLAP", input.NGAYLAP);
+            cmd.Parameters.AddWithValue("@makm", input.MAKM ?? "");
+            cmd.Parameters.AddWithValue("@ngaylap", input.NGAYLAP);
             //cmd.Parameters.AddWithValue("@tong", input.tong);
 
             cmd.CommandType = CommandType.StoredProcedure;
@@ -167,18 +166,40 @@ namespace AppApi.DL
             return false;
         }
 
-        /*public bool DeleteDL(HoaDon input)
+        public bool AddHoaDon(HoaDon input)
         {
-            string spName = @"dbo.[deleteKhachHang]";
+            _conn.Open();
+
+            string spName = @"dbo.[insertHoaDon]";
             SqlCommand cmd = new SqlCommand(spName, _conn);
 
+            cmd.Parameters.AddWithValue("@mahd", input.MAHD);
+            cmd.Parameters.AddWithValue("@manv", input.NGUOILAPHD);
             cmd.Parameters.AddWithValue("@makh", input.MAKH);
+            cmd.Parameters.AddWithValue("@makm", input.MAKM ?? "" );
+            cmd.Parameters.AddWithValue("@ngaylap", input.NGAYLAP);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            if (cmd.ExecuteNonQuery() > 0) return true;
+            _conn.Close();
+            return false;
+        }
+
+        public bool DeleteDL(HoaDon input)
+        {
+            _conn.Open();
+            string spname = @"dbo.[deleteHoaDon]";
+            SqlCommand cmd = new SqlCommand(spname, _conn);
+
+            cmd.Parameters.AddWithValue("@mahd", input.MAHD);
             cmd.CommandType = CommandType.StoredProcedure;
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
             return false;
-        }*/
+        }
 
     }
 }

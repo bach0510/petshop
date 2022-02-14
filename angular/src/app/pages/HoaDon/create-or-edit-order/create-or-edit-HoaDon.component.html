@@ -31,21 +31,33 @@
         </div>
         <div class="row mt-1">
           <div class="col-6">
-            <tmss-text-input [text]="'mã khuyến mại'"  [(ngModel)]="HoaDon.MAKM"></tmss-text-input>
+            <tmss-text-input [text]="'mã khuyến mại'" (ngModelChange)="changeDispriceCode($event)" [(ngModel)]="HoaDon.MAKM"></tmss-text-input>
           </div>
           <div class="col-6">
             <tmss-text-input [text]="'giá khuyến mại'" [disabled]="true" [(ngModel)]="giaKhuyenMai"></tmss-text-input>
           </div>
 
         </div>
-        <h6 class="card-header">
-          {{ "Chi tiết hóa đơn" }}
+        <h6 class="card-header" style="display:flex">
+          <div class="col-7" style="padding-top:5px">
+            {{ "Danh sách hóa đơn" }}
+          </div>
+          <div class="col-5 text-right">
+            <button class="tmss-btn btn-outline-primary" style="margin: 0" (click)="addrow()">
+              <i class="fa tmss-fa fa-plus"></i>
+              <span class="ml-1">thêm sản phẩm</span>
+            </button>
+            <button class="tmss-btn btn-outline-danger" style="margin: 0" (click)="deleterow()" [disabled]="!selectedData">
+              <i class="fa tmss-fa fa-eye"></i>
+              <span class="ml-1">xóa sản phẩm</span>
+            </button>
+          </div>
         </h6>
 
         <div class="row mt-1">
           <div class="col-12">
-            <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail"
-               [showPagination]="false" [defaultColDef]="defaultColDef"
+            <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail" (callBackEvent)="callBackEvent($event)"
+               [showPagination]="false" [defaultColDef]="defaultColDef" (onChangeSelection)="onChangeSelection($event)"
               [height]="'200px'" >
             </grid-table>
           </div>

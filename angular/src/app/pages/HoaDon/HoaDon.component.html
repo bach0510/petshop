@@ -20,16 +20,22 @@
           <span class="ml-1">Tìm kiếm</span>
         </button>
       </div>
+      <div class="col-1">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1" (click)="refresh()">
+          <i class="fa tmss-fa fa-refresh"></i>
+          <span class="ml-1">Làm mới</span>
+        </button>
+      </div>
     </div>
 
   </div>
 
   <div class="main mt-2">
     <h6 class="card-header" style="display:flex">
-      <div class="col-9" style="padding-top:5px">
+      <div class="col-7" style="padding-top:5px">
         {{ "Danh sách hóa đơn" }}
       </div>
-      <div class="col-3 text-right">
+      <div class="col-5 text-right">
         <button class="tmss-btn btn-outline-primary" style="margin: 0" (click)="add()">
           <i class="fa tmss-fa fa-plus"></i>
           <span class="ml-1">tạo hóa đơn</span>
@@ -37,6 +43,10 @@
         <button class="tmss-btn btn-outline-primary" style="margin: 0" (click)="edit()" [disabled]="!selectedData">
           <i class="fa tmss-fa fa-eye"></i>
           <span class="ml-1">xem hóa đơn</span>
+        </button>
+        <button class="tmss-btn btn-outline-danger" style="margin: 0" (click)="deleteHoaDon()" [disabled]="!selectedData">
+          <i class="fa tmss-fa fa-eye"></i>
+          <span class="ml-1">xóa hóa đơn</span>
         </button>
       </div>
     </h6>
