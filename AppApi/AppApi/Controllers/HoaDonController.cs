@@ -97,6 +97,20 @@ namespace AppApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("update-chiTietHoaDon")]
+        public bool UpdateChiTietHoaDon(List<ChiTietHoaDon> input)
+        {
+            try
+            {
+                return HoaDon.UpdateDetail(input);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         /*[HttpPost]
         [Route("add-customer")]

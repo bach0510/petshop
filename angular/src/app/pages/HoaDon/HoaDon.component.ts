@@ -228,6 +228,8 @@ export class HoaDonComponent implements OnInit {
     this.HoaDonService.deleteHaoDon(input).subscribe(()=>{
       alertify.success("xóa hóa đơn thành công ");
       this.onSearch();
+      this.selectedData = undefined;
+      this.rowDataDetail = [];
     })
   }
 
@@ -259,6 +261,8 @@ export class HoaDonComponent implements OnInit {
 
   modalSave(event){
     this.onSearch()
+    this.selectedData = undefined;
+    this.rowDataDetail = [];
   }
   // modalSave(event) {
   //   console.log(event);

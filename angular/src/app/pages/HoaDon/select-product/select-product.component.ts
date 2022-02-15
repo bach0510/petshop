@@ -121,6 +121,7 @@ export class SelectProductComponent implements OnInit {
             ten: e.TENGIONG,
             gia: e.DONGIA,
             ma: e.MATC,
+            soLuong: 1,
           });
         })
       })
@@ -131,6 +132,7 @@ export class SelectProductComponent implements OnInit {
           ten: e.tenSP,
           gia: e.gia,
           ma: e.masp,
+          soLuong: 1,
         });
       })
     })

@@ -1,4 +1,5 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { ChiTietHoaDon } from './../_models/chiTietHoaDon';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { khachHang } from '../_models/khachHang';
@@ -33,6 +34,9 @@ export class HoaDonService {
   }
   deleteHaoDon(val: HoaDon): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/delete-HoaDon', val);
+  }
+  updateChiTietHoaDon(val : ChiTietHoaDon[]): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/update-chiTietHoaDon', val);
   }
 
   // registerCustomer(val: khachHang) {

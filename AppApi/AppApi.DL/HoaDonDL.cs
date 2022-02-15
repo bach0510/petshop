@@ -97,6 +97,7 @@ namespace AppApi.DL
                 {
                     var hoaDon = new ChiTietHoaDonSanPham();
 
+                    hoaDon.ma = sqlDataReader["MA"].ToString();
                     hoaDon.ten = sqlDataReader["TEN"].ToString();
                     hoaDon.soLuong = (int)sqlDataReader["SOLUONG"];
                     hoaDon.gia = (int)sqlDataReader["DONGIA"];
@@ -187,6 +188,57 @@ namespace AppApi.DL
             return false;
         }
 
+        public bool UpdateDetail(List<ChiTietHoaDon> input)
+        {
+            _conn.Open();
+
+            string spName = string.Format("delete from CTHOADONSANPHAM where MAHD = @mahd");
+            SqlCommand cmd = new SqlCommand(spName, _conn);
+
+            cmd.Parameters.AddWithValue("@mahd", input[0].MaHd);
+            cmd.ExecuteNonQuery();
+
+            string spName2 = string.Format("delete from CTHOADONTHUCUNG where MAHD = @mahd");
+            SqlCommand cmd2 = new SqlCommand(spName2, _conn);
+
+            cmd2.Parameters.AddWithValue("@mahd", input[0].MaHd);
+            cmd2.ExecuteNonQuery();
+
+            foreach (var e in input)
+            {
+                if (e.Ma.Contains("TC"))
+                {
+                    string spName3 = string.Format("INSERT INTO CTHOADONTHUCUNG  VALUES (@mahd, 1, @matc, @soluong,@dongia)");
+                    SqlCommand cmd3 = new SqlCommand(spName3, _conn);
+
+                    cmd3.Parameters.AddWithValue("@mahd", e.MaHd);
+                    cmd3.Parameters.AddWithValue("@matc", e.Ma);
+                    cmd3.Parameters.AddWithValue("@soluong", e.SoLuong);
+                    cmd3.Parameters.AddWithValue("@dongia", e.Gia);
+
+                    cmd3.ExecuteNonQuery();
+                }
+
+                if (e.Ma.Contains("SP"))
+                {
+                    string spName4 = string.Format("INSERT INTO CTHOADONSANPHAM VALUES (@mahd, 1, @masp, @soluong,@dongia)");
+                    SqlCommand cmd4 = new SqlCommand(spName4, _conn);
+
+                    cmd4.Parameters.AddWithValue("@mahd", e.MaHd);
+                    cmd4.Parameters.AddWithValue("@masp", e.Ma);
+                    cmd4.Parameters.AddWithValue("@soluong", e.SoLuong);
+                    cmd4.Parameters.AddWithValue("@dongia", e.Gia);
+
+                    cmd4.ExecuteNonQuery();
+                }
+            }
+
+            
+            _conn.Close();
+            return false;
+        }
+
+
         public bool DeleteDL(HoaDon input)
         {
             _conn.Open();
@@ -195,6 +247,18 @@ namespace AppApi.DL
 
             cmd.Parameters.AddWithValue("@mahd", input.MAHD);
             cmd.CommandType = CommandType.StoredProcedure;
+
+            string spName1 = string.Format("delete from CTHOADONSANPHAM where MAHD = @mahd");
+            SqlCommand cmd1 = new SqlCommand(spName1, _conn);
+
+            cmd1.Parameters.AddWithValue("@mahd", input.MAHD);
+            cmd1.ExecuteNonQuery();
+
+            string spName2 = string.Format("delete from CTHOADONTHUCUNG where MAHD = @mahd");
+            SqlCommand cmd2 = new SqlCommand(spName2, _conn);
+
+            cmd2.Parameters.AddWithValue("@mahd", input.MAHD);
+            cmd2.ExecuteNonQuery();
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();

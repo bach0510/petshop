@@ -59,6 +59,7 @@
     <Compile Include="Dtos\PayoffDto.cs" />
     <Compile Include="Dtos\Payoff.cs" />
     <Compile Include="Dtos\UserPayoff.cs" />
+    <Compile Include="Entity\ChiTietHoaDon.cs" />
     <Compile Include="Entity\ChiTietHoaDonSanPham.cs" />
     <Compile Include="Entity\chiTietHoaDonThuCung.cs" />
     <Compile Include="Entity\KhachHang.cs" />

@@ -4,4 +4,5 @@ export class ChiTietHoaDonSanPham {
   spID: number;
   soLuong: number;
   gia: number;
+  ma: string;
 }

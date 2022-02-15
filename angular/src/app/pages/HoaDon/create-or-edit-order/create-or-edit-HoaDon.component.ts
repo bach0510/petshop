@@ -1,3 +1,4 @@
+import { ChiTietHoaDon } from './../../../_models/chiTietHoaDon';
 import { SelectProductComponent } from './../select-product/select-product.component';
 import { finalize } from 'rxjs/operators';
 import { CustomerService } from 'src/app/_services/customer.service';
@@ -30,6 +31,8 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   @Input() currentUser = new NhanVien;
   @Input() disableInput = false;
   @Input() HoaDonList = [];
+
+  dataDetail: ChiTietHoaDon[] = [];
 
   HoaDon: HoaDon = new HoaDon();
 
@@ -73,7 +76,6 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       {
         headerName: 'Tên SP',
         field: 'ten',
-        editable: true,
       },
       {
         headerName: 'Số lượng',
@@ -83,7 +85,6 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       {
         headerName: 'Đơn giá',
         field: 'gia',
-        editable: true,
       },
 
     ]
@@ -109,6 +110,7 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     })
     this.HoaDon = new HoaDon()
     this.giaKhuyenMai = 0;
+    this.HoaDon.tong = 0;
     this.isNew = true;
     if (event.MAHD != undefined) {
       this.HoaDon = event;
@@ -129,10 +131,19 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       })
       if (this.isNew == true) {
         // console.log(this.currentUser)
-        this.HoaDon.NGAYLAP = new Date();
-        this.HoaDon.NGUOILAPHD = this.currentUser.MaNv;
-        let codeString = (Math.max(...code) + 1).toString()
-        this.HoaDon.MAHD =  codeString.length == 1 ? '00' + codeString : codeString.length == 2 ? '0' + codeString : codeString ;
+        if(code.length == 0){
+          this.HoaDon.NGAYLAP = new Date();
+          this.HoaDon.NGUOILAPHD = this.currentUser.MaNv;
+          let codeString = (Math.max(...code) + 1).toString()
+          this.HoaDon.MAHD =  '001';
+        }
+        else{
+          this.HoaDon.NGAYLAP = new Date();
+          this.HoaDon.NGUOILAPHD = this.currentUser.MaNv;
+          let codeString = (Math.max(...code) + 1).toString()
+          this.HoaDon.MAHD =  codeString.length == 1 ? '00' + codeString : codeString.length == 2 ? '0' + codeString : codeString ;
+        }
+
       }
     });
     // search chi tiết hóa đơn
@@ -153,15 +164,33 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     this._HoaDonService.getKhuyenMai(input).subscribe((res: khuyenMai[]) =>{
        if(res.length == 1){
          this.giaKhuyenMai = res[0].GiaKhuyenMai ?? 0;
+         this.HoaDon.tong = 0 - this.giaKhuyenMai;
+          this.params.api.forEachNode(e => {
+            this.HoaDon.tong += (e.data.gia * e.data.soLuong);
+          })
         }
         else this.giaKhuyenMai = 0;
       })
   }
 
   createOrEdit() {
+    console.log(this.checkValidate())
     if (!this.checkValidate()) return;
     if(!this.isNew){
       this._HoaDonService.updateHoaDon(this.HoaDon)
+      .pipe(finalize(()=>{
+        this.dataDetail =[];
+        this.params.api.forEachNode(node => {
+          this.dataDetail.push(Object.assign({
+            mahd: this.HoaDon.MAHD,
+            ma: node.data.ma,
+            soLuong: node.data.soLuong,
+            gia: node.data.gia,
+          }));
+        })
+        console.log(this.dataDetail)
+        this._HoaDonService.updateChiTietHoaDon(this.dataDetail).subscribe(res => {})
+      }))
       .subscribe(res => {
         alertify.success("cập nhật thành công");
         this.modalSave.emit(null);
@@ -170,11 +199,17 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     else{
       this._HoaDonService.addHoaDon(this.HoaDon)
       .pipe(finalize(()=>{
-        // let dataDetail =[];
-        // this.params.api.forEachNode(node => {
-        //   dataDetail.push(node?.data);
-        // })
-        // console.log(dataDetail);
+        this.dataDetail =[];
+        this.params.api.forEachNode(node => {
+          this.dataDetail.push(Object.assign({
+            mahd: this.HoaDon.MAHD,
+            ma: node.data.ma,
+            soLuong: node.data.soLuong,
+            gia: node.data.gia,
+          }));
+        })
+        console.log(this.dataDetail)
+        this._HoaDonService.updateChiTietHoaDon(this.dataDetail).subscribe(res => {})
       }))
       .subscribe(res => {
         alertify.success("thêm mới hóa đơn thành công")
@@ -185,8 +220,27 @@ export class CreateOrEditHoaDonComponent implements OnInit {
   }
 
   checkValidate() {
+    let checkproduct = true;
+    let errorindex = 0;
+    this.params.api.forEachNode((e,i) => {
+      if(isNaN(e.data.soLuong)){
+        errorindex = i +1;
+        checkproduct = false;
+      }
+    })
+    if (!checkproduct){
+      alertify.error("vui lòng check lại số lượng ở dòng thứ " + errorindex);
+      return false;
+    }
 
-
+    if(!this.HoaDon.MAKH){
+      alertify.error("mã khách hàng không được để trống");
+      return false;
+    }
+    if(this.rowDataDetail.length == 0){
+      alertify.error("đơn hàng này phải có ít nhất 1 sản phẩm");
+      return false;
+    }
     return true;
   }
 
@@ -197,8 +251,27 @@ export class CreateOrEditHoaDonComponent implements OnInit {
     this.selectProduct.show();
   }
 
-  deleterow(){
+  editQty(params){
+    console.log(params)
+    const col = params?.colDef?.field;
+    if (col == 'soLuong') {
+      if(isNaN(params.value)){
+        alertify.error("bạn chỉ có thể nhập số vào cột số lượng ");
+      }
+      else{
+        this.HoaDon.tong = 0 - this.giaKhuyenMai;
+        this.params.api.forEachNode(e => {
+          this.HoaDon.tong += (e.data.gia * e.data.soLuong);
+        })
+      }
 
+
+    }
+  }
+
+  deleterow(){
+    this.params.api.applyTransaction({ remove: [this.selectedData] });
+    this.rowDataDetail.splice(this.rowDataDetail.findIndex(e => e.ma == this.selectedData.ma),1);
   }
 
   searchByEnter(cellParams: ICellEditorParams) {
@@ -224,10 +297,18 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
   modalSaveProduct(params){
     console.log(params)
-    this.params.api.applyTransaction({ add: [{soLuong: 1,ten: params.ten,gia: params.gia, ma: params.ma }] });
-    this.HoaDon.tong = 0;
+    console.log(this.rowDataDetail)
+    if(!this.rowDataDetail!.some(e => e!.ma == params!.ma)){
+      this.params.api.applyTransaction({ add: [{soLuong: 1,ten: params.ten,gia: params.gia, ma: params.ma }] });
+      this.rowDataDetail.push(params);
+    }
+    else {
+      this.rowDataDetail!.find(e => e.ma == params.ma).soLuong += 1;
+      this.params.api.setRowData(this.rowDataDetail)
+    }
+    this.HoaDon.tong = 0 - this.giaKhuyenMai;
     this.params.api.forEachNode(e => {
-      this.HoaDon.tong += (e.gia * e.soLuong);
+      this.HoaDon.tong += (e.data.gia * e.data.soLuong);
     })
   }
 
