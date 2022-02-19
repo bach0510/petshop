@@ -19,7 +19,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   url: SafeResourceUrl | any | undefined;
   @Input() areaList = [];
   @Input() empList = [];
-  
+
   employee: NhanVien = new NhanVien();
   EmpName;
   Username;
@@ -31,7 +31,7 @@ export class CreateOrEditEmployeeComponent implements OnInit {
   RegisterNo;
 
   isNew: boolean = false;
-  
+
   constructor(private _employeeService: UserService,) { }
 
   ngOnInit() {

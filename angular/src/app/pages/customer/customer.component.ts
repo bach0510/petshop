@@ -166,15 +166,19 @@ export class CustomerComponent implements OnInit {
   }
 
   delete() {
-    this._customerService
-    .deleteCustomer(this.selectedData)
-    .subscribe(
-      (res) => {
-        alertify.success('Xóa khách hàng thành công');
-        this.callBackEvent(this.params);
-      },
-      (err) => console.log(err)
-    );
+    if(confirm("Xóa thông tin khách hàng này sẽ đồng thời xóa thông tin hóa đơn của họ bạn có chắc có muốn xóa không ?")) {
+    {
+      this._customerService
+      .deleteCustomer(this.selectedData)
+      .subscribe(
+          (res) => {
+              alertify.success('Xóa khách hàng thành công');
+              this.callBackEvent(this.params);
+          },
+          (err) => console.log(err)
+        );
+      }
+    }
   }
 
   base64ToArrayBuffer(base64) {

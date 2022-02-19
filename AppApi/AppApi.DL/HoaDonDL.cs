@@ -248,17 +248,17 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@mahd", input.MAHD);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            string spName1 = string.Format("delete from CTHOADONSANPHAM where MAHD = @mahd");
-            SqlCommand cmd1 = new SqlCommand(spName1, _conn);
+            //string spName1 = string.Format("delete from CTHOADONSANPHAM where MAHD = @mahd");
+            //SqlCommand cmd1 = new SqlCommand(spName1, _conn);
 
-            cmd1.Parameters.AddWithValue("@mahd", input.MAHD);
-            cmd1.ExecuteNonQuery();
+            //cmd1.Parameters.AddWithValue("@mahd", input.MAHD);
+            //cmd1.ExecuteNonQuery();
 
-            string spName2 = string.Format("delete from CTHOADONTHUCUNG where MAHD = @mahd");
-            SqlCommand cmd2 = new SqlCommand(spName2, _conn);
+            //string spName2 = string.Format("delete from CTHOADONTHUCUNG where MAHD = @mahd");
+            //SqlCommand cmd2 = new SqlCommand(spName2, _conn);
 
-            cmd2.Parameters.AddWithValue("@mahd", input.MAHD);
-            cmd2.ExecuteNonQuery();
+            //cmd2.Parameters.AddWithValue("@mahd", input.MAHD);
+            //cmd2.ExecuteNonQuery();
 
             if (cmd.ExecuteNonQuery() > 0) return true;
             _conn.Close();
