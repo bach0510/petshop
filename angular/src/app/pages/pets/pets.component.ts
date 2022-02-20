@@ -36,7 +36,6 @@ export class PetsComponent implements OnInit {
   searchType= [
     {value:1,label:"lấy danh sách thú cưng theo giống"},
     {value:2,label:"lấy danh sách thú cưng theo loại "},
-    {value:3,label:"lấy danh sách giống thú cưng"},
     {value:4,label:"lấy thú cưng theo mã"},
   ];
   type : number = 1;
