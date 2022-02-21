@@ -59,7 +59,7 @@
             <grid-table [columnDefs]="detailColDef" [rowData]="rowDataDetail" (callBackEvent)="callBackEvent($event)"
                [showPagination]="false" [defaultColDef]="defaultColDef" (onChangeSelection)="onChangeSelection($event)"(onSearch)="searchByEnter($event)"
                (cellEditingStopped)="editQty($event)"
-              [height]="'200px'" >
+              [height]="'400px'" >
             </grid-table>
           </div>
 
@@ -81,6 +81,10 @@
       </div>
 
       <div class="ui-g-12 text-right mt-1 mr-2 mb-1">
+        <button class="tmss-btn btn-outline-primary mr-2 mt-1 col-2" (click)="printInvoice()">
+          <i class="fa tmss-fa fa-download"></i>
+          <span class="ml-1">In hóa đơn</span>
+        </button>
         <button class="tmss-btn btn-outline-primary mr-2 mt-1 col-2" (click)="createOrEdit()">
           <i class="fa tmss-fa fa-save"></i>
           <span class="ml-1">Lưu</span>

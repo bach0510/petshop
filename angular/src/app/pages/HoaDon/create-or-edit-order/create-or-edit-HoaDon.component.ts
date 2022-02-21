@@ -76,15 +76,18 @@ export class CreateOrEditHoaDonComponent implements OnInit {
       {
         headerName: 'Tên SP',
         field: 'ten',
+        flex: 1
       },
       {
         headerName: 'Số lượng',
         field: 'soLuong',
         editable: true,
+        flex: 1
       },
       {
         headerName: 'Đơn giá',
         field: 'gia',
+        flex: 1
       },
 
     ]
@@ -155,6 +158,10 @@ export class CreateOrEditHoaDonComponent implements OnInit {
 
 
     this.modal.show();
+  }
+
+  printInvoice(){
+    print();
   }
 
   changeDispriceCode(params){
