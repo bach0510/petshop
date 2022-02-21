@@ -33,7 +33,7 @@
         </a>
       </li>
 
-      <li>
+      <li *ngIf="currentUser.ChucVu == 'CHCH' || currentUser.ChucVu == 'NVKH'" >
         <a routerLink="sanPham" style="color: #646c9a;">
           <i class="fa fa-shopping-bag" ></i>
           <span class="nav-text"> sản phẩm </span>
@@ -46,20 +46,20 @@
         </a>
       </li>
 
-      <li>
+      <li *ngIf="currentUser.ChucVu == 'CHCH'" >
         <a routerLink="employee"  style="color: #646c9a;">
           <i class="fa fa-user fa-2x"></i>
           <span class="nav-text"> Nhân viên </span>
         </a>
       </li>
 
-      <li>
+      <li *ngIf="currentUser.ChucVu == 'CHCH' || currentUser.ChucVu == 'NVBH'">
         <a routerLink="customer" style="color: #646c9a;">
           <i class="fa fa-group fa-2x"></i>
           <span class="nav-text"> Thông tin khách hàng </span>
         </a>
       </li>
-      <li>
+      <li *ngIf="currentUser.ChucVu == 'CHCH' || currentUser.ChucVu == 'NVBH'">
         <a routerLink="HoaDon" style="color: #646c9a;">
           <i class="fa fa-file-text fa-2x"></i>
           <span class="nav-text"> Thông tin Hóa Đơn </span>

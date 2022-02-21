@@ -128,6 +128,7 @@ namespace AppApi.DL
             cmd.Parameters.AddWithValue("@diachi", input.DiaChi);
             cmd.Parameters.AddWithValue("@sdt", input.Sdt);
             cmd.Parameters.AddWithValue("@cmnd", input.Cmnd);
+            cmd.Parameters.AddWithValue("@chucvu", input.ChucVu);
 
             cmd.CommandType = CommandType.StoredProcedure;
 
